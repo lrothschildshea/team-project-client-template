@@ -4,30 +4,66 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>FindMyJam</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/Homepage.css" rel="stylesheet">
   </head>
   <body>
     <!-- NAVBAR --------------------------------------------------------------------------------------------------------------->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
       NAVBAR
     </nav>
     <!-- PAGE BODY------------------------------------------------------------------------------------------------------------->
     <div class="container">
       <div class="row">
     <!-- LEFT SIDEBAR --------------------------------------------------------------------------------------------------------->
-      <div class="col-md-2">
-        Left
-      </div>
-    <!-- MAIN FEED ------------------------------------------------------------------------------------------------------------>
-      <div class="col-md-7">
-        Main
-      </div>
-    <!-- RIGHT SIDEBAR -------------------------------------------------------------------------------------------------------->
-      <div class="col-md-3">
-        Right
-      </div>
-
+        <div class="col-md-3">
+          <div class="left-sidebar nav navbar-left">
+            <h1>Bands</h1>
+            <ul class="nav nav-pills nav-stacked">
+              <li role="presentation">
+                <a href="#">
+                  Band 1
+                  <span class="badge pull-right">3</span>
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  Band 2
+                  <span class="badge  pull-right">1</span>
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  Band 3
+                  <span class="badge  pull-right">2</span>
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  Band 4
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  Band 5
+                  <span class="badge  pull-right">1</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <!-- MAIN FEED ------------------------------------------------------------------------------------------------------------>
+        <div class="col-md-6 main-feed">
+          Recent Activity
+        </div>
+      <!-- RIGHT SIDEBAR -------------------------------------------------------------------------------------------------------->
+        <div class="col-md-3">
+          <div class="right-sidebar">
+            <h1>Events</h1>
+          </div>
+        </div>
+    </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>

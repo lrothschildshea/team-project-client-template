@@ -1,0 +1,25 @@
+body {
+  padding: 60px;
+}
+
+.main-feed{
+  height: 1000px;
+}
+
+.left-sidebar, .right-sidebar{
+  position:fixed;
+  border: 1px solid lightgrey;
+  padding: 20px;
+  color: darkorange;
+  height: 1000px;
+  width: 20%;
+}
+
+.left-sidebar .badge {
+  background-color: darkorange;
+  color: black;
+}
+
+.left-sidebar a{
+  color: darkorange;
+}
