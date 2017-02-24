@@ -1,18 +1,20 @@
 body {
   padding: 60px;
+  background-color: darkgrey;
 }
 
-.main-feed{
-  height: 1000px;
+.navbar-default{
+  background-color: darkorange;
 }
 
 .left-sidebar, .right-sidebar{
   position:fixed;
-  border: 1px solid lightgrey;
+  border: 1px solid grey;
   padding: 20px;
-  color: darkorange;
-  height: 1000px;
+  height: 85%;
   width: 20%;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .left-sidebar .badge {
@@ -25,6 +27,11 @@ body {
   font-weight: bold;
 }
 
+h1{
+  text-align: center;
+  margin-top: 0px;
+}
+
 .right-sidebar hr {
   margin: 5px;
   border-top-color: black;
@@ -32,4 +39,24 @@ body {
 
 .right-sidebar p{
   margin-bottom: 0px;
+}
+
+.right-sidebar .media-body p{
+  color: darkorange;
+}
+
+.main-feed .panel{
+  border: black solid 1px;
+}
+
+.main-feed .panel-header img{
+  padding-left: 5px;
+}
+
+.main-feed .panel-header h3{
+  margin-top: 15px;
+}
+
+.main-feed .panel-header .col-md-10{
+  padding-left: 0px;
 }
