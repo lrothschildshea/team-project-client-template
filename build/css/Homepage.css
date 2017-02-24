@@ -21,5 +21,15 @@ body {
 }
 
 .left-sidebar a{
-  color: darkorange;
+  color: black;
+  font-weight: bold;
+}
+
+.right-sidebar hr {
+  margin: 5px;
+  border-top-color: black;
+}
+
+.right-sidebar p{
+  margin-bottom: 0px;
 }
