@@ -1,0 +1,23 @@
+body {
+  padding-top: 60px;
+  background-color: lightgrey;
+}
+
+.other-chats{
+  background-color: orange;
+  position: fixed;
+  height: 90%;
+}
+
+.chats-panel {
+  overflow-y: scroll;
+  height: inherit;
+}
+
+.other-chats li{
+  background-color: white;
+}
+
+.right-sidebar {
+  background-color: white;
+}
