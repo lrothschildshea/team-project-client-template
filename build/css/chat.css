@@ -3,21 +3,61 @@ body {
   background-color: lightgrey;
 }
 
-.other-chats{
-  background-color: orange;
+.left-sidebar{
+  background-color: white;
   position: fixed;
   height: 90%;
+  border-radius: 8px;
 }
 
 .chats-panel {
   overflow-y: scroll;
   height: inherit;
+  border-radius: 8px;
 }
 
-.other-chats li{
-  background-color: white;
+.left-sidebar li{
+  background-color: orange;
+}
+
+.left-sidebar li a{
+  color: black;
+}
+
+.chat-feed{
+  #background-color: red;
+  position: fixed;
+  padding-bottom: 10px;
+  height: 90%;
 }
 
 .right-sidebar {
   background-color: white;
+}
+
+.message-feed{
+  overflow-y: scroll;
+  height: inherit;
+  background-color: white;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-radius: 8px;
+}
+
+.message{
+  border: black solid 2px;
+  border-radius: 4px;
+  width: 45%;
+  padding-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 5px;
+}
+
+.message-user{
+  background-color: lightgrey;
+}
+
+.message-friend{
+  background-color: orange;
 }
