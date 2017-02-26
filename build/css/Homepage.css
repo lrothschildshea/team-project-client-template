@@ -3,9 +3,30 @@ body {
   background-color: lightgrey;
 }
 
-.navbar-default{
-  background-color: orange;
+/* NAVBAR CSS BEGIN*/
+
+.navbar {
+    background-color: orange;
 }
+
+.navbar-login{
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.divider{
+  margin: 5px !important;
+}
+
+/* NAVBAR CSS END*/
 
 .col-md-3{
   position:fixed;
