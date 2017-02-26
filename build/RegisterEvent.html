@@ -119,33 +119,45 @@
      within a grid, you should not define another `container`)
      What's the difference between these two types of container? There's a
      good answer here: http://stackoverflow.com/a/22263969 -->
-  <form>
-   <h1>Register Your Event</h1>
+     <form action="" method="post" class="basic-grey">
+         <h1>Register Your Event
+             <span>Please fill all the texts in the fields.</span>
+         </h1>
+         <label>
+             <span>Band Name :</span>
+             <input id="name" type="text" name="name" placeholder="Your Band's Name" />
+         </label>
 
-   <div id="bandName">
-     <label for="name">Band Name:</label>
-     <input type="text" id="name" name="user_name">
-   </div>
+         <label>
+             <span>Date :</span>
+             <input id="email" type="email" name="email" placeholder="mm/dd/yyyy" />
+         </label>
 
-   <div id="startTime">
-     <label for="mail">Start Time:</label>
-     <input type="email" id="mail" name="user_email">
-   </div>
+         <label>
+             <span>Start Time :</span>
+             <input id="email" type="email" name="email" placeholder="e.g 18:30" />
+         </label>
 
-   <div id="endTime">
-     <label for="mail">End Time:</label>
-     <input type="email" id="mail" name="user_email">
-   </div>
+         <label>
+             <span>End Time :</span>
+             <input id="email" type="email" name="email" placeholder="e.g 20:00" />
+         </label>
 
-   <div id="eventDetail">
-     <label for="msg">Event Detail:</label>
-     <textarea id="msg" name="msg"></textarea>
-   </div>
+         <label>
+             <span>Location:</span>
+             <input id="email" type="email" name="email" placeholder="e.g Umass Amherst FAC" />
+         </label>
 
-   <div class="button submitButton">
-     <button type="submit">Submit</button>
-   </div>
- </form>
+         <label>
+             <span>Detail :</span>
+             <textarea id="message" name="message" placeholder="Come to chill!"></textarea>
+         </label>
+
+          <label>
+             <span>&nbsp;</span>
+             <input type="button" class="button" value="Submit" />
+         </label>
+     </form>
 
 
 

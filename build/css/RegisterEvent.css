@@ -1,95 +1,82 @@
-@font-face{
-  font-family : "handwriting";
-
-  src : url('journal.eot');
-  src : url('journal.eot?') format('eot'),
-        url('journal.woff') format('woff'),
-        url('journal.ttf') format('truetype');
+.basic-grey {
+	margin-left:auto;
+	margin-right:auto;
+    max-width: 500px;
+    background: #F2D9C0;
+    padding: 25px 15px 25px 10px;
+    font: 12px Georgia, "Times New Roman", Times, serif;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;
 }
-
-@font-face{
-  font-family : "typewriter";
-
-  src : url('veteran_typewriter.eot');
-  src : url('veteran_typewriter.eot?') format('eot'),
-        url('veteran_typewriter.woff') format('woff'),
-        url('veteran_typewriter.ttf') format('truetype');
+.basic-grey h1 {
+    font-size: 25px;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom:1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;;
+    color: #888;
 }
-
-body {
-  font  : 21px sans-serif;
-
-  padding : 2em;
-  margin  : 0;
-
-  background : #222;
+.basic-grey h1>span {
+    display: block;
+    font-size: 11px;
 }
-
-form {
-  position: relative;
-
-  width  : 740px;
-  height : 498px;
-  margin : 0 auto;
-
-  background: #FFF url(background.jpg);
+.basic-grey label {
+    display: block;
+    margin: 0px;
 }
-
-h1 {
-  position : absolute;
-  left : 200px;
-
-  font : 1em "typewriter", sans-serif;
+.basic-grey label>span {
+    float: left;
+    width: 20%;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: #888;
 }
-
-#bandName {
-  position: absolute;
-  left : 200px;
-  top  :100px;
+.basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+	border: 1px solid #DADADA;
+	color: #888;
+	height: 30px;
+	margin-bottom: 16px;
+	margin-right: 6px;
+	margin-top: 2px;
+	outline: 0 none;
+	padding: 3px 3px 3px 5px;
+	width: 70%;
+	font-size: 12px;
+	line-height:15px;
+	box-shadow: inset 0px 1px 4px #ECECEC;
+	-moz-box-shadow: inset 0px 1px 4px #ECECEC;
+	-webkit-box-shadow: inset 0px 1px 4px #ECECEC;
 }
-
-#startTime {
-  position: absolute;
-  left : 200px;
-  top  : 150px;
+.basic-grey textarea{
+	padding: 5px 3px 3px 5px;
 }
-#endTime {
-  position: absolute;
-  left : 200px;
-  top  : 200px;
+.basic-grey select {
+    background: #FFF url('down-arrow.png') no-repeat right;
+    background: #FFF url('down-arrow.png') no-repeat right);
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 70%;
+    height: 35px;
+	line-height: 25px;
 }
-
-#eventDetail {
-  position: absolute;
-  left : 200px;
-  top  : 250px;
+.basic-grey textarea{
+    height:100px;
 }
-label {
-  font : .8em "typewriter", sans-serif;
+.basic-grey .button {
+	background: #f08c37;
+	border: none;
+	padding: 10px 25px 10px 25px;
+	color: #FFF;
+	box-shadow: 1px 1px 5px #B6B6B6;
+	border-radius: 3px;
+	text-shadow: 1px 1px 1px #9E3F3F;
+	cursor: pointer;
 }
-.submitButton {
-  position     : absolute;
-  left         : 300px;
-  top          : 350px;
-
-  padding      : 5px;
-
-  font         : bold .6em sans-serif;
-  border       : 2px solid #333;
-  border-radius: 5px;
-  background   : none;
-
-  cursor       : pointer;
-
-}
-
-.submitButton:after {
-  content: " >>>";
-}
-
-.submitButton:hover,
-.submitButton:focus {
-  outline   : none;
-  background: #000;
-  color   : #f08c37;
+.basic-grey .button:hover {
+    background: #CF7A7A
 }
