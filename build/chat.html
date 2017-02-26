@@ -1,115 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FindMyJam</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/chat.css" rel="stylesheet">
-  </head>
-  <body>
+</head>
+
+<body>
     <!--NAVBAR----------------------------------------------------------------------------------------------------------------------------------->
     <nav class="navbar navbar-default navbar-fixed-top">
-      NAVBAR
+        NAVBAR
     </nav>
     <!--PAGE BODY-------------------------------------------------------------------------------------------------------------------------------------->
     <div class="container-fluid">
-      <div class="row">
-        <!--LEFT SIDEBAR----------------------------------------------------------------------------------------------------------------------------------->
-          <div class="col-md-3 left-sidebar">
-            <h1>Chats</h1>
-            <ul class="nav nav-pills nav-stacked chats-panel">
-              <li role="presentation">
-                <a href="#">
-                  <h4>SpongeBob</h4>
-                  <p>See you then!</p>
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <h4>Patrick</h4>
-                  <p>Is mayonnaise an instrument?</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!--CHAT FEED----------------------------------------------------------------------------------------------------------------------------------->
-          <div class="col-md-6 col-md-offset-3 chat-feed">
-            <h1>SpongeBob</h1>
-            <div class="message-feed">
-              <p class="message message-friend">Are you coming tonight?</p>
-              <p class="message message-user pull-right">What time is practice at?</p>
-              <br>
-              <p class="message message-friend">It was moved to 8</p>
-              <p class="message message-user pull-right">alright thanks!</p>
-              <br>
-              <p class="message message-friend">See you then!</p>
+        <div class="row">
+            <!--LEFT SIDEBAR----------------------------------------------------------------------------------------------------------------------------------->
+            <div class="col-md-3 left-sidebar">
+                <h1>Chats</h1>
+                <ul class="nav nav-pills nav-stacked chats-panel">
+                    <li role="presentation">
+                        <a href="#">
+                            <div class="media-left">
+                                <img src="img/spongebob_profile.jpg">
+                            </div>
+                            <div class="media-body">
+                                <h4>SpongeBob</h4>
+                                <p>See you then!</p>
+                            </div>
+                            <div class="media-right">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <div class="media-left">
+                                <img src="img/patrick_profile.jpg">
+                            </div>
+                            <div class="media-body">
+                                <h4>Patrick</h4>
+                                <p>Is mayonnaise an instrument?</p>
+                            </div>
+                            <div class="media-right">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <div class="media-left">
+                                <img src="img/765-default-avatar.png">
+                            </div>
+                            <div class="media-body">
+                                <h4>A Pretty Bad Guitar Player</h4>
+                                <p>I'm the best</p>
+                            </div>
+                            <div class="media-right">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <div class="media-left">
+                                <img src="img/765-default-avatar.png">
+                            </div>
+                            <div class="media-body">
+                                <h4>Your Best Friend</h4>
+                                <p>when?!?!?!?</p>
+                            </div>
+                            <div class="media-right">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <div class="media-body">
+                                <p>Message Someone Else</p>
+                            </div>
+                            <div class="media-right">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <input type="text" class="form-control" placeholder="New Message">
-          </div>
-          <!--RIGHT SIDEBAR----------------------------------------------------------------------------------------------------------------------------------->
-          <div class="col-md-3 col-md-offset-9">
-            <div class="container-fluid right-sidebar">
-              <div class="row">
-                profile
-              </div>
-              <div class="row">
-                <div class="events">
-                  <a href="#">
-                    <h1>Upcoming Events</h1>
-                  </a>
-                  <ul class="media-list">
-                      <li class="media">
-                        <hr>
-                        <div class="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                        </div>
-                        <div class="media-body">
-                          <a href="#">
-                            <p>Band 1 Event</p>
-                            <p>Tomorrow at 7:00 PM</p>
-                            <p>South College</p>
-                          </a>
-                        </div>
-                        <hr>
-                        <div class="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                        </div>
-                        <div class="media-body">
-                          <a href="#">
-                            <p>Band 3 Event</p>
-                            <p>Friday at 8:00 PM</p>
-                            <p>Fine Arts Center</p>
-                          </a>
-                        </div>
-                        <hr>
-                        <div class="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                        </div>
-                        <div class="media-body">
-                          <a href="#">
-                            <p>Band 5 Event</p>
-                            <p>Saturday at 2:00 PM</p>
-                            <p>Fine Arts Center</p>
-                          </a>
-                        </div>
-                      </li>
-                  </ul>
+            <!--CHAT FEED----------------------------------------------------------------------------------------------------------------------------------->
+            <div class="col-md-6 col-md-offset-3 chat-feed">
+                <h1>Chatting With: SpongeBob</h1>
+                <div class="message-feed">
+                    <hr>
+                    <div class="row">
+                        <p class="message-date">2/20/17 at 4:56 PM</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">I made a few Spongebob references</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">I'm out now though</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">If you started at the top</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">Then the references</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">are at the middle and in the "chats" menu</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">because they are supposed to be the more recent messages.</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">I am just trying to make a lot of messages so the the page</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">will scroll because they won't all fit</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">I did it!</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">Below is real mock text!</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <p class="message-date">Yesterday at 10:07 AM</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">Can you give me a ride to the BubbleBowl?</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">Sure</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">I'll Pick you up at 3:30</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">I'll be ready</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <p class="message-date">Today at 2:12 PM</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">Are you coming tonight?</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">What time is practice at?</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">It was moved to 8</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-user pull-right">alright thanks!</p>
+                    </div>
+                    <div class="row">
+                        <p class="message message-friend">See you then!</p>
+                    </div>
                 </div>
-              </div>
+                <input type="text" class="form-control" placeholder="New Message">
             </div>
-          </div>
+            <!--RIGHT SIDEBAR----------------------------------------------------------------------------------------------------------------------------------->
+            <div class="col-md-3 col-md-offset-9">
+                <h1><br></h1>
+                <div class="container-fluid right-sidebar">
+                    <div class="row">
+                        <a href="#">
+                            <h3>SpongeBob's Profile</h3>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="events">
+                            <a href="#">
+                                <h1>Upcoming Events</h1>
+                            </a>
+                            <ul class="media-list">
+                                <li class="media">
+                                    <hr>
+                                    <div class="media-left">
+                                        <p>Event:</p>
+                                        <p>Date:</p>
+                                        <p>Location:</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <p>Band 1 Event</p>
+                                            <p>Tomorrow at 7:00 PM</p>
+                                            <p>South College</p>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="media-left">
+                                        <p>Event:</p>
+                                        <p>Date:</p>
+                                        <p>Location:</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <p>Band 3 Event</p>
+                                            <p>Friday at 8:00 PM</p>
+                                            <p>Fine Arts Center</p>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="media-left">
+                                        <p>Event:</p>
+                                        <p>Date:</p>
+                                        <p>Location:</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <p>Band 5 Event</p>
+                                            <p>Saturday at 2:00 PM</p>
+                                            <p>Fine Arts Center</p>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-  </body>
+</body>
+
 </html>

@@ -3,8 +3,17 @@ body {
   background-color: lightgrey;
 }
 
+.glyphicon-comment {
+  font-size: 20px;
+  color: grey;
+}
+
+.glyphicon-plus-sign{
+  font-size: 20px;
+  color: grey;
+}
+
 .left-sidebar{
-  background-color: white;
   position: fixed;
   height: 90%;
   border-radius: 8px;
@@ -14,14 +23,33 @@ body {
   overflow-y: scroll;
   height: inherit;
   border-radius: 8px;
+  background-color: white;
 }
 
 .left-sidebar li{
   background-color: orange;
+  margin-left: 7px !important;
+  margin-top: 7px !important;
+  margin-right: 7px !important;
+  border-radius: 5px;
 }
 
 .left-sidebar li a{
   color: black;
+}
+
+.left-sidebar img{
+  height: 60px;
+  display: block;
+  margin: auto;
+}
+
+.left-sidebar .media-left{
+  width: 25%;
+}
+
+.left-sidebar .media-right{
+  vertical-align: middle;
 }
 
 .chat-feed{
@@ -29,10 +57,6 @@ body {
   position: fixed;
   padding-bottom: 10px;
   height: 90%;
-}
-
-.right-sidebar {
-  background-color: white;
 }
 
 .message-feed{
@@ -44,11 +68,14 @@ body {
   border-radius: 8px;
 }
 
+.message-feed hr{
+  margin-bottom: 5px;
+}
+
 .message{
-  border: black solid 2px;
-  border-radius: 4px;
+  border-radius: 12px;
   width: 45%;
-  padding-left: 3px;
+  padding-left: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   margin: 5px;
@@ -56,8 +83,42 @@ body {
 
 .message-user{
   background-color: lightgrey;
+  margin-right:15px;
 }
 
 .message-friend{
   background-color: orange;
+  margin-left: 15px;
+}
+
+.message-feed > .row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.message-date{
+  text-align: center;
+  font-weight: bold;
+  color: grey;
+}
+
+.right-sidebar {
+  background-color: white;
+  border-radius: 8px;
+}
+
+/* scrollbar styling for google chrome. I didn't have time to figure it out for all browsers so
+  I did it for the browser the course recommends*/
+
+::-webkit-scrollbar-track{
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar{
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: orange;
 }
