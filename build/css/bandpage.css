@@ -11,6 +11,13 @@
 
 }
 
+.band-cover > .btn-group > .btn {
+  margin: 20px;
+  background-color: transparent;
+  color: #ff902a;
+  border-color: #ff902a;
+}
+
 .band-name {
   padding-left: 15px;
 }
@@ -80,6 +87,11 @@
 .panel-heading {
   color: #7a7a7a;
   border-bottom-color: #ffcaaa;
+}
+
+.modal-body > .input-group,
+.modal-body > .btn-group {
+  margin-bottom: 20px;
 }
 
 
