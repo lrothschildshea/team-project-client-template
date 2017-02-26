@@ -12,8 +12,81 @@
 
 <body>
     <!--NAVBAR----------------------------------------------------------------------------------------------------------------------------------->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        NAVBAR
+    <nav class="navbar navbar-fixed-top navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="nav navbar-nav navbar-left" role="search">
+                    <a class="navbar-brand" href="#">
+                        LetsJam!
+                    </a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default navbar-btn">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </button>
+                        <button type="button" class="btn btn-default navbar-btn">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="nav navbar-nav navbar-right">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default navbar-btn">
+                              <span class="glyphicon glyphicon-comment"></span>
+                              <span class="badge">5</span>
+                            </button>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
+                                  <span class="glyphicon glyphicon-user"></span> 
+                                  <strong>Sean Morris</strong>
+                                  <span class="glyphicon glyphicon-chevron-down"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="navbar-login">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <p class="text-center">
+                                                        <img src="img/SeanProfile.png" class="img-cirle img-responsive"></img>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <p class="text-left"><strong>Sean Morris</strong></p>
+                                                    <p class="text-left small">scmorris@umass.edu</p>
+                                                    <p class="text-left">
+                                                        <a href="#" class="btn btn-primary btn-block btn-sm">Settings</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <a href="#" class="btn btn-danger btn-block">Log Out</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
     <!--PAGE BODY-------------------------------------------------------------------------------------------------------------------------------------->
     <div class="container-fluid">
@@ -164,16 +237,26 @@
                         <p class="message message-friend">See you then!</p>
                     </div>
                 </div>
+                <button class="btn btn-default pull-right">Send</button>
                 <input type="text" class="form-control" placeholder="New Message">
+
             </div>
             <!--RIGHT SIDEBAR----------------------------------------------------------------------------------------------------------------------------------->
-            <div class="col-md-3 col-md-offset-9">
+            <div class="col-md-3 col-md-offset-9 right-sidebar">
                 <h1><br></h1>
-                <div class="container-fluid right-sidebar">
+                <div class="container-fluid right-sidebar-contents">
                     <div class="row">
-                        <a href="#">
-                            <h3>SpongeBob's Profile</h3>
-                        </a>
+                        <div class="media-body">
+                            <a href="#">
+                                <h3>About SpongeBob</h3>
+                            </a>
+                            <hr>
+                            <p>Instruments: Guitar and Accoirdian</p>
+                            <p>Bands in common: Krusty Krab Band</p>
+                        </div>
+                        <div class="media-right">
+                            <img src="img/spongebob_profile.jpg">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="events">
@@ -228,7 +311,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
