@@ -1,0 +1,27 @@
+body {
+  padding-top: 65px;
+}
+.info-upcoming{
+
+ padding-top: 10px;
+ padding-bottom: 5px;
+ /* Margin is the whitespace between the border and adjacent elements */
+ margin-top: 5px;
+ margin-bottom: 5px;
+ margin-left: 25px;
+ font-weight: bold;
+ line-height: 24px;
+ font-size: 20px;
+}
+.orange{
+  color: #f08c37;
+}
+
+.info-event-detail{
+  margin-left:25px;
+  margin-right:10px;
+  margin-bottom: 10px;
+}
+
+.panel-default > .panel-heading-custom {
+background: #f08c37; color: #fff; }
