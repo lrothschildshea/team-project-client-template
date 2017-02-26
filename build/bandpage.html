@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Band Page</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS goes here -->
+    <link href="css/bandpage.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed-top navbar-default">
+        <!-- ".container-fluid" expands to fill the entire browser view's width.
+        ".container" will use the same width as the ".container" in the body,
+        which contains the three columns of content.
+        We want ".container" here so the navbar is the same width as the content.
+        Confused? Try switching between the two container classes once you have a
+        complete navbar to see the difference. -->
+        <div class="container">
+          <!-- This code is only active when viewing the site on mobile. We will not
+          cover responsive design, but we'll leave this in, as it's part of the
+          example code.-->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- Use a "home" glyphicon as a logo. -->
+            <a class="navbar-brand" href="#">
+              <!-- This is how you display a glyphicon. -->
+              <span class="glyphicon glyphicon-home"></span>
+            </a>
+          </div>
+
+          <!-- On mobile, this div is hidden by default. The user hits the button
+          in the `navbar-header` to see the content of the div.
+          On desktop, this div is visible all of the time. -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="nav navbar-nav navbar-left" role="search">
+              <!-- Left-aligned items. -->
+              <button type="button" class="btn btn-default navbar-btn">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </div>
+            <p class="navbar-text">Find My Jam</p>
+
+            <div class="nav navbar-nav navbar-right">
+              <!-- Right-aligned items -->
+              <div class="btn-toolbar pull-right" role="toolbar">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    <span class="badge">5</span>
+                  </button>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-user"></span>
+                      <strong>Sean Morris</strong>
+                      <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <div class="navbar-login">
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <p class="text-center">
+                                <img src="img/SeanProfile.png" class="img-cirle img-responsive"></img>
+                              </p>
+                            </div>
+                            <div class="col-lg-8">
+                              <p class="text-left"><strong>Sean Morris</strong></p>
+                              <p class="text-left small">scmorris@umass.edu</p>
+                              <p class="text-left">
+                                <a href="#" class="btn btn-primary btn-block btn-sm">Settings</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <div class="navbar-login navbar-login-session">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <p>
+                                <a href="#" class="btn btn-danger btn-block">Log Out</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+      </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editBandModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit Band</h4>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Band Name</span>
+              <input type="text" class="form-control" placeholder="Enter Band Name" aria-describedby="basic-addon1" value="Generic Band Name">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2">Location <span class="glyphicon glyphicon-map-marker"></span></span>
+              <input type="text" class="form-control" placeholder="Enter Location" aria-describedby="basic-addon2" value="Amherst, MA">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2">Info <span class="glyphicon glyphicon-info-sign"></span></span>
+              <input type="text" class="form-control" placeholder="Enter Band info" aria-describedby="basic-addon2" value="Music band with instruments">
+            </div>
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">Upload new cover photo <span class="glyphicon glyphicon-floppy-open"></span></button>
+            </div>
+
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading">Edit Members</div>
+
+              <!-- List group -->
+              <ul class="list-group">
+                <li class="list-group-item">Sean Morris (you) <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+                <li class="list-group-item">Spongebob <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+                <li class="list-group-item">Squidward <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+              </ul>
+              <div class="panel-footer">Add Members <a href="#"><span class="glyphicon glyphicon-plus pull-right"></a></div>
+            </div>
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading">Wanted</div>
+
+              <!-- List group -->
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Instrument</span>
+                        <input type="text" class="form-control" placeholder="Instrument" aria-describedby="basic-addon1" value="Guitarist">
+                      </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-7">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Info</span>
+                        <input type="text" class="form-control" placeholder="Info" aria-describedby="basic-addon1" value="Experienced Flamenco Guitarist">
+                      </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-1">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></button>
+                      </div>
+                    </div>
+                  </div><!-- /.row -->
+                </a></li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Instrument</span>
+                        <input type="text" class="form-control" placeholder="Instrument" aria-describedby="basic-addon1" value="Saxophone">
+                      </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-7">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Info</span>
+                        <input type="text" class="form-control" placeholder="Info" aria-describedby="basic-addon1" value="Play me something spicy">
+                      </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-1">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></button>
+                      </div>
+                    </div>
+                  </div><!-- /.row -->
+                </a></li>
+              </ul>
+              <div class="panel-footer">Add Wanted Posting <a href="#"><span class="glyphicon glyphicon-plus pull-right"></a></div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Container for the grid -->
+    <div class="container band-main">
+      <div class="row band-cover">
+        <div style="min-height: 200px;"></div>
+        <div class="band-name pull-left">
+          <h1>Generic Band Name</h1>
+        </div>
+        <div class="btn-group pull-right" role="group">
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editBandModal">
+            Edit <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+        </div>
+      </div>
+      <!-- Main row showing band info-->
+      <div class="row">
+        <!-- Left side -->
+        <div class="col-md-4 bandpage-left">
+          <!-- <div class="row"> -->
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">Band Info</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-unstyled">
+                  <li><span class="glyphicon glyphicon-map-marker"></span>Amherst, MA </li>
+                  <li><span class="glyphicon glyphicon-info-sign"></span>Music band with instruments </li>
+                  <li><span class="glyphicon glyphicon-user"></span>3 Real people are in this band </li>
+                  <li><span class="glyphicon glyphicon-sunglasses"></span>420 People are fans of Generic Band Name </li>
+                </ul>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">Wanted</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="media-list">
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Guitarist</a>
+                      <br> Experienced Flamenco guitarist
+                    </div>
+                    <div class="media-right">
+                      <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">Apply</button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Saxophone</a>
+                      <br> Play me something spicy
+                    </div>
+                    <div class="media-right">
+                      <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">Apply</button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">Events</h3>
+              </div>
+              <div class="panel-body">
+                <ul>
+                  <li> Event 1 </li>
+                  <li> Event 2 </li>
+                  <li> Event 3 </li>
+                </ul>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+        <!-- Right side -->
+        <div class="col-md-8 bandpage-right">
+          <!-- <div class="row"> -->
+            <div class="panel">
+              <ul class="nav nav-tabs">
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-music"></span></a></li>
+                <li role="presentation" class="active"><a href="#">Soundcloud</a></li>
+                <li role="presentation"><a href="#">Bandcamp</a></li>
+              </ul>
+              <div class="panel-body">
+                <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/293734462&amp;color=ff9944&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">Comments</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="media-list">
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Spongebob</a> This is a comment
+                      <br><a href="#">Like</a> · <a href="#">Reply</a> · 2 hrs
+                    </div>
+                  </li>
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Squidward</a> Another comment
+                      <br><a href="#">Like</a> · <a href="#">Reply</a> · 10 hrs
+                    </div>
+                  </li>
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Mr. Krabs</a> Another comment
+                      <br><a href="#">Like</a> · <a href="#">Reply</a> · 20 hrs
+                    </div>
+                  </li>
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <a href="#">Squidward</a> Another comment
+                      <br><a href="#">Like</a> · <a href="#">Reply</a> · 22 hrs
+                    </div>
+                  </li>
+                  <hr style="margin-top: 2px; margin-bottom: 3px; ">
+                  <li>
+                    <div>
+                      <a href="#"><small><p class="text-center" style="color: grey;">
+                        Show more comments <span class="glyphicon glyphicon-chevron-down"></span>
+                      </p></small></a>
+                    </div>
+                  </li>
+                  <hr style="margin-top: -5px;">
+                  <li class="media">
+                    <div class="media-left media-top">
+                      PIC
+                    </div>
+                    <div class="media-body">
+                      <div class="input-group">
+                        <input type="text" class="form-control"
+                               placeholder="Write a comment...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">
+                            Post
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- App code -->
+    <script src="js/bundle.js"></script>
+  </body>
+</html>
