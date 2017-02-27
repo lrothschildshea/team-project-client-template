@@ -34,13 +34,59 @@
   border-width: 0px;
 }
 
-.navbar-btn,
-.navbar-brand > .glyphicon,
-.navbar-text {
-  background-color: #ff902a;
-  border-color: #db7100;
-  color: #373737;
+.profile-img{
+  margin-right: 5px;
+  float: left;
+  background: url(example.jpg) 50% 50% no-repeat; /* 50% 50% centers image in div */
+  background-size: auto 100%; /* Interchange this value depending on prefering width vs. height */
+  width: 20px;
+  height: 20px;
 }
+
+.navbar-login
+{
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.navbar-brand{
+  color: white !important;
+}
+
+.navbar-brand {
+  float: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  margin: auto;
+}
+.navbar .brand, .navbar .nav > a:hover {
+    background-color: #ff902a;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #ff902a;
+    background-color: #ff902a;
+
+}
+
+.icon-size
+{
+  font-size: 87px;
+}
+
 
 .bandpage-left {
   padding-left: 0px;
