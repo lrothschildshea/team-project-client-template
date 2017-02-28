@@ -12,12 +12,17 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="css/profile.css" rel="stylesheet">
+</head>
 
+<body>
+  <!-- Navbar -->
   <nav class="navbar navbar-fixed-top navbar-default">
     <!-- ".container-fluid" expands to fill the entire browser view's width.
     ".container" will use the same width as the ".container" in the body,
     which contains the three columns of content.
+
     We want ".container" here so the navbar is the same width as the content.
+
     Confused? Try switching between the two container classes once you have a
     complete navbar to see the difference. -->
     <div class="container">
@@ -32,10 +37,6 @@
           <span class="icon-bar"></span>
         </button>
         <!-- Use a "home" glyphicon as a logo. -->
-        <a class="navbar-brand" href="#">
-          <!-- This is how you display a glyphicon. -->
-          <span class="glyphicon glyphicon-home"></span>
-        </a>
       </div>
 
       <!-- On mobile, this div is hidden by default. The user hits the button
@@ -44,15 +45,21 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="nav navbar-nav navbar-left" role="search">
           <!-- Left-aligned items. -->
-          <button type="button" class="btn btn-default navbar-btn">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
+          <a class="navbar-brand" href="#">
+            LetsJam!
+          </a>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default navbar-btn">
+              <span class="glyphicon glyphicon-home"></span>
+            </button>
+            <button type="button" class="btn btn-default navbar-btn">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
         </div>
-        <p class="navbar-text">Find My Jam</p>
-
         <div class="nav navbar-nav navbar-right">
           <!-- Right-aligned items -->
-          <div class="btn-toolbar pull-right" role="toolbar">
+          <div class="btn-toolbar" role="toolbar">
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-default navbar-btn">
                 <span class="glyphicon glyphicon-comment"></span>
@@ -60,7 +67,7 @@
               </button>
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
-                  <span class="glyphicon glyphicon-user"></span>
+                  <span class="glyphicon glyphicon-user"></span> 
                   <strong>Sean Morris</strong>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
@@ -105,30 +112,112 @@
     </div>
     <!-- /.container -->
   </nav>
-</head>
 
-<body>
-  <img src="img/765-default-avatar.png" class="profile-pic">
-  <header role="banner" class="cover">
-    <div class="container">
-      <div class="row">
-        <img src="img/cover-photo-empty.jpg" class="cover-photo">
-        <div class="col-md-12 edit-cover-photo">
-          <button role="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-edit"></span>
-            Edit Cover Photo
-          </button>
+  <!-- Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="profileModalLabel">Edit Profile</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Name</span>
+            <input type="text" class="form-control" placeholder="Enter Your Name" aria-describedby="basic-addon1" value="Sean Morris">
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Phone Number <span class="glyphicon glyphicon-earphone"></span></span>
+            <input type="text" class="form-control" placeholder="Enter Phone Number" aria-describedby="basic-addon2" value="111-111-1111">
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Email Address</span>
+            <input type="text" class="form-control" placeholder="Enter Email Address" aria-describedby="basic-addon2" value="stuff@stuff.com">
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Location <span class="glyphicon glyphicon-map-marker"></span></span>
+            <input type="text" class="form-control" placeholder="Enter Location" aria-describedby="basic-addon2" value="Amherst, MA">
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Summary <span class="glyphicon glyphicon-info-sign"></span></span>
+            <input type="text" class="form-control" placeholder="Enter Your Summary" aria-describedby="basic-addon2" value="Blues guitarist, AC-DC fanatic">
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">Upload new cover photo <span class="glyphicon glyphicon-floppy-open"></span></button>
+          </div>
+
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Edit Instruments</div>
+
+            <!-- List group -->
+            <ul class="list-group">
+              <li class="list-group-item">Guitar <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+              <li class="list-group-item">Drums <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+              <li class="list-group-item">Saxophone <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+            </ul>
+            <div class="panel-footer">Add Instrument <a href="#"><span class="glyphicon glyphicon-plus pull-right"></a></div>
+          </div>
+
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Edit Bands</div>
+
+            <!-- List group -->
+            <ul class="list-group">
+              <li class="list-group-item">Band 1 <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+              <li class="list-group-item">Band 2 <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+              <li class="list-group-item">Band 3 <a href="#"><span class="glyphicon glyphicon-trash pull-right"></a></li>
+            </ul>
+            <div class="panel-footer">Add Band <a href="#"><span class="glyphicon glyphicon-plus pull-right"></a></div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+
+
+<div class="container profile-main">
+
+  <div class="container profile-cover">
+    <div class="row">
+      <div style="min-height: 200px;"></div>
+      <div class="btn-group pull-right" role="group">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editProfileModal">
+          Edit <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row profile-pic-row">
+    <img src="img/765-default-avatar.png" class="profile-pic">
+  </div>
+
+  <div class="row profile-bar">
+    <div class="col-lg-5">
+    </div>
+    <div class="col-lg-7 profile-name">
+      SEAN MORRIS
+    </div>
+  </div>
+
+</div>
+
+
   <div class="container profile">
     <div class="row profile-bar">
-      <div class="col-lg-5">
-      </div>
-      <div class="col-lg-7 profile-name">
-        SEAN MORRIS
-      </div>
+
     </div>
   </div>
   <div class="row profile-page">
