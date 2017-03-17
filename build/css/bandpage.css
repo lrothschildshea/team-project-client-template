@@ -11,6 +11,23 @@
 
 }
 
+.band-spacer {
+  min-height: 200px;
+}
+
+.comment-sp1 {
+  margin-top: 2px;
+  margin-bottom: 3px;
+}
+
+.comment-sp2 {
+  margin-top: -5px;
+}
+
+.grey {
+  color: grey;
+}
+
 .band-cover > .btn-group > .btn {
   margin: 20px;
   background-color: transparent;
