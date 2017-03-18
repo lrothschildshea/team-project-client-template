@@ -11,6 +11,9 @@ const band = {
   location: "Amherst, MA",
   memberInfo: "3 Real people are in this band",
   fans: 420,
+  image: {
+    backgroundImage: 'url(../img/genericband.jpg)',
+  },
   wanted: [
     {
       id: 1,
@@ -46,7 +49,7 @@ export default class BandPage extends React.Component {
         <Navbar />
         <BandEdit band={band} />
         <div className="container band-main">
-          <BandCover band={band} />
+          <BandCover name={band.name} image={band.image} />
           <div className="row">
             <div className="col-md-4 bandpage-left">
               <BandInfo band={band} />
@@ -67,12 +70,12 @@ export default class BandPage extends React.Component {
 class BandCover extends React.Component {
   render() {
     return (
-      <div className="row band-cover">
+      <div className="row band-cover" style={this.props.image}>
         <div className="band-spacer">
         </div>
         <div className="band-name pull-left">
           <h1>
-            {this.props.band.name}
+            {this.props.name}
           </h1>
         </div>
         <div
