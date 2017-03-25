@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar.js';
+import EventWidget from './EventWidget.js';
 
 export default class Homepage extends React.Component {
   render() {
@@ -82,30 +83,11 @@ class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h1>Bands</h1>
                       <ul className="nav nav-pills nav-stacked">
-                          <li role="presentation">
-                              <a href="#">Band 1
-                                <span className="badge pull-right">3</span>
-                              </a>
-                          </li>
-                          <li role="presentation">
-                              <a href="#">Band 2
-                                <span className="badge  pull-right">1</span>
-                              </a>
-                          </li>
-                          <li role="presentation">
-                              <a href="#">Band 3
-                                <span className="badge  pull-right">2</span>
-                              </a>
-                          </li>
-                          <li role="presentation">
-                              <a href="#">Band 4
-                              </a>
-                          </li>
-                          <li role="presentation">
-                              <a href="#">Band 5
-                                <span className="badge  pull-right">1</span>
-                              </a>
-                          </li>
+                          <LeftSidebarElement bandName="Band 1" linkPage="#" notification="3" />
+                          <LeftSidebarElement bandName="Band 2" linkPage="#" notification="1" />
+                          <LeftSidebarElement bandName="Band 3" linkPage="#" notification="2" />
+                          <LeftSidebarElement bandName="Band 4" linkPage="#" />
+                          <LeftSidebarElement bandName="Band 5" linkPage="#" notification="1" />
                       </ul>
                   </div>
               </div>
@@ -114,9 +96,7 @@ class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h4>Following</h4>
                       <ul className="nav nav-pills nav-stacked">
-                          <li role="presentation">
-                              <a href="#">Band 1</a>
-                          </li>
+                          <LeftSidebarElement bandName="Band 1" linkPage="#"/>
                       </ul>
                   </div>
               </div>
@@ -125,11 +105,7 @@ class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h4>New Band</h4>
                       <ul className="nav nav-pills nav-stacked">
-                          <li role="presentation">
-                              <a href="#">Create A Band
-                                <span className="badge pull-right">+</span>
-                              </a>
-                          </li>
+                          <LeftSidebarElement bandName="Create A Band" linkPage="#" notification="+" />
                       </ul>
                   </div>
               </div>
@@ -139,57 +115,25 @@ class HomeLeftSidebar extends React.Component {
   }
 }
 
+class LeftSidebarElement extends React.Component {
+  render() {
+    return (
+      <li role="presentation">
+          <a href={this.props.linkPage}>{this.props.bandName}
+            <span className="badge pull-right">{this.props.notification}</span>
+          </a>
+      </li>
+    )
+  }
+}
+
+
 class HomeRightSidebar extends React.Component {
   render() {
     return(
       <div className="col-md-3 col-md-offset-9">
           <div className="right-sidebar">
-              <a href="#">
-                  <h1>Upcoming Events</h1>
-              </a>
-              <ul className="media-list">
-                  <li className="media">
-                      <hr />
-                      <div className="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                      </div>
-                      <div className="media-body">
-                          <a href="#">
-                              <p>Band 1 Event</p>
-                              <p>Tomorrow at 7:00 PM</p>
-                              <p>South College</p>
-                          </a>
-                      </div>
-                      <hr />
-                      <div className="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                      </div>
-                      <div className="media-body">
-                          <a href="#">
-                              <p>Band 3 Event</p>
-                              <p>Friday at 8:00 PM</p>
-                              <p>Fine Arts Center</p>
-                          </a>
-                      </div>
-                      <hr />
-                      <div className="media-left">
-                          <p>Event:</p>
-                          <p>Date:</p>
-                          <p>Location:</p>
-                      </div>
-                      <div className="media-body">
-                          <a href="#">
-                              <p>Band 5 Event</p>
-                              <p>Saturday at 2:00 PM</p>
-                              <p>Fine Arts Center</p>
-                          </a>
-                      </div>
-                  </li>
-              </ul>
+            <EventWidget />
           </div>
       </div>
     )
