@@ -17,10 +17,14 @@ body {
   margin-left:25px;
   margin-right:10px;
   margin-bottom: 10px;
+  overflow-y: scroll;
+  height:500px;
 }
 
 .panel-default > .panel-heading-custom {
-background: #ff902a; color: #fff; }
+  background: #ff902a; color: #fff;
+  height:50px
+ }
 
 ::-webkit-scrollbar-track{
 	border-radius: 10px;

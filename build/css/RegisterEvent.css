@@ -2,7 +2,7 @@
 	margin-left:auto;
 	margin-right:auto;
     max-width: 500px;
-    background: #F2D9C0;
+		background: #fff7e6;
     padding: 25px 15px 25px 10px;
     font: 12px Georgia, "Times New Roman", Times, serif;
     color: #888;
@@ -14,8 +14,7 @@
     padding: 0px 0px 10px 40px;
     display: block;
     border-bottom:1px solid #E4E4E4;
-    margin: -10px -15px 30px -10px;;
-    color: #888;
+    margin: -10px -15px 30px -10px;
 }
 .basic-grey h1>span {
     display: block;
@@ -31,7 +30,6 @@
     text-align: right;
     padding-right: 10px;
     margin-top: 10px;
-    color: #888;
 }
 .basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
 	border: 1px solid #DADADA;
@@ -79,4 +77,8 @@
 }
 .basic-grey .button:hover {
     background: #CF7A7A
+}
+.registerEventText{
+	  color: #ff902a;
+		font-size: 26px;
 }
