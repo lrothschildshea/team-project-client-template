@@ -116,6 +116,10 @@ body {
   color: grey;
 }
 
+.time-break{
+  margin-right: 0;
+}
+
 .right-sidebar{
   height: 90%;
 }

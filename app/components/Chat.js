@@ -26,10 +26,10 @@ class ChatsSidebar extends React.Component{
       <div className="col-md-3 left-sidebar">
           <h1>Chats</h1>
           <ul className="nav nav-pills nav-stacked chats-panel">
-              <ChatRoomBubble member="SpongeBob" memberImage="img/spongebob_profile.jpg">See you then!</ChatRoomBubble>
-              <ChatRoomBubble member="Patrick" memberImage="img/patrick_profile.jpg">Is mayonnaise an instrument?</ChatRoomBubble>
-              <ChatRoomBubble member="A Pretty Bad Guitar Player" memberImage="img/765-default-avatar.png">I'm the best</ChatRoomBubble>
-              <ChatRoomBubble member="Your Best Friend" memberImage="img/765-default-avatar.png">when?!?!?!?</ChatRoomBubble>
+              <ChatRoomBubble member="SpongeBob" memberProfile="#" memberImage="img/spongebob_profile.jpg">See you then!</ChatRoomBubble>
+              <ChatRoomBubble member="Patrick" memberProfile="#" memberImage="img/patrick_profile.jpg">Is mayonnaise an instrument?</ChatRoomBubble>
+              <ChatRoomBubble member="A Pretty Bad Guitar Player" memberProfile="#" memberImage="img/765-default-avatar.png">I'm the best</ChatRoomBubble>
+              <ChatRoomBubble member="Your Best Friend" memberProfile="#" memberImage="img/765-default-avatar.png">when?!?!?!?</ChatRoomBubble>
               <CreateChatRoomBubble />
           </ul>
       </div>
@@ -41,7 +41,7 @@ class ChatRoomBubble extends React.Component{
   render(){
     return(
       <li role="presentation">
-          <a href="#">
+          <a href={this.props.memberProfile}>
               <div className="media-left">
                   <img src={this.props.memberImage} />
               </div>
@@ -136,7 +136,7 @@ class TimeBreak extends React.Component {
     return(
       <div>
         <hr />
-        <div className="row">
+        <div className="row time-break">
           <p className="message-date">{this.props.date}</p>
         </div>
     </div>
@@ -151,7 +151,7 @@ class ChatRightSidebar extends React.Component{
           <h1><br /></h1>
           <div className="container-fluid right-sidebar-contents">
               <div className="row">
-                  <AboutWidget member="SpongeBob" instruments="Guitar" bands="Krusty Krab Band"/>
+                  <AboutWidget member="SpongeBob" memberProfile="#" instruments="Guitar" bands="Krusty Krab Band"/>
               </div>
               <div className="row">
                   <EventWidget eventList={mockEventList} />
@@ -167,7 +167,7 @@ class AboutWidget extends React.Component{
     return(
       <div>
         <div className="media-body">
-            <a href="#">
+            <a href={this.props.memberProfile}>
                 <h3>About {this.props.member}</h3>
             </a>
             <hr />

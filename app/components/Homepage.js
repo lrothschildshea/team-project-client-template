@@ -26,13 +26,13 @@ class MainFeed extends React.Component {
       <div className="col-md-6 col-md-offset-3">
           <div className="main-feed">
               <h1>Recent Activity</h1>
-              <MainFeedElement author="Person 1" postedDate="Friday at 10:06 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">Practice is canceled tonight (2/24)!</MainFeedElement>
-              <MainFeedElement author="Person 2" postedDate="Friday at 10:07 AM" bandName="Band 5" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
-              <MainFeedElement author="Person 3" postedDate="Friday at 10:08 AM" bandName="Band 2" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
-              <MainFeedElement author="Person 4" postedDate="Friday at 10:09 AM" bandName="Band 3" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
-              <MainFeedElement author="Person 5" postedDate="Friday at 10:10 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
-              <MainFeedElement author="Person 6" postedDate="Friday at 10:11 AM" bandName="Band 3" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
-              <MainFeedElement author="Person 7" postedDate="Friday at 10:12 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 1" authorProfile="#" postedDate="Friday at 10:06 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">Practice is canceled tonight (2/24)!</MainFeedElement>
+              <MainFeedElement author="Person 2" authorProfile="#" postedDate="Friday at 10:07 AM" bandName="Band 5" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 3" authorProfile="#" postedDate="Friday at 10:08 AM" bandName="Band 2" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 4" authorProfile="#" postedDate="Friday at 10:09 AM" bandName="Band 3" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 5" authorProfile="#" postedDate="Friday at 10:10 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 6" authorProfile="#" postedDate="Friday at 10:11 AM" bandName="Band 3" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
+              <MainFeedElement author="Person 7" authorProfile="#" postedDate="Friday at 10:12 AM" bandName="Band 1" bandPicture="img/bandForHomescreen.jpg">A fake Post!</MainFeedElement>
           </div>
       </div>
     )
@@ -59,7 +59,7 @@ class MainFeedElement extends React.Component {
           <div className="panel-footer">
               <div className="row">
                   <div className="col-md-6">
-                      <p>Posted By: <a href="#">{this.props.author}</a></p>
+                      <p>Posted By: <a href={this.props.authorProfile}>{this.props.author}</a></p>
                       <p>Posted on: {this.props.postedDate}</p>
                   </div>
                   <div className="col-md-6">
