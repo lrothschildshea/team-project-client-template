@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar.js';
 import BandEdit from './BandEdit.js';
 import EventWidget from './EventWidget.js';
+import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
 import MusicWidget from './MusicWidget.js';
 
@@ -54,7 +55,7 @@ export default class BandPage extends React.Component {
             <div className="col-md-4 bandpage-left">
               <BandInfo band={band} />
               <WantedWidget wanted={band.wanted} />
-              <EventWidget />
+              <EventWidget eventList={mockEventList} />
             </div>
             <div className="col-md-8 bandpage-right">
               <MusicWidget />
