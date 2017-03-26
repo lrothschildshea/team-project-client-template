@@ -77,6 +77,11 @@ body{
   background-color: white;
 }
 
+.searchp-container{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .navbar-brand{
   background-color: #ff902a;
   border-color: #ff902a;
@@ -98,8 +103,8 @@ body{
 }
 
 .search-parameters{
-  position: relative;
-  padding: 20px 20px 20px;
+  position: relative !important;
+  padding: 20px 20px 20px !important;
 }
 
 .navbar-center

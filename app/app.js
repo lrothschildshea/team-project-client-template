@@ -4,6 +4,7 @@ import EventPage from './components/EventPage';
 import BandPage from './components/BandPage.js';
 import Homepage from './components/Homepage.js';
 import Chatpage from './components/Chat.js';
+import Search from './components/Search.js';
 
 if(document.getElementById('Homepage') !== null){
   ReactDOM.render(
@@ -24,5 +25,10 @@ if(document.getElementById('Homepage') !== null){
   ReactDOM.render(
     <Chatpage />,
     document.getElementById('chatpage')
+  );
+} else if(document.getElementById('search') !== null) {
+  ReactDOM.render(
+    <Search />,
+    document.getElementById('search')
   );
 }
