@@ -144,6 +144,10 @@ body {
   color: #ff902a;
 }
 
+.right-sidebar h3{
+  font-size: 24px !important;
+}
+
 /* scrollbar styling for google chrome. I didn't have time to figure it out for all browsers so
   I did it for the browser the course recommends*/
 
