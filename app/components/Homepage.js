@@ -59,9 +59,7 @@ class MainFeedElement extends React.Component {
           <div className="panel-footer">
               <div className="row">
                   <div className="col-md-6">
-                      <p>Posted By:
-                          <a href="#">{this.props.author}</a>
-                      </p>
+                      <p>Posted By: <a href="#">{this.props.author}</a></p>
                       <p>Posted on: {this.props.postedDate}</p>
                   </div>
                   <div className="col-md-6">
