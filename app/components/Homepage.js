@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar.js';
 import EventWidget from './EventWidget.js';
+import {mockEventList} from './EventWidget.js';
 
 export default class Homepage extends React.Component {
   render() {
@@ -133,7 +134,7 @@ class HomeRightSidebar extends React.Component {
     return(
       <div className="col-md-3 col-md-offset-9">
           <div className="right-sidebar">
-            <EventWidget />
+            <EventWidget eventList={mockEventList} />
           </div>
       </div>
     )
