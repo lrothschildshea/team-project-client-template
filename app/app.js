@@ -5,6 +5,7 @@ import BandPage from './components/BandPage.js';
 import Homepage from './components/Homepage.js';
 import Chatpage from './components/Chat.js';
 import Search from './components/Search.js';
+import SearchResults from './components/SearchResults.js'
 
 if(document.getElementById('Homepage') !== null){
   ReactDOM.render(
@@ -30,5 +31,10 @@ if(document.getElementById('Homepage') !== null){
   ReactDOM.render(
     <Search />,
     document.getElementById('search')
+  );
+} else if(document.getElementById('searchresults') !== null) {
+  ReactDOM.render(
+    <SearchResults />,
+    document.getElementById('searchresults')
   );
 }
