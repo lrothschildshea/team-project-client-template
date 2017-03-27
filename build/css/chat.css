@@ -1,5 +1,6 @@
 body {
   padding-top: 60px;
+  background-color: #FAFAFA;
 }
 
 .left-sidebar .glyphicon-comment {
@@ -23,6 +24,7 @@ body {
   height: inherit;
   border-radius: 8px;
   border: #ff902a solid 1px;
+  background-color: white;
 }
 
 .left-sidebar li{
@@ -79,6 +81,7 @@ body {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border: #ff902a solid 1px;
+  background-color: white;
 }
 
 .message-feed hr{
@@ -136,6 +139,7 @@ body {
   border-radius: 8px;
   margin-bottom: 10px;
   border: #ff902a solid 1px;
+  background-color: white;
 }
 
 .right-sidebar-contents hr{
@@ -150,4 +154,8 @@ body {
 
 .right-sidebar h3{
   font-size: 24px !important;
+}
+
+.events-widget {
+  box-shadow: none;
 }

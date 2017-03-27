@@ -1,5 +1,6 @@
 body {
   padding-top: 60px;
+  background-color: #FAFAFA;
 }
 
 .col-md-3{
@@ -13,6 +14,7 @@ body {
   padding-bottom: 30px;
   margin-top: 15px;
   height: 100%;
+  background-color: white;
 }
 
 .left-sidebar .row{
