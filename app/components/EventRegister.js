@@ -71,7 +71,7 @@ function Detail(props){
   return(
     <label>
         <span>Detail :</span>
-        <textarea id="eventDetail" name="eventDetail" placeholder="ICECREAM！！" value={props.detail}></textarea>
+        <textarea id="eventDetail" name="eventDetail" placeholder="ICECREAM！！" defaultValue={props.detail}></textarea>
     </label>
   )
 }
