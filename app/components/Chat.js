@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar.js';
+import {mockUser} from './Navbar.js';
 import EventWidget from './EventWidget.js';
 import {mockEventList} from './EventWidget.js';
 
@@ -7,7 +8,7 @@ export default class Chatpage extends React.Component{
   render(){
     return(
       <div>
-        <Navbar />
+        <Navbar user={mockUser} />
           <div className="container-fluid">
               <div className="row">
                 <ChatsSidebar />

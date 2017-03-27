@@ -1,5 +1,13 @@
 import React from 'react';
 
+export const mockUser = {
+  id: 1,
+  name: "Sean Morris",
+  email: "sean@morris.com",
+  imageurl: "img/SeanProfile.png",
+  messages: 5,
+}
+
 export default class Navbar extends React.Component {
   render() {
     return (
@@ -32,12 +40,12 @@ export default class Navbar extends React.Component {
                 <div className="btn-group" role="group">
                   <button type="button" className="btn btn-default navbar-btn">
                     <span className="glyphicon glyphicon-comment"></span>
-                    <span className="badge">5</span>
+                    <span className="badge">{this.props.user.messages}</span>
                   </button>
                   <div className="btn-group" role="group">
                     <button type="button" className="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
                       <span className="glyphicon glyphicon-user"></span> 
-                      <strong>Sean Morris</strong>
+                      <strong>{this.props.user.name}</strong>
                       <span className="glyphicon glyphicon-chevron-down"></span>
                     </button>
                     <ul className="dropdown-menu">
@@ -46,12 +54,12 @@ export default class Navbar extends React.Component {
                           <div className="row">
                             <div className="col-lg-4">
                               <p className="text-center">
-                                <img src="img/SeanProfile.png" className="img-cirle img-responsive"></img>
+                                <img src={this.props.user.imageurl} className="img-cirle img-responsive"></img>
                               </p>
                             </div>
                             <div className="col-lg-8">
-                              <p className="text-left"><strong>Sean Morris</strong></p>
-                              <p className="text-left small">scmorris@umass.edu</p>
+                              <p className="text-left"><strong>{this.props.user.name}</strong></p>
+                              <p className="text-left small">{this.props.user.email}</p>
                               <p className="text-left">
                                 <a href="#" className="btn btn-primary btn-block btn-sm">Settings</a>
                               </p>

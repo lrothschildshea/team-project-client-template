@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar.js';
+import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
 const fakeResults = {
@@ -36,7 +37,7 @@ export default class SearchResults extends React.Component {
   render() {
     return(
       <div>
-        <Navbar />
+        <Navbar user={mockUser} />
         <div className="container-fluid searchbar-container">
           <div className="search-sidebar">
             <div className="row">

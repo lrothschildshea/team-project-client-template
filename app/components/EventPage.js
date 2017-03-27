@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar'
+import {mockUser} from './Navbar.js';
 import EventRegister from './EventRegister';
 import {mockEventList} from './EventPanel.js';
 import EventPanel from './EventPanel.js';
@@ -58,7 +59,7 @@ export default class EventPage extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar user={mockUser} />
         <EventRegister event={event} />
         <div className='container'>
           <div className="row">
