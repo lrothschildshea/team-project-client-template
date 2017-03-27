@@ -1,3 +1,6 @@
+body {
+  background-color: #FAFAFA;
+}
 .band-cover {
     background-position: 0% 25%;
     background-size: cover;

@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from './Navbar'
 import EventRegister from './EventRegister';
+import {mockEventList} from './EventPanel.js';
+import EventPanel from './EventPanel.js';
 
 $(document).ready(function() {
   $('#calendar').fullCalendar({
@@ -47,9 +49,11 @@ $(document).ready(function() {
     ]
   });
 });
-const event = {
+
+export const event = {
   detail: "(－‸ლ)"
 }
+
 export default class EventPage extends React.Component {
   render() {
     return (
@@ -68,86 +72,10 @@ export default class EventPage extends React.Component {
             </div>
 
             <div className="col-md-4">
-              <EventInfo />
+              <EventPanel eventList={mockEventList} />
+
             </div>
 
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
-
-
-class EventInfo extends React.Component {
-  render() {
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading-custom">
-          <h3 className="panel-title info-upcoming">Upcoming Events</h3>
-        </div>
-        <div className="panel-body info-event-detail">
-          <div className="events">
-              <ul className="media-list">
-                  <li className="media">
-                      <div className="media-left">
-                        <p>Event:</p>
-                        <p>Band:</p>
-                        <p>Date:</p>
-                        <p>Time:</p>
-                        <p>Location:</p>
-                        <p>Detail:</p>
-                      </div>
-                      <div className="media-body">
-                          <a href="#">
-                            <p>Event 1</p>
-                            <p>Band Spongebob</p>
-                            <p>2/26/17</p>
-                            <p>7-9pm</p>
-                            <p>Umass Fine Arts Center</p>
-                            <p>We provide food as well!</p>
-                          </a>
-                      </div>
-                      <hr />
-                        <div className="media-left">
-                          <p>Event:</p>
-                          <p>Band:</p>
-                          <p>Date:</p>
-                          <p>Time:</p>
-                          <p>Location:</p>
-                          <p>Detail:</p>
-                        </div>
-                        <div className="media-body">
-                            <a href="#">
-                              <p>Event 1</p>
-                              <p>Band Spongebob</p>
-                              <p>2/26/17</p>
-                              <p>7-9pm</p>
-                              <p>Umass Fine Arts Center</p>
-                              <p>We provide food as well!</p>
-                            </a>
-                        </div>
-                      <hr />
-                        <div className="media-left">
-                          <p>Event:</p>
-                          <p>Band:</p>
-                          <p>Date:</p>
-                          <p>Time:</p>
-                          <p>Location:</p>
-                          <p>Detail:</p>
-                        </div>
-                        <div className="media-body">
-                            <a href="#">
-                              <p>Event 1</p>
-                              <p>Band Spongebob</p>
-                              <p>2/26/17</p>
-                              <p>7-9pm</p>
-                              <p>Umass Fine Arts Center</p>
-                              <p>We provide food as well!</p>
-                            </a>
-                        </div>
-                  </li>
-              </ul>
           </div>
         </div>
       </div>
