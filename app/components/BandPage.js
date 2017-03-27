@@ -5,6 +5,7 @@ import BandEdit from './BandEdit.js';
 import EventWidget from './EventWidget.js';
 import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
+import {mockComments} from './Comments.js';
 import MusicWidget from './MusicWidget.js';
 
 const band = {
@@ -60,7 +61,7 @@ export default class BandPage extends React.Component {
             </div>
             <div className="col-md-8 bandpage-right">
               <MusicWidget />
-              <Comments />
+              <Comments comments={mockComments} />
             </div>
           </div>
         </div>

@@ -1,5 +1,27 @@
 import React from 'react';
 
+
+export const mockComments = [
+  {
+    user: "Spongebob",
+    id: "1",
+    text: "This is a comment",
+    time: "2 hrs",
+  },
+  {
+    user: "Squidward",
+    id: "2",
+    text: "Another comment",
+    time: "12 hrs",
+  },
+  {
+    user: "Mr. Krabs",
+    id: "3",
+    text: "Comment comment",
+    time: "22 hrs",
+  },
+]
+
 export default class Comments extends React.Component {
   render() {
     return (
@@ -9,42 +31,9 @@ export default class Comments extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="media-list">
-            <li className="media">
-              <div className="media-left media-top">
-                PIC
-              </div>
-              <div className="media-body">
-                <a href="#">Spongebob</a> This is a comment
-                <br /><a href="#">Like</a> · <a href="#">Reply</a> · 2 hrs
-              </div>
-            </li>
-            <li className="media">
-              <div className="media-left media-top">
-                PIC
-              </div>
-              <div className="media-body">
-                <a href="#">Squidward</a> Another comment
-                <br /><a href="#">Like</a> · <a href="#">Reply</a> · 10 hrs
-              </div>
-            </li>
-            <li className="media">
-              <div className="media-left media-top">
-                PIC
-              </div>
-              <div className="media-body">
-                <a href="#">Mr. Krabs</a> Another comment
-                <br /><a href="#">Like</a> · <a href="#">Reply</a> · 20 hrs
-              </div>
-            </li>
-            <li className="media">
-              <div className="media-left media-top">
-                PIC
-              </div>
-              <div className="media-body">
-                <a href="#">Squidward</a> Another comment
-                <br /><a href="#">Like</a> · <a href="#">Reply</a> · 22 hrs
-              </div>
-            </li>
+            {this.props.comments.map((comment) =>
+              <Comment comment={comment} />
+            )}
             <hr className="comment-sp1" />
             <li>
               <div>
@@ -73,6 +62,23 @@ export default class Comments extends React.Component {
           </ul>
         </div>
       </div>
+    )
+  }
+}
+
+
+class Comment extends React.Component {
+  render() {
+    return (
+      <li key={this.props.comment.id} className="media">
+        <div className="media-left media-top">
+          PIC
+        </div>
+        <div className="media-body">
+          <a href="#">{this.props.comment.user}</a> {this.props.comment.text}
+          <br /><a href="#">Like</a> · <a href="#">Reply</a> · {this.props.comment.time}
+        </div>
+      </li>
     )
   }
 }
