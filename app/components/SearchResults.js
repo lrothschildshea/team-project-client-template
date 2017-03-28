@@ -3,36 +3,6 @@ import Navbar from './Navbar.js';
 import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
-const fakeResults = {
-
-  wanted: [
-    {
-      id: 1,
-      instrument: "Guitarist",
-      info: "Experienced Flamenco guitarist",
-    },
-    {
-      id: 2,
-      instrument: "Saxophone",
-      info: "Play me something spicy",
-    }
-  ],
-  members: [
-    {
-      name: "Sean Morris",
-      id: 1,
-    },
-    {
-      name: "Spongebob",
-      id: 2,
-    },
-    {
-      name: "Squidward",
-      id: 3,
-    },
-  ],
-}
-
 export default class SearchResults extends React.Component {
   render() {
     return(
