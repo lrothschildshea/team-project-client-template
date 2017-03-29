@@ -276,17 +276,29 @@ class FavoritesWidget extends React.Component {
     return (
       <div className="panel info-section">
         <div className="panel-heading">
-          <h2 className="panel-title">Following</h2>
+          <h2 className="panel-title">Favorites</h2>
         </div>
         <div className="panel-body">
           <div className="panel info-category">
             <div className="panel-heading">
-              <h3 className="panel-title">Artists:</h3>
+              <h3 className="panel-title">Songs:</h3>
             </div>
             <div className="panel-body">
-              <ul className="following-list">
-                {this.props.following.map((artist) =>
-                  <li className="artist" key={artist.id}>{artist}</li>
+              <ul className="fav-list">
+                {this.props.following.map((song) =>
+                  <li className="song" key={song.id}>{song.name}</li>
+                )}
+              </ul>
+            </div>
+          </div>
+          <div className="panel info-category">
+            <div className="panel-heading">
+              <h3 className="panel-title">Albums:</h3>
+            </div>
+            <div className="panel-body">
+              <ul className="fav-list">
+                {this.props.following.map((album) =>
+                  <li className="album" key={album.id}>{album.name}</li>
                 )}
               </ul>
             </div>
