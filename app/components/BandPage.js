@@ -15,7 +15,7 @@ const band = {
   memberInfo: "3 Real people are in this band",
   fans: 420,
   image: {
-    backgroundImage: 'url(../img/genericband.jpg)',
+    backgroundImage: "url(img/genericband.jpg)",
   },
   wanted: [
     {
