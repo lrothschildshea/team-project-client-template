@@ -77,7 +77,7 @@ const profile = {
   ]
 }
 
-export default class ProfilePage extends React.Component {
+export default class ProfilePage2 extends React.Component {
   render(){
     return (
       <div>
@@ -115,12 +115,26 @@ export default class ProfilePage extends React.Component {
                   <h1 className="panel-title">WHAT I DO:</h1>
                 </div>
                 <div className="panel-body">
-                  <ul>
-                    <li><MusicWidget /></li>
-                    <li><MusicWidget /></li>
-                    <li><MusicWidget /></li>
-                  </ul>
-                  <EventWidget eventList={mockEventList} />
+                  <div className="panel music">
+                    <div className="panel-heading">
+                      <h2 className="panel-title">Music</h2>
+                    </div>
+                    <div className="panel-body">
+                      <ul>
+                        <li><MusicWidget /></li>
+                        <li><MusicWidget /></li>
+                        <li><MusicWidget /></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="panel events">
+                    <div className="panel-heading">
+                      <h2 className="panel-title">Events</h2>
+                    </div>
+                    <div className="panel-body">
+                      <EventWidget eventList={mockEventList} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,7 +145,7 @@ export default class ProfilePage extends React.Component {
                 </div>
                 <div className="panel-body">
                   <FollowingWidget following={profile.following} />
-                  <FavMusicWidget fav-songs={profile.fav_songs} fav-albums={profile.fav_albums} />
+                  <FavoritesWidget favsongs={profile.fav_songs} favalbums={profile.fav_albums} />
                 </div>
               </div>
             </div>
@@ -150,7 +164,7 @@ class ProfileHeader extends React.Component {
           <img className="prof-coverpic" src={this.props.coverPic} />
         </div>
         <div className="row prof-pic-row">
-          <img className="prof-coverpic" src={this.props.picURL} />
+          <img className="prof-pic" src={this.props.picURL} />
         </div>
         <div className="row prof-name-row">
           <h1 className="prof-name">{this.props.name}</h1>
@@ -285,7 +299,7 @@ class FavoritesWidget extends React.Component {
             </div>
             <div className="panel-body">
               <ul className="fav-list">
-                {this.props.following.map((song) =>
+                {this.props.favsongs.map((song) =>
                   <li className="song" key={song.id}>{song.name}</li>
                 )}
               </ul>
@@ -297,7 +311,7 @@ class FavoritesWidget extends React.Component {
             </div>
             <div className="panel-body">
               <ul className="fav-list">
-                {this.props.following.map((album) =>
+                {this.props.favalbums.map((album) =>
                   <li className="album" key={album.id}>{album.name}</li>
                 )}
               </ul>

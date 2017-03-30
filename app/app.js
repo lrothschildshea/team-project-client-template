@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ProfilePage from './components/ProfilePage.js';
+import ProfilePage2 from './components/ProfilePage.js';
 import EventPage from './components/EventPage.js';
 import BandPage from './components/BandPage.js';
 import Homepage from './components/Homepage.js';
@@ -15,7 +15,7 @@ if(document.getElementById('Homepage') !== null){
   );
 } else if (document.getElementById('profilepage') !== null) {
   ReactDOM.render(
-    <ProfilePage />,
+    <ProfilePage2 />,
     document.getElementById('profilepage')
   );
 } else if (document.getElementById('bandpage') !== null) {
