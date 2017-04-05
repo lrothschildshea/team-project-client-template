@@ -1,103 +1,81 @@
-/*Navbar stuff: */
-.navbar {
-  margin-bottom: 0px;
-  background-color: #ff902a;
-  border-width: 0px;
-}
-.navbar-login
-{
-  width: 305px;
-  padding: 10px;
-  padding-bottom: 0px;
-}
-.navbar-login-session
-{
-  padding: 10px;
-  padding-bottom: 0px;
-  padding-top: 0px;
-}
-.navbar-brand{
-  color: white !important;
-}
-.navbar-brand {
-  float: none;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  text-align: center;
-  margin: auto;
-}
-.navbar .brand, .navbar .nav > a:hover {
-    background-color: #ff902a;
-}
-.navbar-default .navbar-brand,
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    color: #ff902a;
-    background-color: #ff902a;
-}
-
-/*Profile settings*/
-.modal-body > .input-group,
-.modal-body > .btn-group {
-  margin-bottom: 20px;
-}
-.panel,
-.panel > .nav-tabs {
-  /*border-color: #f6dbc7;*/
-  border-color: #ffcaaa;
-}
-.panel-heading {
-  color: #7a7a7a;
-  border-bottom-color: #ffcaaa;
+/*Profile Page settings*/
+body{
+  background-color: black;
 }
 
 /*Entire profile page*/
+/*****************************************/
+
 .profile-main{
-  padding-top: 60px;
+  /*padding-top: 60px;*/
 }
 
-/*Profile page cover*/
-.profile-cover {
-    background-image: url(../img/cover-photo-empty.jpg);
-    background-position: 0% 25%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    text-shadow: 0px 0px 10px black;
-    margin-bottom: 15px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-.profile-cover > .btn-group > .btn {
-  margin: 20px;
-  background-color: transparent;
-  color: #ff902a;
-  border-color: #ff902a;
+/*Profile header:*/
+/*************************/
+.prof-header{
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-/*Row containing profile picture*/
-.profile-pic-row {
-  /*padding-top: 100px;*/
+/*Spacer between top of page and profile pic*/
+.prof-spacer {
+  min-height: 100px;
 }
 
-/*Profile picture*/
-.profile-pic {
-  height: 250px;
-  width: 250px;
+/*Profile pic*/
+.prof-id > img{
+  float:left;
+  margin-left: 20px;
+  border: solid;
+  border-width: 5px 5px;
+  border-color: orange;
 }
 
-.profile-bar {
+/*Profile name*/
+.prof-id > h1{
+  margin-left: 20px;
+  margin-top: 80px;
+  float:left;
+  color: white;
+  text-shadow: 0px 0px 10px black;
+  border-bottom: solid;
+  border-bottom-width: 4px;
+  border-bottom-color: orange;
+  border-top: solid;
+  border-top-width: 3px;
+  border-top-color: orange;
+}
+/**************************/
 
+/*Panels*/
+/**************************/
+.panel,
+.panel > .nav-tabs{
+  border-color: #ffcaaa;
+}
+.panel-heading {
+  color: #ff7c00;
+  border-bottom-color: #ffcaaa;
+}
+/**************************/
+
+/*Profile sections:*/
+/*************************/
+.profile-section{
+  background-color: orange;
+  margin-top: 50px;
+}
+.prof-section-title{
+  color: white;
+  text-shadow: 0px 0px 10px black;
+}
+/*************************/
+
+/*Info sections*/
+.info-section > .panel-heading{
+  /*color: black;*/
 }
 
-.left-side {
-  padding-top: 100px;
-  height: 750px;
-  align-items: center;
-}
-.soundcloud-section {
-  padding-top: 100px;
-  height: 750px;
-}
+
+/*******************************************/
