@@ -58,8 +58,9 @@ var initialData = {
     "1": {
       "_id": 1,
       "name": "Band1",
-      "feed": 1,
-      "picture": 1,
+      "feed": 6,
+      "profile picture": 1,
+      "page picture": 1,
       "members": [1,2,3],
       "location": "Bikini Bottom",
       "wanted": [1,2]
@@ -68,18 +69,20 @@ var initialData = {
     "2": {
       "_id": 2,
       "name": "Band2",
-      "feed": 2,
-      "picture": 2,
+      "feed": 7,
+      "profile picture": 2,
+      "page picture": 2,
       "members": [2,4],
       "location": "Bikini Bottom",
       "wanted": []
     },
 
     "3": {
-      "_id": 1,
+      "_id": 3,
       "name": "Band3",
-      "feed": 1,
-      "picture": 1,
+      "feed": 8,
+      "profile picture": 3,
+      "page picture": 3,
       "members": [1,3,5],
       "location": "Bikini Bottom",
       "wanted": [6,8]
@@ -94,27 +97,27 @@ var initialData = {
     },
     "2": {
       "author": 2,
-      "contents": "",
+      "contents": "more messages",
       "postDate": 1453690800000
     },
     "3": {
       "author": 4,
-      "contents": "",
+      "contents": "more messages",
       "postDate": 1453690800000
     },
     "4": {
       "author": 5,
-      "contents": "",
+      "contents": "more messages",
       "postDate": 1453690800000
     },
     "5": {
       "author": 2,
-      "contents": "",
+      "contents": "more messages",
       "postDate": 1453690800000
     },
     "6": {
       "author": 3,
-      "contents": "",
+      "contents": "more messages",
       "postDate": 1453690800000
     }
   },
