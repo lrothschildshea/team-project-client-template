@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ProfilePage from './components/ProfilePage.js';
 import EventPage from './components/EventPage.js';
 import BandPage from './components/BandPage.js';
-import Homepage from './components/Homepage.js';
+import Homepage from './components/Homepage/Homepage.js';
 import Chatpage from './components/Chat.js';
 import Search from './components/Search.js';
 import SearchResults from './components/SearchResults.js';
