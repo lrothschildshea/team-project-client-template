@@ -93,32 +93,38 @@ var initialData = {
     "1": {
       "author": 1,
       "contents": "Practice is canceled",
-      "postDate": 1453690800000
+      "postDate": 1453690800000,
+      "band" : 1
     },
     "2": {
       "author": 2,
       "contents": "more messages",
-      "postDate": 1453690800000
+      "postDate": 1453690800001,
+      "band" : 1
     },
     "3": {
       "author": 4,
       "contents": "more messages",
-      "postDate": 1453690800000
+      "postDate": 1453690800002,
+      "band" : 2
     },
     "4": {
       "author": 5,
       "contents": "more messages",
-      "postDate": 1453690800000
+      "postDate": 1453690800003,
+      "band" : 2
     },
     "5": {
       "author": 2,
       "contents": "more messages",
-      "postDate": 1453690800000
+      "postDate": 1453690800004,
+      "band" : 3
     },
     "6": {
       "author": 3,
       "contents": "more messages",
-      "postDate": 1453690800000
+      "postDate": 1453690800005,
+      "band" : 3
     }
   },
 
@@ -145,15 +151,15 @@ var initialData = {
     },
     "6": {
       "_id": 6,
-      "contents": [1,6]
+      "contents": [1,2]
     },
     "7": {
       "_id": 7,
-      "contents": [1,3]
+      "contents": [3,4]
     },
     "8": {
       "_id": 8,
-      "contents": [1,5]
+      "contents": [5,6]
     }
   },
 
@@ -217,7 +223,7 @@ var initialData = {
       "Date": 1453668480000
     }
   }
-
+  
 };
 
 var data = JSON.parse(localStorage.getItem(startupName));

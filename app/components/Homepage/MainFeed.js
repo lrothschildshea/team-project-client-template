@@ -29,7 +29,7 @@ export default class MainFeed extends React.Component {
               <h1>Recent Activity</h1>
               {this.state.contents.map((feedItem, i) =>{
                 return (
-                  <MainFeedElement key= {i} author={feedItem.author.fullName} authorProfile="#" postedDate={unixTimeToString(feedItem.postDate)} bandName="need to add this later" bandPicture="img/bandForHomescreen.jpg">{feedItem.contents}</MainFeedElement>
+                  <MainFeedElement key= {i} author={feedItem.author.fullName} authorProfile="#" postedDate={unixTimeToString(feedItem.postDate)} bandName={feedItem.band.name} bandPicture="img/bandForHomescreen.jpg">{feedItem.contents}</MainFeedElement>
                 )
               })}
           </div>

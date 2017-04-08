@@ -16,6 +16,7 @@ function getFeedItemSync(feedItemId) {
 /*  feedItem.comments.forEach((comment) => {
     comment.author = readDocument('users', comment.author);
   });*/
+  feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
 
