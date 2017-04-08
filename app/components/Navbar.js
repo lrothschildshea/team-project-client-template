@@ -5,7 +5,7 @@ export const mockUser = {
   name: "Sean Morris",
   email: "sean@morris.com",
   imageurl: "img/SeanProfile.png",
-  messages: 5,
+  messages: 5
 }
 
 export default class Navbar extends React.Component {

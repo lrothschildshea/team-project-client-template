@@ -13,7 +13,7 @@ export default class Homepage extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <HomeLeftSidebar />
-            <MainFeed />
+            <MainFeed user="1" />
             <HomeRightSidebar />
           </div>
         </div>
