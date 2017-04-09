@@ -16,7 +16,7 @@ export default class SearchBar extends React.Component {
     var searchText = this.state.value.trim();
     if (searchText !== "") {
       /* TODO: How do we send the post to the server + update the Feed? */
-      this.props.onPost(searchText);
+      this.props.onPost(this.state);
       // Reset status update.
       this.setState({value: ""});
     }

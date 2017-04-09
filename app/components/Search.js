@@ -4,6 +4,27 @@ import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
 export default class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      zipcode: "",
+      instrument:"",
+      genre:"",
+      value: "",
+      searchType: ""
+    };
+  }
+
+  onSearch(contents){
+    console.log(contents)
+    this.setState(contents)
+  }
+
+  updateState(contents){
+    console.log(contents)
+    this.setState(contents)
+  }
+
   render() {
     return (
       <div>
@@ -13,7 +34,7 @@ export default class Search extends React.Component {
           <div className="col-md-10">
             <div className="container searchbar-container">
               <div className="search-bar">
-                <SearchBar/>
+                <SearchBar onPost={(postContents) => this.onSearch(postContents)}/>
               </div>
             </div>
           </div>
@@ -23,7 +44,7 @@ export default class Search extends React.Component {
         <div className="row">
           <div className="col-md-1"></div>
           <div className="col-md-10">
-            <SearchParameters/>
+            <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
           </div>
           <div className="col-md-1"></div>
         </div>
@@ -37,8 +58,13 @@ class SearchParameters extends React.Component {
     super(props);
     this.state = {
       zipcode: "",
-      instruments:[]
+      instrument:"Instrument",
+      genre:"Genre"
     };
+  }
+
+  getData(){
+    return this.state
   }
 
   handleChange(e) {
@@ -48,8 +74,48 @@ class SearchParameters extends React.Component {
     // <textarea> element. The textarea's `value` is the entire contents of
     // what the user has typed in so far.
     this.setState({zipcode: e.target.value});
+    this.props.onEntered({zipcode: e.target.value})
+
+
   }
 
+  handleInstrument(e) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    e.preventDefault();
+    // e.target is the React Virtual DOM target of the input event -- the
+    // <textarea> element. The textarea's `value` is the entire contents of
+    // what the user has typed in so far.
+    if (e.button === 0) {
+      // Callback function for both the like and unlike cases.
+        // setState will overwrite the 'likeCounter' field on the current
+        // state, and will keep the other fields in-tact.
+        // This is called a shallow merge:
+        // https://facebook.github.io/react/docs/component-api.html#setstate
+        this.setState({instrument: e.target.textContent});
+        this.props.onEntered({instrument: e.target.textContent})
+
+      }
+
+  }
+
+  handleGenre(e) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    e.preventDefault();
+    // e.target is the React Virtual DOM target of the input event -- the
+    // <textarea> element. The textarea's `value` is the entire contents of
+    // what the user has typed in so far.
+    if (e.button === 0) {
+      // Callback function for both the like and unlike cases.
+        // setState will overwrite the 'likeCounter' field on the current
+        // state, and will keep the other fields in-tact.
+        // This is called a shallow merge:
+        // https://facebook.github.io/react/docs/component-api.html#setstate
+        this.setState({genre: e.target.textContent});
+        this.props.onEntered({genre: e.target.textContent})
+
+      }
+
+  }
 
   render() {
     return (
@@ -57,45 +123,45 @@ class SearchParameters extends React.Component {
         <div className="search-parameters">
           <div className="row">
             <div className="col-md-2">
-              <label for="instrument">Select Instrument:</label>
+              <label htmlForfor="instrument">Select Instrument:</label>
               <div className="dropdown" id="instrument">
                 <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Instrument
+                  {this.state.instrument}
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li>
-                    <a href="#">Guitar</a>
+                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Guitar</a>
                   </li>
                   <li>
-                    <a href="#">Drums</a>
+                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Drums</a>
                   </li>
                   <li>
-                    <a href="#">Bass</a>
+                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Bass</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="col-md-4">
-              <label for="zip">Zipcode:</label>
+              <label htmlFor="zip">Zipcode:</label>
               <input type="text" className="form-control" id="zip" placeholder="Enter ZipCode" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
             </div>
             <div className="col-md-4">
-              <label for="genre">Genres</label>
+              <label htmlFor="genre">Genres</label>
               <div className="dropdown" id="genre">
                 <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Genres
+                  {this.state.genre}
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li>
-                    <a href="#">Rock</a>
+                    <a href="#" onClick={(e) => this.handleGenre(e)}>Rock</a>
                   </li>
                   <li>
-                    <a href="#">Jazz</a>
+                    <a href="#" onClick={(e) => this.handleGenre(e)}>Jazz</a>
                   </li>
                   <li>
-                    <a href="#">Metal</a>
+                    <a href="#" onClick={(e) => this.handleGenre(e)}>Metal</a>
                   </li>
                 </ul>
               </div>
