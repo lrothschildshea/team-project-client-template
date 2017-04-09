@@ -33,6 +33,24 @@ export default class Search extends React.Component {
 }
 
 class SearchParameters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      zipcode: "",
+      instruments:[]
+    };
+  }
+
+  handleChange(e) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    e.preventDefault();
+    // e.target is the React Virtual DOM target of the input event -- the
+    // <textarea> element. The textarea's `value` is the entire contents of
+    // what the user has typed in so far.
+    this.setState({zipcode: e.target.value});
+  }
+
+
   render() {
     return (
       <div className="container searchp-container">
@@ -60,7 +78,7 @@ class SearchParameters extends React.Component {
             </div>
             <div className="col-md-4">
               <label for="zip">Zipcode:</label>
-              <input type="text" className="form-control" id="zip"/>
+              <input type="text" className="form-control" id="zip" placeholder="Enter ZipCode" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
             </div>
             <div className="col-md-4">
               <label for="genre">Genres</label>
