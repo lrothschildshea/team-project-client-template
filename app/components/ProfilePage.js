@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from './Navbar.js';
-import {mockUser} from './Navbar.js';
 import ProfileDescription1 from './ProfileDescription1.js';
 import ProfileDescription2 from './ProfileDescription2.js';
 import ProfileDescription3 from './ProfileDescription3.js';
@@ -89,7 +87,6 @@ export default class ProfilePage extends React.Component {
   render(){
     return (
       <div>
-        <Navbar user={mockUser} />
         <div className="container">
           <ProfileHeader coverPic={profile.coverPic} name={profile.name} pic={profile.picURL} />
           <div className="row">

@@ -1,13 +1,10 @@
 import React from 'react';
-import Navbar from './Navbar.js';
-import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
 export default class SearchResults extends React.Component {
   render() {
     return(
       <div>
-        <Navbar user={mockUser} />
         <div className="container-fluid searchbar-container">
           <div className="search-sidebar">
             <div className="row">

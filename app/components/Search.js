@@ -1,13 +1,10 @@
 import React from 'react';
-import Navbar from './Navbar.js';
-import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
 export default class Search extends React.Component {
   render() {
     return (
       <div>
-        <Navbar user={mockUser} />
         <div className="row">
           <div className="col-md-1"></div>
           <div className="col-md-10">

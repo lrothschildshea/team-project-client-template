@@ -1,15 +1,12 @@
 import React from 'react';
-import Navbar from '../Navbar.js';
-import {mockUser} from '../Navbar.js';
-import HomeLeftSidebar from './HomeLeftSidebar.js';
-import MainFeed from './MainFeed.js';
-import HomeRightSidebar from './HomeRightSidebar.js';
+import HomeLeftSidebar from '../components/Homepage/HomeLeftSidebar.js';
+import MainFeed from '../components/Homepage/MainFeed.js';
+import HomeRightSidebar from '../components/Homepage/HomeRightSidebar.js';
 
 export default class Homepage extends React.Component {
   render() {
     return(
       <div>
-        <Navbar user={mockUser} />
         <div className="container-fluid">
           <div className="row">
             <HomeLeftSidebar />

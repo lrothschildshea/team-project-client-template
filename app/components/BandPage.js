@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from './Navbar.js';
-import {mockUser} from './Navbar.js';
 import BandEdit from './BandEdit.js';
 import EventWidget from './EventWidget.js';
 import {mockEventList} from './EventWidget.js';
@@ -49,7 +47,6 @@ export default class BandPage extends React.Component {
   render() {
     return (
       <div>
-        <Navbar user={mockUser} />
         <BandEdit band={band} />
         <div className="container band-main">
           <BandCover name={band.name} image={band.image} />

@@ -223,7 +223,7 @@ var initialData = {
       "Date": 1453668480000
     }
   }
-  
+
 };
 
 var data = JSON.parse(localStorage.getItem(startupName));
@@ -298,7 +298,7 @@ class ResetDatabase extends React.Component {
   }
 }
 
-ReactDOM.render(
+/*ReactDOM.render(
   <ResetDatabase />,
   document.getElementById('db-reset')
-);
+);*/

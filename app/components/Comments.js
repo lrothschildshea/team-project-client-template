@@ -31,8 +31,8 @@ export default class Comments extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="media-list">
-            {this.props.comments.map((comment) =>
-              <Comment comment={comment} />
+            {this.props.comments.map((comment, i) =>
+              <Comment key={i} comment={comment} />
             )}
             <hr className="comment-sp1" />
             <li>
