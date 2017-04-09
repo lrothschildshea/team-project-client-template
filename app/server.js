@@ -24,6 +24,5 @@ export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
   var feedData = readDocument('feeds', userData.feed);
   feedData.contents = feedData.contents.map(getFeedItemSync);
-  console.log("feedData", feedData);
   emulateServerReturn(feedData, cb);
 }
