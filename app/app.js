@@ -7,40 +7,27 @@ import Homepage from './components/Homepage/Homepage.js';
 import Chatpage from './components/Chat.js';
 import Search from './components/Search.js';
 import SearchResults from './components/SearchResults.js';
+import { IndexRoute, Router, Route, hashHistory } from 'react-router'
 
-if(document.getElementById('Homepage') !== null){
-  ReactDOM.render(
-    <Homepage />,
-    document.getElementById('Homepage')
-  );
-} else if (document.getElementById('profilepage') !== null) {
-  ReactDOM.render(
-    <ProfilePage />,
-    document.getElementById('profilepage')
-  );
-} else if (document.getElementById('bandpage') !== null) {
-  ReactDOM.render(
-    <BandPage />,
-    document.getElementById('bandpage')
-  );
-} else if (document.getElementById('eventpage') !== null) {
-  ReactDOM.render(
-    <EventPage />,
-    document.getElementById('eventpage')
-  );
-} else if(document.getElementById('chatpage') !== null) {
-  ReactDOM.render(
-    <Chatpage />,
-    document.getElementById('chatpage')
-  );
-} else if(document.getElementById('search') !== null) {
-  ReactDOM.render(
-    <Search />,
-    document.getElementById('search')
-  );
-} else if(document.getElementById('searchresults') !== null) {
-  ReactDOM.render(
-    <SearchResults />,
-    document.getElementById('searchresults')
-  );
+
+class App extends React.Component {
+  render() {
+    return (
+      <Router history={hashHistory}>
+        <Route path="/" component={Homepage} />
+        <Route path="/band/:id" component={BandPage} />
+        <Route path="/profile/:id" component={ProfilePage} />
+        <Route path="/search" component={Search} />
+        <Route path="/chat/:id" component={Chatpage} />
+        <Route path="/search/result" component={SearchResults} />
+        <Route path="/calendar" component={EventPage} />
+      </Router>
+    )
+  }
 }
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+)
