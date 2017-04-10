@@ -14,7 +14,8 @@ var initialData = {
       "feed" : 1,
       "picture": 1,
       "location": "Bikini Bottom",
-      "email": "spongeBob@gmail.com"
+      "email": "spongeBob@gmail.com",
+      "calendarEvent":[1]
     },
 
     "2":{
@@ -23,7 +24,8 @@ var initialData = {
       "feed": 2,
       "picture": 2,
       "location": "Bikini Bottom",
-      "email": "patrick@gmail.com"
+      "email": "patrick@gmail.com",
+      "calendarEvent":[1]
     },
 
     "3":{
@@ -32,7 +34,8 @@ var initialData = {
       "feed": 3,
       "picture": 3,
       "location": "Bikini Bottom",
-      "email": "sandy@gmail.com"
+      "email": "sandy@gmail.com",
+      "calendarEvent":[1]
     },
 
     "4":{
@@ -41,7 +44,8 @@ var initialData = {
       "feed": 4,
       "picture": 4,
       "location": "Bikini Bottom",
-      "email": "krabs@gmail.com"
+      "email": "krabs@gmail.com",
+      "calendarEvent":[1]
     },
 
     "5":{
@@ -50,7 +54,8 @@ var initialData = {
       "feed": 5,
       "picture": 5,
       "location": "Bikini Bottom",
-      "email": "plankton@gmail.com"
+      "email": "plankton@gmail.com",
+      "calendarEvent":[1]
     }
   },
 
@@ -259,6 +264,17 @@ var initialData = {
       "_id": 4,
       "location": "amherst",
       "Date": 1453668480000
+    }
+  },
+  "calendarEvent":{
+    "1":{
+      "name": "Event 1",
+      "band": "Band 1",
+      "_id": 1,
+      "date": "Tomorrow at 7:00 PM",
+      "time": "7 - 9 PM",
+      "location": "South College",
+      "detail": "It is fun"
     }
   }
 

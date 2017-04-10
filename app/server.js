@@ -49,3 +49,21 @@ function getFeedItemSync(feedItemId) {
   feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
+function getCalendarEventSyn(calendarEventId) {
+  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
+  return calendarEventItem;
+}
+function getCalendarEvent(user,cb){
+  var calendarEventId=user.calendarEvent;
+  var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
+  emulateServerReturn(calendarEventItem,cb);
+}
+export function addCalendarEvent(user,calendarEvent,cb){
+  var mockUser = readDocument('users',user);
+  var calendarEventId = mockUser.calendarEvent;
+  var newEvent = addDocument("calendarEvent",calendarEvent);
+  calendarEventId.unshift(newEvent._id);
+  addDocument('users',mockUser);
+  mockUser.calendarEvent = calendarEventId;
+  getCalendarEvent(mockUser,cb);
+}
