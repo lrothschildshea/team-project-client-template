@@ -197,6 +197,44 @@ var initialData = {
     }
   },
 
+  "genres": {
+    "blues": {
+      "_id": 1
+    },
+
+    "rock": {
+      "_id": 2
+    },
+
+    "jazz": {
+      "_id": 3
+    },
+
+    "classical": {
+      "_id": 4
+    },
+
+    "country": {
+      "_id": 5
+    },
+
+    "metal": {
+      "_id": 6
+    },
+
+    "punk": {
+      "_id": 7
+    },
+
+    "flute": {
+      "_id": 8
+    },
+
+    "pop": {
+      "_id": 9
+    }
+  },
+
   "events": {
     "1": {
       "Name": "Event1",
@@ -248,6 +286,12 @@ export function readDocument(collection, id) {
   // Clone the data. We do this to model a database, where you receive a
   // *copy* of an object and not the object itself.
   return JSONClone(data[collection][id]);
+}
+
+export function readList(collection) {
+  // Clone the data. We do this to model a database, where you receive a
+  // *copy* of an object and not the object itself.
+  return JSONClone(data[collection]);
 }
 
 /**

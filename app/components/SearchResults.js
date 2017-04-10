@@ -1,7 +1,19 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
 
+
+//this.props.params.id
+
 export default class SearchResults extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.params
+  }
+
+  updateState(contents){
+    this.setState(contents)
+  }
+
   render() {
     return(
       <div>
@@ -9,10 +21,10 @@ export default class SearchResults extends React.Component {
           <div className="search-sidebar">
             <div className="row">
               <div className="col-md-3">
-                <SearchFilter />
+                <SearchFilter onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
               <div className="col-md-9 feed col-md-offset-3">
-                <SearchBar />
+                <SearchBar value={this.props.params.value} searchType={this.props.params.searchType} />
                 <hr/>
                 <ResultFeed>
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
@@ -35,6 +47,23 @@ export default class SearchResults extends React.Component {
 
 
 class SearchFilter extends React.Component {
+  handleInstrument(e) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    e.preventDefault();
+    // e.target is the React Virtual DOM target of the input event -- the
+    // <textarea> element. The textarea's `value` is the entire contents of
+    // what the user has typed in so far.
+    if (e.button === 0) {
+      // Callback function for both the like and unlike cases.
+        // setState will overwrite the 'likeCounter' field on the current
+        // state, and will keep the other fields in-tact.
+        // This is called a shallow merge:
+        // https://facebook.github.io/react/docs/component-api.html#setstate
+        this.setState({instrument: e.target.textContent});
+        this.props.onEntered({instrument: e.target.textContent})
+      }
+  }
+
   render() {
     return(
       <div>
@@ -57,7 +86,7 @@ class SearchFilter extends React.Component {
                       <li className="list-group-item">
                         <div className="checkbox">
                           <label>
-                            <input type="checkbox" value=""/>
+                            <input type="checkbox" value="" onClick={(e) => this.handleInstrument(e)}/>
                             Guitar
                           </label>
                         </div>

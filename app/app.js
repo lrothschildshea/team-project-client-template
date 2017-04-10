@@ -21,7 +21,7 @@ class App extends React.Component {
           <Route path="profile/:id" component={ProfilePage} />
           <Route path="search" component={Search} />
           <Route path="chat/:id" component={Chatpage} />
-          <Route path="search/result" component={SearchResults} />
+          <Route path="/search/result(/:zipcode)(/:instrument)(/:genre)(/:value)(/:searchType)" component={SearchResults} />
           <Route path="calendar" component={EventPage} />
         </Route>
       </Router>
