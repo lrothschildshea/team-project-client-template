@@ -81,7 +81,7 @@ export function removeBandMember(bandId, memberId, cb) {
   if (userIndex !== -1) {
     // 'splice' removes items from an array. This removes 1 element starting from userIndex.
     band.members.splice(userIndex, 1);
-    writeDocument('bands', bandId);
+    writeDocument('bands', band);
   }
   emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
 }
