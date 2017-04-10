@@ -4,7 +4,7 @@ import ProfilePage from './components/ProfilePage.js';
 import EventPage from './components/EventPage.js';
 import BandPage from './components/BandPage.js';
 import Homepage from './pages/Homepage.js';
-import Chatpage from './components/Chat.js';
+import Chatpage from './components/Chat/Chat.js';
 import Search from './components/Search.js';
 import SearchResults from './components/SearchResults.js';
 import Entry from './pages/Entry.js';
