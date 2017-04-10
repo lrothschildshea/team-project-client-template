@@ -7,46 +7,18 @@ import {mockComments} from './Comments.js';
 import MusicWidget from './MusicWidget.js';
 import {getBand} from '../server.js';
 
-
-const band = {
-  name: "Generic Band Name",
-  info: "Music band with instruments",
-  location: "Amherst, MA",
-  members: [1,2,3],
-  fans: 0,
-  pagePicture: "none",
-  wanted: [
-    {
-      id: 1,
-      instrument: "Guitarist",
-      info: "Experienced Flamenco guitarist",
-    },
-    {
-      id: 2,
-      instrument: "Saxophone",
-      info: "Play me something spicy",
-    }
-  ],
-  members: [
-    {
-      name: "Sean Morris",
-      id: 1,
-    },
-    {
-      name: "Spongebob",
-      id: 2,
-    },
-    {
-      name: "Squidward",
-      id: 3,
-    },
-  ],
-}
-
 export default class BandPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {band};
+    this.state = {band : {
+      name: "Generic Band Name",
+      info: "Music band with instruments",
+      location: "Amherst, MA",
+      members: [],
+      fans: 0,
+      pagePicture: "none",
+      wanted: ["saxophone"],
+    }};
   }
 
   refresh() {
@@ -57,19 +29,20 @@ export default class BandPage extends React.Component {
 
   componentDidMount() {
     this.refresh();
+    this.forceUpdate();
   }
 
 
   render() {
     return (
       <div>
-        <BandEdit band={band} />
+        <BandEdit band={this.state.band} />
         <div className="container band-main">
           <BandCover name={this.state.band.name} image={this.state.band.pagePicture} />
           <div className="row">
             <div className="col-md-4 bandpage-left">
               <BandInfo band={this.state.band} />
-              <WantedWidget wanted={band.wanted} />
+              <WantedWidget wanted={this.state.band.wanted} />
               <EventWidget eventList={mockEventList} />
             </div>
             <div className="col-md-8 bandpage-right">
@@ -139,7 +112,7 @@ class BandInfo extends React.Component {
             <li>
               <span className="glyphicon glyphicon-sunglasses">
               </span>
-              {this.props.band.fans} People are fans of Generic Band Name
+              {this.props.band.fans} People are fans of {this.props.band.name}
             </li>
           </ul>
         </div>
@@ -158,16 +131,14 @@ class WantedWidget extends React.Component {
         <div className="panel-body">
           <ul className="media-list">
             {this.props.wanted.map((want) =>
-              <li key={want.id} className="media">
+              <li key={want} className="media">
                 <div className="media-left media-top">
                   PIC
                 </div>
                 <div className="media-body">
                   <a href="#">
-                    {want.instrument}
+                    {want}
                   </a>
-                  <br />
-                  {want.info}
                 </div>
                 <div className="media-right">
                   <div

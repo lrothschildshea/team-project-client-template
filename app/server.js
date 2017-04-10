@@ -74,3 +74,14 @@ export function getBand(bandId, cb) {
   // band.wanted = band.wanted.map((want) => readDocument('instruments', want));
   emulateServerReturn(band, cb);
 }
+
+export function removeBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var userIndex = band.members.indexOf(memberId);
+  if (userIndex !== -1) {
+    // 'splice' removes items from an array. This removes 1 element starting from userIndex.
+    band.members.splice(userIndex, 1);
+    writeDocument('bands', bandId);
+  }
+  emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+}
