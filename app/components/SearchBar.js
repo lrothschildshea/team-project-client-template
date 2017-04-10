@@ -1,12 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router'
 
 export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: "",
-      searchType: ""
-    };
+    this.state = this.props
   }
 
   handleSearch(e) {
@@ -25,11 +23,14 @@ export default class SearchBar extends React.Component {
   handlePeople(e){
     e.preventDefault();
     this.setState({searchType:"people"})
+    this.props.onEntered({searchType:"people"})
   }
 
   handleBands(e){
     e.preventDefault();
     this.setState({searchType:"band"})
+    this.props.onEntered({searchType:"band"})
+
   }
 
   handleChange(e) {
@@ -39,8 +40,9 @@ export default class SearchBar extends React.Component {
     // <textarea> element. The textarea's `value` is the entire contents of
     // what the user has typed in so far.
     this.setState({value: e.target.value});
+    this.props.onEntered({value:e.target.value})
   }
-
+//<button className="btn btn-info btn-lg" type="button" onClick={(e) => this.handleSearch(e)}>
   render() {
     return(
       <div>
@@ -49,9 +51,9 @@ export default class SearchBar extends React.Component {
           <div className="input-group col-md-12">
             <input type="text" className="form-control input-lg" placeholder="Enter Keywords" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
             <span className="input-group-btn">
-              <button className="btn btn-info btn-lg" type="button" onClick={(e) => this.handleSearch(e)}>
+              <Link className="btn btn-info btn-lg"to={this.props.link}>
                 <i className="glyphicon glyphicon-search"></i>
-              </button>
+              </Link>
             </span>
           </div>
         </div>

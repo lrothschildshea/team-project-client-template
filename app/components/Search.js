@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from './Navbar.js';
 import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
+//import {search} from '../server'
+import { browserHistory } from 'react-router';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -18,6 +20,9 @@ export default class Search extends React.Component {
   onSearch(contents){
     console.log(contents)
     this.setState(contents)
+
+  //  browserHistory.push('#/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
+    //this.props.history.push('/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType);
   }
 
   updateState(contents){
@@ -26,6 +31,8 @@ export default class Search extends React.Component {
   }
 
   render() {
+    var link = ('/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
+    console.log(link)
     return (
       <div>
         <Navbar user={mockUser} />
@@ -34,7 +41,7 @@ export default class Search extends React.Component {
           <div className="col-md-10">
             <div className="container searchbar-container">
               <div className="search-bar">
-                <SearchBar onPost={(postContents) => this.onSearch(postContents)}/>
+                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} link={link}/>
               </div>
             </div>
           </div>

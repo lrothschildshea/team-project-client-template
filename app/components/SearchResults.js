@@ -3,6 +3,9 @@ import Navbar from './Navbar.js';
 import {mockUser} from './Navbar.js';
 import SearchBar from './SearchBar.js';
 
+
+//this.props.params.id
+
 export default class SearchResults extends React.Component {
   render() {
     return(
@@ -15,7 +18,7 @@ export default class SearchResults extends React.Component {
                 <SearchFilter />
               </div>
               <div className="col-md-9 feed col-md-offset-3">
-                <SearchBar />
+                <SearchBar value={this.props.params.value} searchType={this.props.params.searchType} />
                 <hr/>
                 <ResultFeed>
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
