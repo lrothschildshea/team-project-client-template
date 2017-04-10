@@ -363,3 +363,8 @@ class ResetDatabase extends React.Component {
     );
   }
 }
+
+ReactDOM.render(
+  <ResetDatabase />,
+   document.getElementById('db-reset')
+ );
