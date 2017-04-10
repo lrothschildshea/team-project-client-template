@@ -59,19 +59,23 @@ var initialData = {
       "_id": 1,
       "name": "Band1",
       "feed": 6,
+      "fans": 420,
+      "info": "Music band with instruments",
       "profile picture": 1,
-      "page picture": 1,
+      "pagePicture": "url(img/genericband.jpg)",
       "members": [1,2,3],
       "location": "Bikini Bottom",
-      "wanted": [1,2]
+      "wanted": ["guitar"]
     },
 
     "2": {
       "_id": 2,
       "name": "Band2",
       "feed": 7,
+      "fans": 420,
+      "info": "Music band with instruments",
       "profile picture": 2,
-      "page picture": 2,
+      "pagePicture": "url(img/genericband.jpg)",
       "members": [2,4],
       "location": "Bikini Bottom",
       "wanted": []
@@ -81,11 +85,13 @@ var initialData = {
       "_id": 3,
       "name": "Band3",
       "feed": 8,
+      "fans": 420,
+      "info": "Music band with instruments",
       "profile picture": 3,
-      "page picture": 3,
+      "pagePicture": "url(img/genericband.jpg)",
       "members": [1,3,5],
       "location": "Bikini Bottom",
-      "wanted": [6,8]
+      "wanted": ["guitar", "saxaphone"]
     }
   },
 
@@ -341,8 +347,3 @@ class ResetDatabase extends React.Component {
     );
   }
 }
-
-ReactDOM.render(
-  <ResetDatabase />,
-  document.getElementById('db-reset')
-);

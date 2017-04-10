@@ -5,16 +5,16 @@ import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
 import {mockComments} from './Comments.js';
 import MusicWidget from './MusicWidget.js';
+import {getBand} from '../server.js';
+
 
 const band = {
   name: "Generic Band Name",
   info: "Music band with instruments",
   location: "Amherst, MA",
-  memberInfo: "3 Real people are in this band",
-  fans: 420,
-  image: {
-    backgroundImage: "url(img/genericband.jpg)",
-  },
+  members: [1,2,3],
+  fans: 0,
+  pagePicture: "none",
   wanted: [
     {
       id: 1,
@@ -44,15 +44,31 @@ const band = {
 }
 
 export default class BandPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {band};
+  }
+
+  refresh() {
+    getBand(this.props.params.id, (band) => {
+      this.setState({band});
+    });
+  }
+
+  componentDidMount() {
+    this.refresh();
+  }
+
+
   render() {
     return (
       <div>
         <BandEdit band={band} />
         <div className="container band-main">
-          <BandCover name={band.name} image={band.image} />
+          <BandCover name={this.state.band.name} image={this.state.band.pagePicture} />
           <div className="row">
             <div className="col-md-4 bandpage-left">
-              <BandInfo band={band} />
+              <BandInfo band={this.state.band} />
               <WantedWidget wanted={band.wanted} />
               <EventWidget eventList={mockEventList} />
             </div>
@@ -70,7 +86,7 @@ export default class BandPage extends React.Component {
 class BandCover extends React.Component {
   render() {
     return (
-      <div className="row band-cover" style={this.props.image}>
+      <div className="row band-cover" style={{backgroundImage: this.props.image}}>
         <div className="band-spacer">
         </div>
         <div className="band-name pull-left">
@@ -118,7 +134,7 @@ class BandInfo extends React.Component {
             <li>
               <span className="glyphicon glyphicon-user">
               </span>
-              {this.props.band.memberInfo}
+              {this.props.band.members.length} members
             </li>
             <li>
               <span className="glyphicon glyphicon-sunglasses">
