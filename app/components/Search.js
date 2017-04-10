@@ -18,7 +18,6 @@ export default class Search extends React.Component {
   }
 
   onSearch(contents){
-    console.log(contents)
     this.setState(contents)
 
   //  browserHistory.push('#/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
@@ -26,13 +25,11 @@ export default class Search extends React.Component {
   }
 
   updateState(contents){
-    console.log(contents)
     this.setState(contents)
   }
 
   render() {
     var link = ('/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
-    console.log(link)
     return (
       <div>
         <Navbar user={mockUser} />
