@@ -49,3 +49,51 @@ function getFeedItemSync(feedItemId) {
   feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
+
+function getCalendarEventSyn(calendarEventId) {
+  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
+  return calendarEventItem;
+}
+function getCalendarEvent(user,cb){
+  var calendarEventId=user.calendarEvent;
+  var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
+  emulateServerReturn(calendarEventItem,cb);
+}
+export function addCalendarEvent(user,calendarEvent,cb){
+  var mockUser = readDocument('users',user);
+  var calendarEventId = mockUser.calendarEvent;
+  var newEvent = addDocument("calendarEvent",calendarEvent);
+  calendarEventId.unshift(newEvent._id);
+  addDocument('users',mockUser);
+  mockUser.calendarEvent = calendarEventId;
+  getCalendarEvent(mockUser,cb);
+}
+
+export function getBand(bandId, cb) {
+  var band = readDocument('bands', bandId);
+  band.members  = band.members.map((member) => readDocument('users', member));
+  // band.wanted = band.wanted.map((want) => readDocument('instruments', want));
+  emulateServerReturn(band, cb);
+}
+
+export function removeBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var userIndex = band.members.indexOf(memberId);
+  if (userIndex !== -1) {
+    // 'splice' removes items from an array. This removes 1 element starting from userIndex.
+    band.members.splice(userIndex, 1);
+    writeDocument('bands', band);
+  }
+  emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+}
+
+export function addBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var user = readDocument('users', Number(memberId));
+  var pos = band.members.indexOf(Number(memberId));
+  if (user && pos === -1) {
+    band.members.push(memberId)
+    writeDocument('bands', band);
+    emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+  }
+}
