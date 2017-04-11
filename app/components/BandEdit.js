@@ -1,5 +1,5 @@
 import React from 'react';
-import {removeBandMember} from '../server.js';
+import {removeBandMember ,addBandMember} from '../server.js';
 
 export default class BandEdit extends React.Component {
   constructor(props) {
@@ -34,6 +34,13 @@ export default class BandEdit extends React.Component {
     }
   }
 
+  addMember(e, id){
+    e.preventDefault();
+    if (e.button === 0) {
+      addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+    }
+  }
+
 
   render() {
     return (
@@ -63,7 +70,10 @@ export default class BandEdit extends React.Component {
               <BandName name={this.state.name} change={this.nameChange.bind(this)}/>
               <BandLocation location={this.state.location} change={this.locationChange.bind(this)} />
               <BandInfo info={this.state.info} change={this.infoChange.bind(this)} />
-              <EditBandMembers members={this.state.members} remove={this.removeMember.bind(this)} />
+              <EditBandMembers
+                members={this.state.members}
+                remove={this.removeMember.bind(this)}
+                add={this.addMember.bind(this)} />
               <EditBandWanted wanted={this.state.wanted} />
             </div>
             <div className="modal-footer">
@@ -157,6 +167,11 @@ function BandPicture(props) {
 
 
 class EditBandMembers extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {newMember: ""}
+  }
+
   render() {
     return (
       <div className="panel panel-default">
@@ -174,10 +189,23 @@ class EditBandMembers extends React.Component {
           )}
         </ul>
         <div className="panel-footer">
-          Add Members
-          <a href="#">
-            <span className="glyphicon glyphicon-plus pull-right" />
-          </a>
+          <div className="row">
+            <div className="col-lg-4">Add Members</div>
+            <div className="col-lg-4">
+              <input
+              type="text"
+              className="form-control"
+              placeholder="Member ID"
+              aria-describedby="basic-addon1"
+              value={this.state.newMember}
+              onChange={(e) => this.setState({newMember: e.target.value })} />
+            </div>
+            <div className="col-lg-4">
+              <a onClick={(e) => this.props.add(e, this.state.newMember)}>
+                <span className="glyphicon glyphicon-plus pull-right" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     )
