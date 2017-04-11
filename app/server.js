@@ -95,6 +95,7 @@ export function getUsersBands(userId, cb) {
       userBands.push(bands[i]);
     }
   }
+  emulateServerReturn( userBands, cb);
 }
 
 export function addBandMember(bandId, memberId, cb) {

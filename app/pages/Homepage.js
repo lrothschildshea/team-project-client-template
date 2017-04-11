@@ -16,11 +16,11 @@ export default class Homepage extends React.Component {
 
   refresh(){
     getFeedData("1", (feedData) => {
-      this.setState(feedData);
+      this.setState({feedItems: feedData.contents});
     });
     getUsersBands(1, (bands) => {
-      this.setState(bands);
-    })
+      this.setState({userBands: bands});
+    });
   }
 
   componentDidMount(){
@@ -28,12 +28,13 @@ export default class Homepage extends React.Component {
   }
 
   render() {
+    console.log("state", this.state)
     return(
       <div>
         <div className="container-fluid">
           <div className="row">
-            <HomeLeftSidebar />
-            <MainFeed feedItems={this.state.contents}/>
+            <HomeLeftSidebar userBands={this.state.userBands}/>
+            <MainFeed feedItems={this.state.feedItems}/>
             <HomeRightSidebar />
           </div>
         </div>

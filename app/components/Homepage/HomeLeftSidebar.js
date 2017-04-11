@@ -1,5 +1,6 @@
 import React from 'react';
 import LeftSidebarElement from './LeftSidebarElement.js';
+import LeftSidebarCreateBandElement from './LeftSidebarCreateBandElement'
 
 export default class HomeLeftSidebar extends React.Component {
   render() {
@@ -10,11 +11,11 @@ export default class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h1>Bands</h1>
                       <ul className="nav nav-pills nav-stacked">
-                          <LeftSidebarElement bandName="Band 1" linkPage="#" notification="3" />
-                          <LeftSidebarElement bandName="Band 2" linkPage="#" notification="1" />
-                          <LeftSidebarElement bandName="Band 3" linkPage="#" notification="2" />
-                          <LeftSidebarElement bandName="Band 4" linkPage="#" />
-                          <LeftSidebarElement bandName="Band 5" linkPage="#" notification="1" />
+                        {(typeof this.props.userBands !== "undefined") ? this.props.userBands.map((band, i) =>{
+                            return(
+                              <LeftSidebarElement key={i} band={band} notification="1" />
+                            )
+                          }) : null }
                       </ul>
                   </div>
               </div>
@@ -23,7 +24,11 @@ export default class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h4>Following</h4>
                       <ul className="nav nav-pills nav-stacked">
-                          <LeftSidebarElement bandName="Band 1" linkPage="#"/>
+                        {(typeof this.props.userBands !== "undefined") ? this.props.userBands.map((band, i) =>{
+                            return(
+                              <LeftSidebarElement key={i} band={band} notification="1" />
+                            )
+                          }) : null }
                       </ul>
                   </div>
               </div>
@@ -32,7 +37,7 @@ export default class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h4>New Band</h4>
                       <ul className="nav nav-pills nav-stacked">
-                          <LeftSidebarElement bandName="Create A Band" linkPage="#" notification="+" />
+                          <LeftSidebarCreateBandElement />
                       </ul>
                   </div>
               </div>
