@@ -8,7 +8,7 @@ export const mockEventList = [
     date: "Tomorrow at 7:00 PM",
     time: "7 - 9 PM",
     location: "South College",
-    detail: "It is fun",
+    detail: "It is fun"
   },
   {
     name: "Event 2",
@@ -17,7 +17,7 @@ export const mockEventList = [
     date: "Tomorrow at 7:00 PM",
     time: "7 - 9 PM",
     location: "South College",
-    detail: "It is fun",
+    detail: "It is fun"
   },
   {
     name: "Event 2",
@@ -26,8 +26,8 @@ export const mockEventList = [
     date: "Tomorrow at 7:00 PM",
     time: "7 - 9 PM",
     location: "South College",
-    detail: "It is fun",
-  },
+    detail: "It is fun"
+  }
 ]
 
 export default class EventPanel extends React.Component {

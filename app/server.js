@@ -53,7 +53,7 @@ function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('calendarEvent', calendarEventId);
   return calendarEventItem;
 }
-function getCalendarEvent(user,cb){
+export function getCalendarEvent(user,cb){
   var calendarEventId=user.calendarEvent;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
   emulateServerReturn(calendarEventItem,cb);

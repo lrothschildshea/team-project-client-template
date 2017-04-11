@@ -16,7 +16,7 @@ export default class EventRegister extends React.Component {
   onPost(e){
     e.preventDefault();
     addCalendarEvent(1,this.state,(calendarEventItem) => {
-      console.log(calendarEventItem);
+      this.setState(calendarEventItem)
     });
   }
   handleEventName(e){
@@ -43,8 +43,20 @@ export default class EventRegister extends React.Component {
     e.preventDefault();
     this.setState({eventDetail: e.target.value});
   }
+
+  handleSubmit(e){
+    e.preventDefault();
+    if(this.state.eventName!=="" && this.state.bandName!=="" && this.state.eventDate!=="" && this.state.eventTime!=="" && this.state.eventlocation!=="" && this.state.eventDetail!==""){
+      // this.props.onPost(this.state);
+      this.setState({eventName:""});
+      this.setState({bandName:""});
+      this.setState({eventDate:""});
+      this.setState({eventTime:""});
+      this.setState({eventLocation:""});
+      this.setState({eventDetail:""});
+    }
+  }
   render() {
-    console.log("render");
     return (
       <div className="modal fade" id="editEventModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog modal-lg" role="document">
@@ -84,7 +96,7 @@ export default class EventRegister extends React.Component {
 
               <label>
                  <span>&nbsp;</span>
-                 <input type="button" className="button" value="Submit" onClick={(e)=> this.onPost(e)}/>
+                 <input type="button" className="button" value="Submit" onClick={(e)=> this.handleSubmit(e)} />
              </label>
           </form>
         </div>

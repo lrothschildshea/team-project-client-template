@@ -2,6 +2,7 @@ import React from 'react';
 import EventRegister from './EventRegister';
 import {mockEventList} from './EventPanel.js';
 import EventPanel from './EventPanel.js';
+import {addCalendarEvent,getCalendarEvent} from '../server';
 
 $(document).ready(function() {
   $('#calendar').fullCalendar({
@@ -49,11 +50,32 @@ $(document).ready(function() {
   });
 });
 
-export const event = {
-  detail: "(－‸ლ)"
-}
-
 export default class EventPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      eventName:"",
+      bandName:"",
+      eventDate:"",
+      eventTime:"",
+      eventLocation:"",
+      eventDetail:""
+    }
+  }
+
+ onPost(calendarEventItem){
+   addCalendarEvent(1,calendarEventItem,(calendarEventItem)=>{
+     this.refresh();
+   });
+ }
+
+ refresh(){
+   getCalendarEvent(1,(calendarEventItem)=>{
+     this.setState(calendarEventItem);
+   });
+
+ }
+
   render() {
     return (
       <div>
