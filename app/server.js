@@ -8,7 +8,6 @@ import {readDocument, writeDocument, addDocument, readList} from './database.js'
    // Get the User object with the id "user".
    // Get the Feed object for the user.
    var instrumentData = readList('users');
-   console.log(instrumentData)
    // Map the Feed's FeedItem references to actual FeedItem objects.
    // Note: While map takes a callback function as an argument, it is
    // synchronous, not asynchronous. It calls the callback immediately.
@@ -84,4 +83,14 @@ export function removeBandMember(bandId, memberId, cb) {
     writeDocument('bands', band);
   }
   emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+}
+
+export function getUsersBands(userId, cb) {
+  var bands = readList('bands');
+  var userBands = [];
+  for(var i in bands){
+    if(bands[i].members.includes(userId)){
+      userBands.push(bands[i]);
+    }
+  }
 }
