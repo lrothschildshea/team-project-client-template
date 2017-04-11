@@ -175,76 +175,74 @@ var initialData = {
   },
 
   "instruments": {
-    "guitar": {
-      "_id": 1
+    "1": {
+      "_id": 1,
+      "instrument": "guitar"
     },
-
-    "percusion": {
-      "_id": 2
+    "2": {
+      "_id": 2,
+      "instrument": "percussion"
     },
-
-    "piano": {
-      "_id": 3
+    "3": {
+      "_id": 3,
+      "instrument": "piano"
     },
-
-    "bass guitar": {
-      "_id": 4
+    "4": {
+      "_id": 4,
+      "instrument": "bass guitar"
     },
-
-    "saxaphone": {
-      "_id": 5
+    "5": {
+      "_id": 5,
+      "instrument": "saxaphone"
     },
-
-    "trumpet": {
-      "_id": 6
+    "6": {
+      "_id": 6,
+      "instrument": "trumpet"
     },
-
-    "violin": {
-      "_id": 7
+    "7": {
+      "_id": 7,
+      "instrument": "violin"
     },
-
-    "flute": {
-      "_id": 8
+    "8": {
+      "_id": 8,
+      "instrument": "flute"
     }
   },
 
   "genres": {
-    "blues": {
-      "_id": 1
+    "1": {
+      "_id": 1,
+      "instrument": "blues"
     },
-
-    "rock": {
-      "_id": 2
+    "2": {
+      "_id": 2,
+      "instrument": "rock"
     },
-
-    "jazz": {
-      "_id": 3
+    "3": {
+      "_id": 3,
+      "instrument": "jazz"
     },
-
-    "classical": {
-      "_id": 4
+    "4": {
+      "_id": 4,
+      "instrument": "classical"
     },
-
-    "country": {
-      "_id": 5
+    "5": {
+      "_id": 5,
+      "instrument": "country"
     },
-
-    "metal": {
-      "_id": 6
+    "6": {
+      "_id": 6,
+      "instrument": "metal"
     },
-
-    "punk": {
-      "_id": 7
+    "7": {
+      "_id": 7,
+      "instrument": "punk"
     },
-
-    "flute": {
-      "_id": 8
-    },
-
-    "pop": {
-      "_id": 9
+    "8": {
+      "_id": 8,
+      "instrument": "pop"
     }
-  },
+  },  
 
   "events": {
     "1": {
@@ -301,18 +299,18 @@ if (data === null) {
 }
 
 /**
- * A dumb cloning routing. Serializes a JSON object as a string, then
- * deserializes it.
- */
+* A dumb cloning routing. Serializes a JSON object as a string, then
+* deserializes it.
+*/
 function JSONClone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
 /**
- * Emulates reading a "document" from a NoSQL database.
- * Doesn't do any tricky document joins, as we will cover that in the latter
- * half of the course. :)
- */
+* Emulates reading a "document" from a NoSQL database.
+* Doesn't do any tricky document joins, as we will cover that in the latter
+* half of the course. :)
+*/
 export function readDocument(collection, id) {
   // Clone the data. We do this to model a database, where you receive a
   // *copy* of an object and not the object itself.
@@ -326,8 +324,8 @@ export function readList(collection) {
 }
 
 /**
- * Emulates writing a "document" to a NoSQL database.
- */
+* Emulates writing a "document" to a NoSQL database.
+*/
 export function writeDocument(collection, changedDocument) {
   var id = changedDocument._id;
   // Store a copy of the object into the database. Models a database's behavior.
@@ -337,8 +335,8 @@ export function writeDocument(collection, changedDocument) {
 }
 
 /**
- * Adds a new document to the NoSQL database.
- */
+* Adds a new document to the NoSQL database.
+*/
 export function addDocument(collectionName, newDoc) {
   var collection = data[collectionName];
   var nextId = Object.keys(collection).length;
@@ -351,29 +349,29 @@ export function addDocument(collectionName, newDoc) {
 }
 
 /**
- * Reset our browser-local database.
- */
+* Reset our browser-local database.
+*/
 export function resetDatabase() {
   localStorage.setItem(startupName, JSON.stringify(initialData));
   data = JSONClone(initialData);
 }
 
 /**
- * Reset database button.
- */
+* Reset database button.
+*/
 class ResetDatabase extends React.Component {
   render() {
     return (
       <button className="btn btn-default" type="button" onClick={() => {
-        resetDatabase();
-        window.alert("Database reset! Refreshing the page now...");
-        document.location.reload(false);
-      }}>Reset Mock DB</button>
-    );
+          resetDatabase();
+          window.alert("Database reset! Refreshing the page now...");
+          document.location.reload(false);
+        }}>Reset Mock DB</button>
+      );
+    }
   }
-}
 
-ReactDOM.render(
-  <ResetDatabase />,
-   document.getElementById('db-reset')
- );
+  ReactDOM.render(
+    <ResetDatabase />,
+    document.getElementById('db-reset')
+  );
