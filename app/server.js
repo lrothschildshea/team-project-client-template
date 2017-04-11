@@ -49,10 +49,3 @@ function getFeedItemSync(feedItemId) {
   feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
-
-export function getFeedData(user, cb) {
-  var userData = readDocument('users', user);
-  var feedData = readDocument('feeds', userData.feed);
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  emulateServerReturn(feedData, cb);
-}

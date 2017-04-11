@@ -1,7 +1,5 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
-//import {search} from '../server'
-import { browserHistory } from 'react-router';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -17,9 +15,6 @@ export default class Search extends React.Component {
 
   onSearch(contents){
     this.setState(contents)
-
-  //  browserHistory.push('#/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
-    //this.props.history.push('/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType);
   }
 
   updateState(contents){
