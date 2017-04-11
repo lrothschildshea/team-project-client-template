@@ -15,7 +15,7 @@ var initialData = {
       "picture": 1,
       "location": "Bikini Bottom",
       "email": "spongeBob@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1,2]
     },
 
     "2":{
@@ -25,7 +25,7 @@ var initialData = {
       "picture": 2,
       "location": "Bikini Bottom",
       "email": "patrick@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1,2]
     },
 
     "3":{
@@ -275,6 +275,15 @@ var initialData = {
   "calendarEvent":{
     "1":{
       "name": "Event 1",
+      "band": "Band 1",
+      "_id": 1,
+      "date": "Tomorrow at 7:00 PM",
+      "time": "7 - 9 PM",
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "2":{
+      "name": "Event 2",
       "band": "Band 1",
       "_id": 1,
       "date": "Tomorrow at 7:00 PM",

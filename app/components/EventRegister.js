@@ -48,12 +48,12 @@ export default class EventRegister extends React.Component {
     e.preventDefault();
     if(this.state.eventName!=="" && this.state.bandName!=="" && this.state.eventDate!=="" && this.state.eventTime!=="" && this.state.eventlocation!=="" && this.state.eventDetail!==""){
       // this.props.onPost(this.state);
-      this.setState({eventName:""});
-      this.setState({bandName:""});
-      this.setState({eventDate:""});
-      this.setState({eventTime:""});
-      this.setState({eventLocation:""});
-      this.setState({eventDetail:""});
+      // this.setState({eventName:""});
+      // this.setState({bandName:""});
+      // this.setState({eventDate:""});
+      // this.setState({eventTime:""});
+      // this.setState({eventLocation:""});
+      // this.setState({eventDetail:""});
     }
   }
   render() {
