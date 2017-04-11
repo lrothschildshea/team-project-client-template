@@ -46,7 +46,6 @@ export default class BandPage extends React.Component {
               <EventWidget eventList={mockEventList} />
             </div>
             <div className="col-md-8 bandpage-right">
-              <MusicWidget />
               <Comments comments={mockComments} />
             </div>
           </div>

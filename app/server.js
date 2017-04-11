@@ -85,3 +85,14 @@ export function removeBandMember(bandId, memberId, cb) {
   }
   emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
 }
+
+export function addBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var user = readDocument('users', Number(memberId));
+  var pos = band.members.indexOf(Number(memberId));
+  if (user && pos === -1) {
+    band.members.push(memberId)
+    writeDocument('bands', band);
+    emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+  }
+}
