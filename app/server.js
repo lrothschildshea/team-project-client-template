@@ -8,7 +8,6 @@ import {readDocument, writeDocument, addDocument, readList} from './database.js'
    // Get the User object with the id "user".
    // Get the Feed object for the user.
    var instrumentData = readList('users');
-   console.log(instrumentData)
    // Map the Feed's FeedItem references to actual FeedItem objects.
    // Note: While map takes a callback function as an argument, it is
    // synchronous, not asynchronous. It calls the callback immediately.
@@ -49,6 +48,7 @@ function getFeedItemSync(feedItemId) {
   feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
+
 function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('calendarEvent', calendarEventId);
   return calendarEventItem;
@@ -66,4 +66,56 @@ export function addCalendarEvent(user,calendarEvent,cb){
   addDocument('users',mockUser);
   mockUser.calendarEvent = calendarEventId;
   getCalendarEvent(mockUser,cb);
+}
+
+export function getBand(bandId, cb) {
+  var band = readDocument('bands', bandId);
+  band.members  = band.members.map((member) => readDocument('users', member));
+  // band.wanted = band.wanted.map((want) => readDocument('instruments', want));
+  emulateServerReturn(band, cb);
+}
+
+export function removeBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var userIndex = band.members.indexOf(memberId);
+  if (userIndex !== -1) {
+    // 'splice' removes items from an array. This removes 1 element starting from userIndex.
+    band.members.splice(userIndex, 1);
+    writeDocument('bands', band);
+  }
+  emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+}
+
+
+export function getUsersBands(userId, cb) {
+  var bands = readList('bands');
+  var userBands = [];
+  for(var i in bands){
+    if(bands[i].members.includes(userId)){
+      userBands.push(bands[i]);
+    }
+  }
+}
+
+export function addBandMember(bandId, memberId, cb) {
+  var band = readDocument('bands', bandId);
+  var user = readDocument('users', Number(memberId));
+  var pos = band.members.indexOf(Number(memberId));
+  if (user && pos === -1) {
+    band.members.push(Number(memberId));
+    writeDocument('bands', band);
+    emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+  }
+}
+
+export function editBandInfo(bandId, band, cb){
+  var oldBand = readDocument('bands', bandId);
+  oldBand.name = band.name;
+  oldBand.location = band.location;
+  oldBand.info = band.info;
+  writeDocument('bands', oldBand);
+  emulateServerReturn({
+    name: oldBand.name,
+    location: oldBand.location,
+    info: oldBand.info,}, cb);
 }

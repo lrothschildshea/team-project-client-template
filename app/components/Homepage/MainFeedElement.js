@@ -26,7 +26,7 @@ export default class MainFeedElement extends React.Component {
                   </div>
                   <div className="col-md-6">
                       <br />
-                      <button type="button" className="btn btn-default pull-right">Go To Post</button>
+                      <Link to={"/band/" + this.props.band._id}><button type="button" className="btn btn-default pull-right">Go To Post</button></Link>
                   </div>
               </div>
           </div>

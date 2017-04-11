@@ -1,6 +1,55 @@
 import React from 'react';
+import {removeBandMember ,addBandMember, editBandInfo} from '../server.js';
 
 export default class BandEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props.band;
+  }
+
+  nameChange(e) {
+    this.setState({name: e.target.value });
+  }
+
+  locationChange(e) {
+    this.setState({location: e.target.value });
+  }
+
+  infoChange(e) {
+    this.setState({info: e.target.value });
+  }
+
+  membersChange(e) {
+    this.setState({members: e.target.value });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState(props.band);
+  }
+
+  removeMember(e, id){
+    e.preventDefault();
+    if (e.button === 0) {
+      removeBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+    }
+  }
+
+  addMember(e, id){
+    e.preventDefault();
+    if (e.button === 0) {
+      addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+    }
+  }
+
+  setInfo(e) {
+    e.preventDefault();
+    if (e.button === 0) {
+      editBandInfo(this.state._id, this.state, (band) => this.setState(band));
+    }
+    this.props.refresh();
+  }
+
+
   render() {
     return (
       <div
@@ -26,18 +75,21 @@ export default class BandEdit extends React.Component {
               </h4>
             </div>
             <div className="modal-body">
-              <BandName name={this.props.band.name} />
-              <BandLocation location={this.props.band.location} />
-              <BandInfo info={this.props.band.info} />
-              <EditBandMembers members={this.props.band.members} />
-              <EditBandWanted wanted={this.props.band.wanted} />
+              <BandName name={this.state.name} change={this.nameChange.bind(this)}/>
+              <BandLocation location={this.state.location} change={this.locationChange.bind(this)} />
+              <BandInfo info={this.state.info} change={this.infoChange.bind(this)} />
+              <EditBandMembers
+                members={this.state.members}
+                remove={this.removeMember.bind(this)}
+                add={this.addMember.bind(this)} />
+              <EditBandWanted wanted={this.state.wanted} />
             </div>
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={(e) => this.setInfo(e)}>
                 Save changes
               </button>
             </div>
@@ -61,7 +113,8 @@ function BandName(props) {
         className="form-control"
         placeholder="Enter Band Name"
         aria-describedby="basic-addon1"
-        value={props.name} />
+        value={props.name}
+        onChange={(e) => props.change(e)} />
     </div>
   );
 }
@@ -81,7 +134,8 @@ function BandLocation(props) {
         className="form-control"
         placeholder="Enter Location"
         aria-describedby="basic-addon2"
-        value={props.location} />
+        value={props.location}
+        onChange={(e) => props.change(e)} />
     </div>
   )
 }
@@ -101,7 +155,8 @@ function BandInfo(props) {
         className="form-control"
         placeholder="Enter Band info"
         aria-describedby="basic-addon2"
-        value={props.info} />
+        value={props.info}
+        onChange={(e) => props.change(e)} />
     </div>
   )
 }
@@ -120,6 +175,11 @@ function BandPicture(props) {
 
 
 class EditBandMembers extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {newMember: ""}
+  }
+
   render() {
     return (
       <div className="panel panel-default">
@@ -128,19 +188,32 @@ class EditBandMembers extends React.Component {
         </div>
         <ul className="list-group">
           {this.props.members.map((member) =>
-            <li key={member.id} className="list-group-item">
-              {member.name}
-              <a href="#">
+            <li key={member.fullName} className="list-group-item">
+              {member.fullName}
+              <a onClick={(e) => this.props.remove(e, member._id)}>
                 <span className="glyphicon glyphicon-trash pull-right" />
               </a>
             </li>
           )}
         </ul>
         <div className="panel-footer">
-          Add Members
-          <a href="#">
-            <span className="glyphicon glyphicon-plus pull-right" />
-          </a>
+          <div className="row">
+            <div className="col-lg-4">Add Members</div>
+            <div className="col-lg-4">
+              <input
+              type="text"
+              className="form-control"
+              placeholder="Member ID"
+              aria-describedby="basic-addon1"
+              value={this.state.newMember}
+              onChange={(e) => this.setState({newMember: e.target.value })} />
+            </div>
+            <div className="col-lg-4">
+              <a onClick={(e) => this.props.add(e, this.state.newMember)}>
+                <span className="glyphicon glyphicon-plus pull-right" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -154,7 +227,7 @@ class EditBandWanted extends React.Component {
         <div className="panel-heading">Wanted</div>
         <ul className="list-group">
           {this.props.wanted.map((want) =>
-            <li key={want.id} className="list-group-item">
+            <li key={want} className="list-group-item">
               <div className="row">
                 <div className="col-lg-4">
                   <div className="input-group">
@@ -166,20 +239,7 @@ class EditBandWanted extends React.Component {
                       className="form-control"
                       placeholder="Instrument"
                       aria-describedby="basic-addon1"
-                      value={want.instrument} />
-                  </div>
-                </div>
-                <div className="col-lg-7">
-                  <div className="input-group">
-                    <span
-                      className="input-group-addon"
-                      id="basic-addon1">Info</span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Info"
-                      aria-describedby="basic-addon1"
-                      value={want.info} />
+                      value={want} />
                   </div>
                 </div>
                 <div className="col-lg-1">
