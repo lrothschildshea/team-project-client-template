@@ -102,8 +102,20 @@ export function addBandMember(bandId, memberId, cb) {
   var user = readDocument('users', Number(memberId));
   var pos = band.members.indexOf(Number(memberId));
   if (user && pos === -1) {
-    band.members.push(memberId)
+    band.members.push(Number(memberId));
     writeDocument('bands', band);
     emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
   }
+}
+
+export function editBandInfo(bandId, band, cb){
+  var oldBand = readDocument('bands', bandId);
+  oldBand.name = band.name;
+  oldBand.location = band.location;
+  oldBand.info = band.info;
+  writeDocument('bands', oldBand);
+  emulateServerReturn({
+    name: oldBand.name,
+    location: oldBand.location,
+    info: oldBand.info,}, cb);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {removeBandMember ,addBandMember} from '../server.js';
+import {removeBandMember ,addBandMember, editBandInfo} from '../server.js';
 
 export default class BandEdit extends React.Component {
   constructor(props) {
@@ -39,6 +39,14 @@ export default class BandEdit extends React.Component {
     if (e.button === 0) {
       addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
     }
+  }
+
+  setInfo(e) {
+    e.preventDefault();
+    if (e.button === 0) {
+      editBandInfo(this.state._id, this.state, (band) => this.setState(band));
+    }
+    this.props.refresh();
   }
 
 
@@ -81,7 +89,7 @@ export default class BandEdit extends React.Component {
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={(e) => this.setInfo(e)}>
                 Save changes
               </button>
             </div>

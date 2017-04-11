@@ -36,7 +36,7 @@ export default class BandPage extends React.Component {
   render() {
     return (
       <div>
-        <BandEdit band={this.state.band} />
+        <BandEdit band={this.state.band} refresh={this.refresh.bind(this)}/>
         <div className="container band-main">
           <BandCover name={this.state.band.name} image={this.state.band.pagePicture} />
           <div className="row">
