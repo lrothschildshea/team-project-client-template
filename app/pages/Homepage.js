@@ -28,7 +28,6 @@ export default class Homepage extends React.Component {
   }
 
   render() {
-    console.log("state", this.state)
     return(
       <div>
         <div className="container-fluid">
