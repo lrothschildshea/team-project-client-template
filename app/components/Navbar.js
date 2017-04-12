@@ -1,18 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-export const mockUser = {
+/*export const mockUser = {
   id: 1,
   name: "Sean Morris",
   email: "sean@morris.com",
   imageurl: "img/SeanProfile.png",
   messages: 5
-}
+}*/
 
 export default class Navbar extends React.Component {
   render() {
-    var chatLink = "chat/"+this.props.user.id
-    var profileLink = "profile/"+this.props.user.id
+    var chatLink = "chat/"+this.props.user._id
+    var profileLink = "profile/"+this.props.user._id
     return (
       <nav className="navbar navbar-fixed-top navbar-default">
         <div className="container">
@@ -45,13 +45,13 @@ export default class Navbar extends React.Component {
                   <button type="button" className="btn btn-default navbar-btn">
                     <Link to={chatLink}>
                       <span className="glyphicon glyphicon-comment"></span>
-                      <span className="badge">{this.props.user.messages}</span>
+                      <span className="badge">{this.props.user._id}</span>
                     </Link>
                   </button>
                   <div className="btn-group" role="group">
                     <button type="button" className="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
                       <span className="glyphicon glyphicon-user"></span> 
-                        <strong>{this.props.user.name}</strong>
+                        <strong>{this.props.user.fullName}</strong>
                         <span className="glyphicon glyphicon-chevron-down"></span>
                       </button>
                       <ul className="dropdown-menu">
@@ -61,13 +61,13 @@ export default class Navbar extends React.Component {
                               <div className="col-lg-4">
                                 <p className="text-center">
                                   <Link to={profileLink}>
-                                    <img src={this.props.user.imageurl} className="img-cirle img-responsive"></img>
+                                    <img src="img/spongebob_profile.jpg" className="img-cirle img-responsive"></img>
                                   </Link>
                                 </p>
                               </div>
                               <div className="col-lg-8">
                                 <Link to={profileLink}>
-                                  <p className="text-left"><strong>{this.props.user.name}</strong></p>
+                                  <p className="text-left"><strong>{this.props.user.fullName}</strong></p>
                                 </Link>
                                 <p className="text-left small">{this.props.user.email}</p>
                                 <p className="text-left">

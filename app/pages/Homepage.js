@@ -33,24 +33,6 @@ export default class Homepage extends React.Component {
             })
         });
       })
-
-
-        /*getFeedData("1", (feedData) => {
-            this.setState({feedItems: feedData.contents});
-            getUsersBands(1, (bands) => {
-                this.setState({userBands: bands});
-                getUser("1", (userObject) => {
-                    this.setState({user: userObject});
-                    var followingBands = [];
-                    userObject.following.map((bandId) => {
-                        getBand(bandId, (band) => {
-                            followingBands.push(band);
-                            this.setState({followBands: followingBands});
-                        })
-                    });
-                  });
-            });
-        });*/
     }
 
     componentDidMount() {

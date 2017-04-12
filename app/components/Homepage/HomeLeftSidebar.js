@@ -4,8 +4,6 @@ import LeftSidebarCreateBandElement from './LeftSidebarCreateBandElement'
 
 export default class HomeLeftSidebar extends React.Component {
   render() {
-    //console.log("user following", this.props.userFollowing);
-    //console.log("user following 1", this.props.userFollowing[0]);
     return(
       <div className="col-md-3">
           <div className="left-sidebar container-fluid">
@@ -27,7 +25,6 @@ export default class HomeLeftSidebar extends React.Component {
                       <h4>Following</h4>
                       <ul className="nav nav-pills nav-stacked">
                         {(typeof this.props.userFollowing !== "undefined") ? this.props.userFollowing.map((band, i) =>{
-                          console.log("Hah!")
                             return(
                               <LeftSidebarElement key={i} band={band} notification="1" />
                             )
