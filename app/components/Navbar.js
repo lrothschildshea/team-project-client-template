@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {ResetDatabase} from '../database.js';
 
 /*export const mockUser = {
   id: 1,
@@ -37,6 +38,7 @@ export default class Navbar extends React.Component {
                     <span className="glyphicon glyphicon-search"></span>
                   </Link>
                 </button>
+                <ResetDatabase />
               </div>
             </div>
             <div className="nav navbar-nav navbar-right">
