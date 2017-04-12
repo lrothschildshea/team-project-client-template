@@ -285,7 +285,7 @@ var initialData = {
     "2":{
       "name": "Event 2",
       "band": "Band 1",
-      "_id": 1,
+      "_id": 2,
       "date": "Tomorrow at 7:00 PM",
       "time": "7 - 9 PM",
       "location": "South College",
