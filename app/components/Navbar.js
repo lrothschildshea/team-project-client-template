@@ -2,14 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import {ResetDatabase} from '../database.js';
 
-/*export const mockUser = {
-  id: 1,
-  name: "Sean Morris",
-  email: "sean@morris.com",
-  imageurl: "img/SeanProfile.png",
-  messages: 5
-}*/
-
 export default class Navbar extends React.Component {
   render() {
     var chatLink = "chat/"+this.props.user._id
@@ -47,7 +39,6 @@ export default class Navbar extends React.Component {
                   <button type="button" className="btn btn-default navbar-btn">
                     <Link to={chatLink}>
                       <span className="glyphicon glyphicon-comment"></span>
-                      <span className="badge">{this.props.user._id}</span>
                     </Link>
                   </button>
                   <div className="btn-group" role="group">
