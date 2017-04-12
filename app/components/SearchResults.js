@@ -14,6 +14,10 @@ export default class SearchResults extends React.Component {
     this.setState(contents)
   }
 
+  onSearch(contents){
+    this.setState(contents)
+  }
+
   render() {
     return(
       <div>
@@ -24,7 +28,7 @@ export default class SearchResults extends React.Component {
                 <SearchFilter onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
               <div className="col-md-9 feed col-md-offset-3">
-                <SearchBar value={this.props.params.value} searchType={this.props.params.searchType} />
+                <SearchBar value={this.state.value} searchType={this.state.searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
                 <hr/>
                 <ResultFeed>
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
@@ -186,6 +190,7 @@ class SearchFilter extends React.Component {
     }
 
     class ResultFeed extends React.Component {
+
       render() {
         return(
           <div className="results-feed">

@@ -24,7 +24,7 @@ export default class HomeLeftSidebar extends React.Component {
                   <div className="col-md-12">
                       <h4>Following</h4>
                       <ul className="nav nav-pills nav-stacked">
-                        {(typeof this.props.userBands !== "undefined") ? this.props.userBands.map((band, i) =>{
+                        {(typeof this.props.userFollowing !== "undefined") ? this.props.userFollowing.map((band, i) =>{
                             return(
                               <LeftSidebarElement key={i} band={band} notification="1" />
                             )
