@@ -120,3 +120,8 @@ export function editBandInfo(bandId, band, cb){
     location: oldBand.location,
     info: oldBand.info,}, cb);
 }
+
+export function getUser(userId, cb){
+  var user = readDocument('users', userId);
+  emulateServerReturn(user, cb);
+}

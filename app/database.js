@@ -15,7 +15,8 @@ var initialData = {
       "picture": 1,
       "location": "Bikini Bottom",
       "email": "spongeBob@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [2]
     },
 
     "2":{
@@ -25,7 +26,8 @@ var initialData = {
       "picture": 2,
       "location": "Bikini Bottom",
       "email": "patrick@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [3]
     },
 
     "3":{
@@ -35,7 +37,8 @@ var initialData = {
       "picture": 3,
       "location": "Bikini Bottom",
       "email": "sandy@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [2]
     },
 
     "4":{
@@ -45,7 +48,8 @@ var initialData = {
       "picture": 4,
       "location": "Bikini Bottom",
       "email": "krabs@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [1,3]
     },
 
     "5":{
@@ -55,7 +59,8 @@ var initialData = {
       "picture": 5,
       "location": "Bikini Bottom",
       "email": "plankton@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [1,2]
     }
   },
 
