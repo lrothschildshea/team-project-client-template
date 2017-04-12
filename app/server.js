@@ -54,8 +54,11 @@ function getCalendarEventSyn(calendarEventId) {
   return calendarEventItem;
 }
 export function getCalendarEvent(user,cb){
-  var calendarEventId=user.calendarEvent;
+  var mockUser = readDocument('users',user);
+  var calendarEventId=mockUser.calendarEvent;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
+  // console.log(calendarEventId);
+  // console.log(calendarEventItem);
   emulateServerReturn(calendarEventItem,cb);
 }
 export function addCalendarEvent(user,calendarEvent,cb){
@@ -63,9 +66,9 @@ export function addCalendarEvent(user,calendarEvent,cb){
   var calendarEventId = mockUser.calendarEvent;
   var newEvent = addDocument("calendarEvent",calendarEvent);
   calendarEventId.unshift(newEvent._id);
-  addDocument('users',mockUser);
   mockUser.calendarEvent = calendarEventId;
-  getCalendarEvent(mockUser,cb);
+  addDocument('users',mockUser);
+  getCalendarEvent(user,cb);
 }
 
 export function getBand(bandId, cb) {

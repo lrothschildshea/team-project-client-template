@@ -54,13 +54,9 @@ export default class EventPage extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      eventName:"",
-      bandName:"",
-      eventDate:"",
-      eventTime:"",
-      eventLocation:"",
-      eventDetail:""
+      'events':[]
     }
+    this.refresh();
   }
 
  onPost(calendarEventItem){
@@ -70,19 +66,18 @@ export default class EventPage extends React.Component {
  }
 
  refresh(){
-   getCalendarEvent(1,(calendarEventItem)=>{
-     this.setState(calendarEventItem);
+  getCalendarEvent(1,(calendarEventItem)=>{
+     this.setState({'events':calendarEventItem});
    });
-
  }
 
   render() {
+    var events = this.state.events;
     return (
       <div>
-        <EventRegister event={event} />
+        <EventRegister refresh={()=>this.refresh()}/>
         <div className='container'>
           <div className="row">
-
             <div className="col-md-7">
               <div id='calendar'></div>
               <button id="addEvent" className="float-left addButton" data-toggle="modal" data-target="#editEventModal">Add Event</button>
@@ -92,8 +87,7 @@ export default class EventPage extends React.Component {
             </div>
 
             <div className="col-md-4">
-              <EventPanel eventList={mockEventList} />
-
+              <EventPanel eventList={events} />
             </div>
 
           </div>
