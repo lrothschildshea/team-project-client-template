@@ -15,6 +15,7 @@ var initialData = {
       "picture": 1,
       "location": "Bikini Bottom",
       "email": "spongeBob@gmail.com",
+      "following": [2],
       "calendarEvent":[1,2]
     },
 
@@ -25,6 +26,7 @@ var initialData = {
       "picture": 2,
       "location": "Bikini Bottom",
       "email": "patrick@gmail.com",
+      "following": [3],
       "calendarEvent":[1,2]
     },
 
@@ -35,7 +37,8 @@ var initialData = {
       "picture": 3,
       "location": "Bikini Bottom",
       "email": "sandy@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [2]
     },
 
     "4":{
@@ -45,7 +48,8 @@ var initialData = {
       "picture": 4,
       "location": "Bikini Bottom",
       "email": "krabs@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [1,3]
     },
 
     "5":{
@@ -55,7 +59,8 @@ var initialData = {
       "picture": 5,
       "location": "Bikini Bottom",
       "email": "plankton@gmail.com",
-      "calendarEvent":[1]
+      "calendarEvent":[1],
+      "following": [1,2]
     }
   },
 
@@ -242,7 +247,7 @@ var initialData = {
       "_id": 8,
       "instrument": "pop"
     }
-  },  
+  },
 
   "events": {
     "1": {
@@ -283,7 +288,7 @@ var initialData = {
     "2":{
       "name": "Event 2",
       "band": "Band 1",
-      "_id": 1,
+      "_id": 2,
       "date": "Tomorrow at 7:00 PM",
       "time": "7 - 9 PM",
       "location": "South College",
@@ -359,10 +364,10 @@ export function resetDatabase() {
 /**
 * Reset database button.
 */
-class ResetDatabase extends React.Component {
+export class ResetDatabase extends React.Component {
   render() {
     return (
-      <button className="btn btn-default" type="button" onClick={() => {
+      <button className="btn btn-default navbar-btn" type="button" onClick={() => {
           resetDatabase();
           window.alert("Database reset! Refreshing the page now...");
           document.location.reload(false);
@@ -371,7 +376,7 @@ class ResetDatabase extends React.Component {
     }
   }
 
-  ReactDOM.render(
+/*  ReactDOM.render(
     <ResetDatabase />,
     document.getElementById('db-reset')
-  );
+  );*/

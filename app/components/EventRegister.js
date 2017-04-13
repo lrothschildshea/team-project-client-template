@@ -5,55 +5,47 @@ export default class EventRegister extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      eventName:"",
-      bandName:"",
-      eventDate:"",
-      eventTime:"",
-      eventLocation:"",
-      eventDetail:""
+      band:"",
+      date:"",
+      detail:"",
+      location:"",
+      name:"",
+      time:""
     }
-  }
-  onPost(e){
-    e.preventDefault();
-    addCalendarEvent(1,this.state,(calendarEventItem) => {
-      this.setState(calendarEventItem)
-    });
   }
   handleEventName(e){
     e.preventDefault();
-    this.setState({eventName: e.target.value});
+    this.setState({name: e.target.value});
   }
   handleBandName(e){
     e.preventDefault();
-    this.setState({bandName: e.target.value});
+    this.setState({band: e.target.value});
   }
   handleEventDate(e){
     e.preventDefault();
-    this.setState({eventDate: e.target.value});
+    this.setState({date: e.target.value});
   }
   handleEventTime(e){
     e.preventDefault();
-    this.setState({eventTime: e.target.value});
+    this.setState({time: e.target.value});
   }
   handleEventLocation(e){
     e.preventDefault();
-    this.setState({eventLocation: e.target.value});
+    this.setState({location: e.target.value});
   }
   handleEventDetail(e){
     e.preventDefault();
-    this.setState({eventDetail: e.target.value});
+    this.setState({detail: e.target.value});
   }
 
   handleSubmit(e){
     e.preventDefault();
     if(this.state.eventName!=="" && this.state.bandName!=="" && this.state.eventDate!=="" && this.state.eventTime!=="" && this.state.eventlocation!=="" && this.state.eventDetail!==""){
-      // this.props.onPost(this.state);
-      // this.setState({eventName:""});
-      // this.setState({bandName:""});
-      // this.setState({eventDate:""});
-      // this.setState({eventTime:""});
-      // this.setState({eventLocation:""});
-      // this.setState({eventDetail:""});
+      console.log("Submit");
+      addCalendarEvent(1,this.state,(calendarEventItem) => {
+        console.log(calendarEventItem);
+        this.props.refresh();
+      });
     }
   }
   render() {
@@ -93,7 +85,7 @@ export default class EventRegister extends React.Component {
                     <textarea id="eventDetail" name="eventDetail" placeholder="ICECREAM！！" value={this.state.eventDetail} onChange={(e)=>this.handleEventDetail(e)} ></textarea>
                 </label>
 
-
++-
               <label>
                  <span>&nbsp;</span>
                  <input type="button" className="button" value="Submit" onClick={(e)=> this.handleSubmit(e)} />

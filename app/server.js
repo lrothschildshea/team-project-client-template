@@ -57,6 +57,7 @@ function getCalendarEventSyn(calendarEventId) {
 }
 export function getCalendarEvent(user,cb){
   var mockUser = readDocument('users',user);
+  console.log(mockUser.calendarEvent);
   var calendarEventId=mockUser.calendarEvent;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
   // console.log(calendarEventId);
@@ -69,7 +70,8 @@ export function addCalendarEvent(user,calendarEvent,cb){
   var newEvent = addDocument("calendarEvent",calendarEvent);
   calendarEventId.unshift(newEvent._id);
   mockUser.calendarEvent = calendarEventId;
-  addDocument('users',mockUser);
+  console.log(mockUser);
+  writeDocument('users',mockUser);
   getCalendarEvent(user,cb);
 }
 
@@ -123,5 +125,10 @@ export function editBandInfo(bandId, band, cb){
   emulateServerReturn({
     name: oldBand.name,
     location: oldBand.location,
-    info: oldBand.info,}, cb);
+    info: oldBand.info, cb});
+}
+
+export function getUser(userId, cb){
+  var user = readDocument('users', userId);
+  emulateServerReturn(user, cb);
 }

@@ -41,9 +41,9 @@ export default class EventPanel extends React.Component {
           <div className="events">
               <ul className="media-list">
                   {this.props.eventList.map((event) =>
-                    {console.log(event);
-                      <li className="media" key={event._id}><EventPanelElement event={event}/></li>}
-
+                    {
+                        return <li className="media" key={event._id}><EventPanelElement event={event}/></li>
+                    }
                   )}
               </ul>
           </div>
