@@ -20,27 +20,21 @@ export default class Navbar extends React.Component {
                 LetsJam!
               </Link>
               <div className="btn-group">
-                <button type="button" className="btn btn-default navbar-btn">
-                  <Link to="/">
-                    <span className="glyphicon glyphicon-home"></span>
-                  </Link>
-                </button>
-                <button type="button" className="btn btn-default navbar-btn">
-                  <Link to="/search">
-                    <span className="glyphicon glyphicon-search"></span>
-                  </Link>
-                </button>
+                <Link to="/" className="btn btn-default navbar-btn">
+                  <span className="glyphicon glyphicon-home"></span>
+                </Link>
+                <Link to="/search" className="btn btn-default navbar-btn">
+                  <span className="glyphicon glyphicon-search"></span>
+                </Link>
                 <ResetDatabase />
               </div>
             </div>
             <div className="nav navbar-nav navbar-right">
               <div className="btn-toolbar" role="toolbar">
                 <div className="btn-group" role="group">
-                  <button type="button" className="btn btn-default navbar-btn">
-                    <Link to={chatLink}>
-                      <span className="glyphicon glyphicon-comment"></span>
-                    </Link>
-                  </button>
+                  <Link to={chatLink} className="btn btn-default navbar-btn">
+                    <span className="glyphicon glyphicon-comment"></span>
+                  </Link>
                   <div className="btn-group" role="group">
                     <button type="button" className="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
                       <span className="glyphicon glyphicon-user"></span> 
