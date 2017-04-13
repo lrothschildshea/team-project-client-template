@@ -1,8 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
-
-
-//this.props.params.id
+import {search} from '../server'
 
 export default class SearchResults extends React.Component {
   constructor(props) {
@@ -11,13 +9,18 @@ export default class SearchResults extends React.Component {
   }
 
   updateState(contents){
+    search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, (feedData) => {
+      console.log(feedData);
+    });
     this.setState(contents)
   }
 
   onSearch(contents){
     this.setState(contents)
   }
-
+//  Object.keys(this.props.data).map(key) => {
+//        <SearchResult name={this.props.data._id.fullName}></SearchResult>
+//      });
   render() {
     return(
       <div>
@@ -31,6 +34,8 @@ export default class SearchResults extends React.Component {
                 <SearchBar value={this.state.value} searchType={this.state.searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
                 <hr/>
                 <ResultFeed>
+
+
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
                     'rock and roll'."></SearchResult>
                   <SearchResult name="The Who" image="img/thewho.png" genre="Rock N Roll" description="Description: The Who are an English rock band that formed in 1964. Their classNameic line-up consisted of lead singer Roger Daltrey, guitarist and singer Pete Townshend, bass guitarist John Entwistle, and drummer Keith Moon. They are

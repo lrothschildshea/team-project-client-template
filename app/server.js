@@ -1,5 +1,10 @@
 import {readDocument, writeDocument, addDocument, readList} from './database.js';
 
+function emulateServerReturn(data, cb) {
+  setTimeout(() => {
+    cb(data);
+  }, 4);
+}
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
  * some time in the future with data.
@@ -8,6 +13,7 @@ import {readDocument, writeDocument, addDocument, readList} from './database.js'
    // Get the User object with the id "user".
    // Get the Feed object for the user.
    var instrumentData = readList('users');
+   console.log(instrumentData)
    // Map the Feed's FeedItem references to actual FeedItem objects.
    // Note: While map takes a callback function as an argument, it is
    // synchronous, not asynchronous. It calls the callback immediately.
@@ -33,11 +39,7 @@ import {readDocument, writeDocument, addDocument, readList} from './database.js'
  }
 
 
-function emulateServerReturn(data, cb) {
-  setTimeout(() => {
-    cb(data);
-  }, 4);
-}
+
 
 function getFeedItemSync(feedItemId) {
   var feedItem = readDocument('feedItems', feedItemId);
