@@ -13,7 +13,6 @@ function emulateServerReturn(data, cb) {
    // Get the User object with the id "user".
    // Get the Feed object for the user.
    var instrumentData = readList('users');
-   console.log(instrumentData)
    // Map the Feed's FeedItem references to actual FeedItem objects.
    // Note: While map takes a callback function as an argument, it is
    // synchronous, not asynchronous. It calls the callback immediately.
@@ -57,11 +56,8 @@ function getCalendarEventSyn(calendarEventId) {
 }
 export function getCalendarEvent(user,cb){
   var mockUser = readDocument('users',user);
-  console.log(mockUser.calendarEvent);
   var calendarEventId=mockUser.calendarEvent;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-  // console.log(calendarEventId);
-  // console.log(calendarEventItem);
   emulateServerReturn(calendarEventItem,cb);
 }
 export function addCalendarEvent(user,calendarEvent,cb){
@@ -70,7 +66,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
   var newEvent = addDocument("calendarEvent",calendarEvent);
   calendarEventId.unshift(newEvent._id);
   mockUser.calendarEvent = calendarEventId;
-  console.log(mockUser);
   writeDocument('users',mockUser);
   getCalendarEvent(user,cb);
 }

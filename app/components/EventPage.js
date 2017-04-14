@@ -66,7 +66,6 @@ export default class EventPage extends React.Component {
  }
 
  refresh(){
-   console.log("Refreshing");
   getCalendarEvent(1,(calendarEventItem)=>{
      this.setState({'events':calendarEventItem});
    });

@@ -41,9 +41,7 @@ export default class EventRegister extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     if(this.state.eventName!=="" && this.state.bandName!=="" && this.state.eventDate!=="" && this.state.eventTime!=="" && this.state.eventlocation!=="" && this.state.eventDetail!==""){
-      console.log("Submit");
       addCalendarEvent(1,this.state,(calendarEventItem) => {
-        console.log(calendarEventItem);
         this.props.refresh();
       });
     }

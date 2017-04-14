@@ -34,7 +34,6 @@ export default class EventWidget extends React.Component {
   refresh(){
     getCalendarEvent(1, (calendarEvent) => {
       this.setState({events: calendarEvent});
-      console.log("events", this.state.events);
     });
   }
 

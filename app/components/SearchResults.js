@@ -10,7 +10,6 @@ export default class SearchResults extends React.Component {
 
   updateState(contents){
     search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, (feedData) => {
-      console.log(feedData);
     });
     this.setState(contents)
   }
