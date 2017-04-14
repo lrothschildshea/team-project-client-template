@@ -230,6 +230,9 @@ h1{
   position: fixed;
   height: 86.5%;
   border-radius: 8px;
+  width: 23%;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .chats-panel {
@@ -566,7 +569,7 @@ h1{
 
 ::-webkit-scrollbar-thumb{
 	border-radius: 10px;
-	background-color: orange;
+	background-color: #ff902a;
 }
 a, span.link {
   color: #ff902a;
@@ -720,7 +723,7 @@ a:active, span.active {
   margin-left: 20px;
   border: solid;
   border-width: 5px 5px;
-  border-color: orange;
+  border-color: #ff902a;
 }
 
 .prof-id > h1{
@@ -731,14 +734,14 @@ a:active, span.active {
   text-shadow: 0px 0px 10px black;
   border-bottom: solid;
   border-bottom-width: 4px;
-  border-bottom-color: orange;
+  border-bottom-color: #ff902a;
   border-top: solid;
   border-top-width: 3px;
-  border-top-color: orange;
+  border-top-color: #ff902a;
 }
 
 .profile-section{
-  background-color: orange;
+  background-color: #ff902a;
   margin-top: 25px;
 }
 .prof-section-title{
