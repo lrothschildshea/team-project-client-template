@@ -3,8 +3,6 @@ import BandEdit from './BandEdit.js';
 import EventWidget from './EventWidget.js';
 import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
-import {mockComments} from './Comments.js';
-import MusicWidget from './MusicWidget.js';
 import {getBand, getBandFeedData} from '../server.js';
 
 export default class BandPage extends React.Component {
@@ -49,7 +47,7 @@ export default class BandPage extends React.Component {
       <div>
         <BandEdit band={this.state.band} refresh={this.refresh.bind(this)}/>
         <div className="container band-main">
-          <BandCover name={this.state.band.name} image={this.state.band.pagePicture} />
+          <BandCover band={this.state.band} />
           <div className="row">
             <div className="col-md-4 bandpage-left">
               <BandInfo band={this.state.band} />
@@ -73,12 +71,12 @@ export default class BandPage extends React.Component {
 class BandCover extends React.Component {
   render() {
     return (
-      <div className="row band-cover" style={{backgroundImage: this.props.image}}>
+      <div className="row band-cover" style={{backgroundImage: this.props.band.pagePicture}}>
         <div className="band-spacer">
         </div>
         <div className="band-name pull-left">
           <h1>
-            {this.props.name}
+            {this.props.band.name}
           </h1>
         </div>
         <div

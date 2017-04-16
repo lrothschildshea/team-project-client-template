@@ -2,28 +2,6 @@ import React from 'react';
 import {unixTimeToString} from '../util';
 import {addFeedItem} from '../server';
 
-
-export const mockComments = [
-  {
-    user: "Spongebob",
-    id: "1",
-    text: "This is a comment",
-    time: "2 hrs",
-  },
-  {
-    user: "Squidward",
-    id: "2",
-    text: "Another comment",
-    time: "12 hrs",
-  },
-  {
-    user: "Mr. Krabs",
-    id: "3",
-    text: "Comment comment",
-    time: "22 hrs",
-  },
-]
-
 export default class Comments extends React.Component {
   constructor(props) {
     super(props);
@@ -33,11 +11,10 @@ export default class Comments extends React.Component {
   addComment(e) {
     e.preventDefault();
     if (e.button === 0) {
-      addFeedItem(this.props.feed, "4", this.props.band, this.state.text, this.props.update);
+      addFeedItem(this.props.feed, 1, this.props.band, this.state.text, this.props.update);
       this.setState({text: ""})
     }
   }
-
 
   render() {
     return (

@@ -93,7 +93,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
 export function getBand(bandId, cb) {
   var band = readDocument('bands', bandId);
   band.members  = band.members.map((member) => readDocument('users', member));
-  // band.wanted = band.wanted.map((want) => readDocument('instruments', want));
   emulateServerReturn(band, cb);
 }
 
