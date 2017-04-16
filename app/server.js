@@ -37,7 +37,27 @@ function emulateServerReturn(data, cb) {
    emulateServerReturn(feedData, cb);
  }
 
+export function getBandFeedData(band, cb) {
+  var bandData = readDocument('bands', band);
+  var feedData = readDocument('feeds', bandData.feed);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  emulateServerReturn(feedData, cb);
+}
 
+export function addFeedItem(feedID, author, band, comment, cb) {
+  var feedData = readDocument('feeds', feedID);
+  var feedItem = {
+    "author": author,
+    "contents": comment,
+    "postDate": new Date().getTime(),
+    "band": band
+  }
+  var newFeedItem = addDocument('feedItems', feedItem);
+  feedData.contents.unshift(newFeedItem._id);
+  writeDocument('feeds', feedData);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  emulateServerReturn(feedData.contents, cb);
+}
 
 
 function getFeedItemSync(feedItemId) {

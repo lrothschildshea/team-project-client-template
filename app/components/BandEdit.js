@@ -347,7 +347,9 @@ class EditBandWanted extends React.Component {
                 <button
                   type="button"
                   className="btn btn-default"
-                  onClick={(e) => this.props.add(e, {instrument: this.state.inst, info: this.state.info})}>
+                  onClick={(e) => {
+                    this.props.add(e, {instrument: this.state.inst, info: this.state.info});
+                    this.setState({inst: "", info: ""});}}>
                   <span className="glyphicon glyphicon-plus">
                   </span>
                 </button>

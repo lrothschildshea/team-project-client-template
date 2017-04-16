@@ -5,31 +5,42 @@ import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
 import {mockComments} from './Comments.js';
 import MusicWidget from './MusicWidget.js';
-import {getBand} from '../server.js';
+import {getBand, getBandFeedData} from '../server.js';
 
 export default class BandPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {band : {
-      name: "Generic Band Name",
-      info: "Music band with instruments",
-      location: "Amherst, MA",
-      members: [],
-      fans: 0,
-      pagePicture: "none",
-      wanted: [],
-    }};
+    this.state = {
+      band : {
+        name: "Generic Band Name",
+        info: "Music band with instruments",
+        location: "Amherst, MA",
+        members: [],
+        fans: 0,
+        pagePicture: "none",
+        wanted: [],
+        feed: 0
+      },
+      feedItems: []
+    };
   }
 
   refresh() {
     getBand(this.props.params.id, (band) => {
       this.setState({band});
     });
+    getBandFeedData(this.props.params.id, (feedData) => {
+      this.setState({feedItems: feedData.contents});
+    });
   }
 
   componentDidMount() {
     this.refresh();
     this.forceUpdate();
+  }
+
+  updateFeed(items) {
+    this.setState({"feedItems": items});
   }
 
 
@@ -46,7 +57,11 @@ export default class BandPage extends React.Component {
               <EventWidget eventList={mockEventList} />
             </div>
             <div className="col-md-8 bandpage-right">
-              <Comments comments={mockComments} />
+              <Comments
+                comments={this.state.feedItems}
+                band={this.props.params.id}
+                feed={this.state.band.feed}
+                update={this.updateFeed.bind(this)}/>
             </div>
           </div>
         </div>
