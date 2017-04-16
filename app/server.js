@@ -116,11 +116,13 @@ export function editBandInfo(bandId, band, cb){
   oldBand.name = band.name;
   oldBand.location = band.location;
   oldBand.info = band.info;
+  oldBand.wanted = band.wanted;
   writeDocument('bands', oldBand);
   emulateServerReturn({
     name: oldBand.name,
     location: oldBand.location,
-    info: oldBand.info, cb});
+    info: oldBand.info,
+    wanted: oldBand.wanted}, cb);
 }
 
 export function getUser(userId, cb){

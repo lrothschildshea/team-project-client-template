@@ -23,6 +23,18 @@ export default class BandEdit extends React.Component {
     this.setState({members: e.target.value });
   }
 
+  wantedInfoChange(e, index) {
+    var tempwant = this.state.wanted.slice();
+    tempwant[index].info = e.target.value;
+    this.setState({wanted: tempwant});
+  }
+
+  wantedInstChange(e, index) {
+    var tempwant = this.state.wanted.slice();
+    tempwant[index].instrument = e.target.value;
+    this.setState({wanted: tempwant});
+  }
+
   componentWillReceiveProps(props) {
     this.setState(props.band);
   }
@@ -82,7 +94,10 @@ export default class BandEdit extends React.Component {
                 members={this.state.members}
                 remove={this.removeMember.bind(this)}
                 add={this.addMember.bind(this)} />
-              <EditBandWanted wanted={this.state.wanted} />
+              <EditBandWanted
+                wanted={this.state.wanted}
+                infochange={this.wantedInfoChange.bind(this)}
+                instchange={this.wantedInstChange.bind(this)} />
             </div>
             <div className="modal-footer">
               <button
@@ -226,8 +241,8 @@ class EditBandWanted extends React.Component {
       <div className="panel panel-default">
         <div className="panel-heading">Wanted</div>
         <ul className="list-group">
-          {this.props.wanted.map((want) =>
-            <li key={want} className="list-group-item">
+          {this.props.wanted.map((want, id) =>
+            <li key={id} className="list-group-item">
               <div className="row">
                 <div className="col-lg-4">
                   <div className="input-group">
@@ -239,7 +254,22 @@ class EditBandWanted extends React.Component {
                       className="form-control"
                       placeholder="Instrument"
                       aria-describedby="basic-addon1"
-                      value={want} />
+                      value={want.instrument}
+                      onChange={(e) => this.props.instchange(e, id)} />
+                  </div>
+                </div>
+                <div className="col-lg-7">
+                  <div className="input-group">
+                    <span
+                      className="input-group-addon"
+                      id="basic-addon1">Info</span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Info"
+                      aria-describedby="basic-addon1"
+                      value={want.info}
+                      onChange={(e) => this.props.infochange(e, id)} />
                   </div>
                 </div>
                 <div className="col-lg-1">

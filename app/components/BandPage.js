@@ -17,7 +17,7 @@ export default class BandPage extends React.Component {
       members: [],
       fans: 0,
       pagePicture: "none",
-      wanted: ["saxophone"],
+      wanted: [],
     }};
   }
 
@@ -129,15 +129,17 @@ class WantedWidget extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="media-list">
-            {this.props.wanted.map((want) =>
-              <li key={want} className="media">
+            {this.props.wanted.map((want, id) =>
+              <li key={id} className="media">
                 <div className="media-left media-top">
                   PIC
                 </div>
                 <div className="media-body">
                   <a href="#">
-                    {want}
+                    {want.instrument}
                   </a>
+                  <br />
+                  {want.info}
                 </div>
                 <div className="media-right">
                   <div
