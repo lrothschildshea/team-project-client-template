@@ -61,6 +61,22 @@ export default class BandEdit extends React.Component {
     this.props.refresh();
   }
 
+  removeWanted(e, id){
+    e.preventDefault();
+    if (e.button === 0) {
+      this.state.wanted.splice(id, 1);
+      this.setInfo(e);
+    }
+  }
+
+  addWanted(e, want) {
+    e.preventDefault();
+    if (e.button === 0) {
+      this.state.wanted.push(want);
+      this.setInfo(e);
+    }
+  }
+
 
   render() {
     return (
@@ -97,7 +113,9 @@ export default class BandEdit extends React.Component {
               <EditBandWanted
                 wanted={this.state.wanted}
                 infochange={this.wantedInfoChange.bind(this)}
-                instchange={this.wantedInstChange.bind(this)} />
+                instchange={this.wantedInstChange.bind(this)}
+                remove={this.removeWanted.bind(this)}
+                add={this.addWanted.bind(this)} />
             </div>
             <div className="modal-footer">
               <button
@@ -236,6 +254,20 @@ class EditBandMembers extends React.Component {
 }
 
 class EditBandWanted extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {inst: "", info: ""};
+  }
+
+  infoChange(e) {
+    this.setState({info: e.target.value });
+  }
+
+  instChange(e) {
+    this.setState({inst: e.target.value });
+  }
+
+
   render() {
     return (
       <div className="panel panel-default">
@@ -274,7 +306,10 @@ class EditBandWanted extends React.Component {
                 </div>
                 <div className="col-lg-1">
                   <div className="btn-group">
-                    <button type="button" className="btn btn-default">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={(e) => this.props.remove(e, id)}>
                       <span className="glyphicon glyphicon-trash">
                       </span>
                     </button>
@@ -285,10 +320,40 @@ class EditBandWanted extends React.Component {
           )}
         </ul>
         <div className="panel-footer">
-          Add Wanted Posting
-          <a href="#">
-            <span className="glyphicon glyphicon-plus pull-right" />
-          </a>
+          <div className="row">
+            <div className="col-lg-11">
+              <div className="input-group">
+                <span
+                  className="input-group-addon"
+                  id="basic-addon1">Add Wanted</span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Instrument"
+                  aria-describedby="basic-addon1"
+                  value={this.state.inst}
+                  onChange={(e) => this.setState({inst: e.target.value })} />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Info"
+                  aria-describedby="basic-addon1"
+                  value={this.state.info}
+                  onChange={(e) => this.setState({info: e.target.value })} />
+              </div>
+            </div>
+            <div className="col-lg-1">
+              <div className="btn-group">
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  onClick={(e) => this.props.add(e, {instrument: this.state.inst, info: this.state.info})}>
+                  <span className="glyphicon glyphicon-plus">
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
