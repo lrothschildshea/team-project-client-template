@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "react-big-calendar": "^0.13.0",
-    "react-event-calendar": "^0.3.0"
+    "moment":"^0.2.2"
   }
 }
