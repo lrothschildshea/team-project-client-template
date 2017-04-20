@@ -8,19 +8,29 @@ export default class SearchResults extends React.Component {
     this.state = this.props.params
   }
 
-  updateState(contents){
-    search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, (feedData) => {
-      console.log(feedData);
+  componentDidMount(){
+    search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, this.state.zipcode, (feedData) => {
+      this.setState({data:feedData})
     });
+  }
+
+  doSearch(){
+    search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, this.state.zipcode, (feedData) => {
+      this.setState({data:feedData})
+    });
+  }
+
+  updateState(contents){
     this.setState(contents)
+
   }
 
   onSearch(contents){
     this.setState(contents)
   }
-//  Object.keys(this.props.data).map(key) => {
-//        <SearchResult name={this.props.data._id.fullName}></SearchResult>
-//      });
+  //  Object.keys(this.props.data).map(key) => {
+  //        <SearchResult name={this.props.data._id.fullName}></SearchResult>
+  //      });
   render() {
     return(
       <div>
@@ -34,6 +44,11 @@ export default class SearchResults extends React.Component {
                 <SearchBar value={this.state.value} searchType={this.state.searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
                 <hr/>
                 <ResultFeed>
+                  {this.state.data.map(function(groupItem, key){ return (
+                    Object.keys(groupItem).map(function(item){return (
+                      <SearchResult name={groupItem.fullName}/>
+                    );})
+                  );})}
 
 
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
@@ -64,13 +79,13 @@ class SearchFilter extends React.Component {
     // what the user has typed in so far.
     if (e.button === 0) {
       // Callback function for both the like and unlike cases.
-        // setState will overwrite the 'likeCounter' field on the current
-        // state, and will keep the other fields in-tact.
-        // This is called a shallow merge:
-        // https://facebook.github.io/react/docs/component-api.html#setstate
-        this.setState({instrument: e.target.textContent});
-        this.props.onEntered({instrument: e.target.textContent})
-      }
+      // setState will overwrite the 'likeCounter' field on the current
+      // state, and will keep the other fields in-tact.
+      // This is called a shallow merge:
+      // https://facebook.github.io/react/docs/component-api.html#setstate
+      this.setState({instrument: e.target.textContent});
+      this.props.onEntered({instrument: e.target.textContent})
+    }
   }
 
   render() {
