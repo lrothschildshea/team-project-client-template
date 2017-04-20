@@ -1,6 +1,7 @@
 import React from 'react';
 import {unixTimeToString} from '../util';
 import {addFeedItem} from '../server';
+import {Link} from 'react-router';
 
 export default class Comments extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class Comment extends React.Component {
           PIC
         </div>
         <div className="media-body">
-          <a href="#">{this.props.comment.author.fullName}</a> {this.props.comment.contents}
+          <Link to={"/profile/" + this.props.comment.author._id}>{this.props.comment.author.fullName}</Link> {this.props.comment.contents}
           <br /> {unixTimeToString(this.props.comment.postDate)}
         </div>
       </li>
