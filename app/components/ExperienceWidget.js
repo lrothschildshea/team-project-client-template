@@ -12,7 +12,6 @@ export default class ExperienceWidget extends React.Component {
         <div className="panel-body">
           <InstrumentsWidget instruments={this.props.profile.instruments} />
           <BandsWidget bands={this.props.profile.bands} />
-          <Comments comments={mockComments} />
         </div>
       </div>
     )
