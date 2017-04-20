@@ -83,7 +83,7 @@ export default class EventRegister extends React.Component {
                     <textarea id="eventDetail" name="eventDetail" placeholder="ICECREAM！！" value={this.state.eventDetail} onChange={(e)=>this.handleEventDetail(e)} ></textarea>
                 </label>
 
-+-
+
               <label>
                  <span>&nbsp;</span>
                  <input type="button" className="button" value="Submit" onClick={(e)=> this.handleSubmit(e)} />

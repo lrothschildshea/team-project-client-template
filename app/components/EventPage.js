@@ -3,52 +3,15 @@ import EventRegister from './EventRegister';
 import {mockEventList} from './EventPanel.js';
 import EventPanel from './EventPanel.js';
 import {addCalendarEvent,getCalendarEvent} from '../server';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
 
-$(document).ready(function() {
-  $('#calendar').fullCalendar({
 
-    defaultDate: '2017-2-23',
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-    selectable: true,
-    selectHelper: true,
-    //reserved for a popup
-    select: function(start, end) {
-      var title =prompt('Event Title:');
-      var eventData;
-      var eventStartTime, eventEndTime;
+BigCalendar.momentLocalizer(moment);
 
-      if (title) {
-        eventData = {
-          title: title,
-          start: start,
-          end: end
-        };
 
-        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-      }
-      $('#calendar').fullCalendar('unselect');
 
-    },
 
-    events: [
-      {
-        title: 'Performance',
-        start: '2017-2-23'
-      },
-      {
-        title: 'Random',
-        start: '2017-2-24',
-        end: '2017-2-24'
-      },
-      {
-        title: 'Can Click?',
-        url: 'http://google.com/',
-        start: '2017-2-4'
-      }
-    ]
-  });
-});
 
 export default class EventPage extends React.Component {
   constructor(props){
@@ -79,10 +42,15 @@ export default class EventPage extends React.Component {
         <div className='container'>
           <div className="row">
             <div className="col-md-7">
-              <div id='calendar'></div>
+              <BigCalendar
+                {...this.props}
+                events={events}
+                defaultDate={new Date(2015, 3, 1)}
+
+                />
+
               <button id="addEvent" className="float-left addButton" data-toggle="modal" data-target="#editEventModal">Add Event</button>
             </div>
-
             <div className="col-md-1">
             </div>
 
