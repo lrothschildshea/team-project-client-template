@@ -75,7 +75,16 @@ var initialData = {
       "pagePicture": "url(img/genericband.jpg)",
       "members": [1,2,3],
       "location": "Bikini Bottom",
-      "wanted": ["guitar"]
+      "wanted": [
+        {
+          "instrument": "Guitarist",
+          "info": "Play me something spicy"
+        },
+        {
+          "instrument": "Saxophone",
+          "info": "Minimum 70 years of experience"
+        }
+      ]
     },
 
     "2": {
@@ -101,7 +110,7 @@ var initialData = {
       "pagePicture": "url(img/genericband.jpg)",
       "members": [1,3,5],
       "location": "Bikini Bottom",
-      "wanted": ["guitar", "saxaphone"]
+      "wanted": []
     }
   },
 

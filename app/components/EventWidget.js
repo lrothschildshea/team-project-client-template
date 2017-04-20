@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router';
+import {getCalendarEvent} from '../server.js';
 
 export const mockEventList = [
   {
@@ -22,6 +24,23 @@ export const mockEventList = [
 ]
 
 export default class EventWidget extends React.Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      events: []
+    }
+  }
+
+  refresh(){
+    getCalendarEvent(1, (calendarEvent) => {
+      this.setState({events: calendarEvent});
+    });
+  }
+
+  componentDidMount(){
+    this.refresh();
+  }
+
   render() {
     return (
       <div className="panel events-widget">
@@ -31,8 +50,8 @@ export default class EventWidget extends React.Component {
         <div className="panel-body">
           <div className="events">
               <ul className="media-list">
-                  {this.props.eventList.map((event) =>
-                    <li className="media" key={event.id}><EventWidgetElement event={event}/></li>
+                  {this.state.events.map((event) =>
+                    <li className="media" key={event._id}><EventWidgetElement event={event}/></li>
                   )}
               </ul>
           </div>
@@ -52,11 +71,11 @@ class EventWidgetElement extends React.Component {
           <p>Location:</p>
         </div>
         <div className="media-body">
-          <a href="#">
+          <Link to={"/calendar/"}>
               <p>{this.props.event.name}</p>
               <p>{this.props.event.date}</p>
               <p>{this.props.event.location}</p>
-          </a>
+          </Link>
         </div>
     </div>
     )

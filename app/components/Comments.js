@@ -1,28 +1,21 @@
 import React from 'react';
-
-
-export const mockComments = [
-  {
-    user: "Spongebob",
-    id: "1",
-    text: "This is a comment",
-    time: "2 hrs",
-  },
-  {
-    user: "Squidward",
-    id: "2",
-    text: "Another comment",
-    time: "12 hrs",
-  },
-  {
-    user: "Mr. Krabs",
-    id: "3",
-    text: "Comment comment",
-    time: "22 hrs",
-  },
-]
+import {unixTimeToString} from '../util';
+import {addFeedItem} from '../server';
 
 export default class Comments extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: ""}
+  }
+
+  addComment(e) {
+    e.preventDefault();
+    if (e.button === 0) {
+      addFeedItem(this.props.feed, 1, this.props.band, this.state.text, this.props.update);
+      this.setState({text: ""})
+    }
+  }
+
   render() {
     return (
       <div className="panel">
@@ -34,25 +27,20 @@ export default class Comments extends React.Component {
             {this.props.comments.map((comment, i) =>
               <Comment key={i} comment={comment} />
             )}
-            <hr className="comment-sp1" />
-            <li>
-              <div>
-                <a href="#"><small><p className="text-center grey">
-                  Show more comments <span className="glyphicon glyphicon-chevron-down"></span>
-                </p></small></a>
-              </div>
-            </li>
-            <hr className="comment-sp2" />
             <li className="media">
-              <div className="media-left media-top">
-                PIC
-              </div>
               <div className="media-body">
                 <div className="input-group">
-                  <input type="text" className="form-control"
-                         placeholder="Write a comment..." />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Write a comment..."
+                    value={this.state.text}
+                    onChange={(e) => this.setState({text : e.target.value})} />
                   <span className="input-group-btn">
-                    <button className="btn btn-default" type="button">
+                    <button
+                      className="btn btn-default"
+                      type="button"
+                      onClick={(e) => this.addComment(e)}>
                       Post
                     </button>
                   </span>
@@ -70,13 +58,13 @@ export default class Comments extends React.Component {
 class Comment extends React.Component {
   render() {
     return (
-      <li key={this.props.comment.id} className="media">
+      <li className="media">
         <div className="media-left media-top">
           PIC
         </div>
         <div className="media-body">
-          <a href="#">{this.props.comment.user}</a> {this.props.comment.text}
-          <br /><a href="#">Like</a> · <a href="#">Reply</a> · {this.props.comment.time}
+          <a href="#">{this.props.comment.author.fullName}</a> {this.props.comment.contents}
+          <br /> {unixTimeToString(this.props.comment.postDate)}
         </div>
       </li>
     )

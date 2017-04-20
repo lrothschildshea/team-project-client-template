@@ -23,6 +23,18 @@ export default class BandEdit extends React.Component {
     this.setState({members: e.target.value });
   }
 
+  wantedInfoChange(e, index) {
+    var tempwant = this.state.wanted.slice();
+    tempwant[index].info = e.target.value;
+    this.setState({wanted: tempwant});
+  }
+
+  wantedInstChange(e, index) {
+    var tempwant = this.state.wanted.slice();
+    tempwant[index].instrument = e.target.value;
+    this.setState({wanted: tempwant});
+  }
+
   componentWillReceiveProps(props) {
     this.setState(props.band);
   }
@@ -47,6 +59,22 @@ export default class BandEdit extends React.Component {
       editBandInfo(this.state._id, this.state, (band) => this.setState(band));
     }
     this.props.refresh();
+  }
+
+  removeWanted(e, id){
+    e.preventDefault();
+    if (e.button === 0) {
+      this.state.wanted.splice(id, 1);
+      this.setInfo(e);
+    }
+  }
+
+  addWanted(e, want) {
+    e.preventDefault();
+    if (e.button === 0) {
+      this.state.wanted.push(want);
+      this.setInfo(e);
+    }
   }
 
 
@@ -82,7 +110,12 @@ export default class BandEdit extends React.Component {
                 members={this.state.members}
                 remove={this.removeMember.bind(this)}
                 add={this.addMember.bind(this)} />
-              <EditBandWanted wanted={this.state.wanted} />
+              <EditBandWanted
+                wanted={this.state.wanted}
+                infochange={this.wantedInfoChange.bind(this)}
+                instchange={this.wantedInstChange.bind(this)}
+                remove={this.removeWanted.bind(this)}
+                add={this.addWanted.bind(this)} />
             </div>
             <div className="modal-footer">
               <button
@@ -221,13 +254,27 @@ class EditBandMembers extends React.Component {
 }
 
 class EditBandWanted extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {inst: "", info: ""};
+  }
+
+  infoChange(e) {
+    this.setState({info: e.target.value });
+  }
+
+  instChange(e) {
+    this.setState({inst: e.target.value });
+  }
+
+
   render() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">Wanted</div>
         <ul className="list-group">
-          {this.props.wanted.map((want) =>
-            <li key={want} className="list-group-item">
+          {this.props.wanted.map((want, id) =>
+            <li key={id} className="list-group-item">
               <div className="row">
                 <div className="col-lg-4">
                   <div className="input-group">
@@ -239,12 +286,30 @@ class EditBandWanted extends React.Component {
                       className="form-control"
                       placeholder="Instrument"
                       aria-describedby="basic-addon1"
-                      value={want} />
+                      value={want.instrument}
+                      onChange={(e) => this.props.instchange(e, id)} />
+                  </div>
+                </div>
+                <div className="col-lg-7">
+                  <div className="input-group">
+                    <span
+                      className="input-group-addon"
+                      id="basic-addon1">Info</span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Info"
+                      aria-describedby="basic-addon1"
+                      value={want.info}
+                      onChange={(e) => this.props.infochange(e, id)} />
                   </div>
                 </div>
                 <div className="col-lg-1">
                   <div className="btn-group">
-                    <button type="button" className="btn btn-default">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={(e) => this.props.remove(e, id)}>
                       <span className="glyphicon glyphicon-trash">
                       </span>
                     </button>
@@ -255,10 +320,42 @@ class EditBandWanted extends React.Component {
           )}
         </ul>
         <div className="panel-footer">
-          Add Wanted Posting
-          <a href="#">
-            <span className="glyphicon glyphicon-plus pull-right" />
-          </a>
+          <div className="row">
+            <div className="col-lg-11">
+              <div className="input-group">
+                <span
+                  className="input-group-addon"
+                  id="basic-addon1">Add Wanted</span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Instrument"
+                  aria-describedby="basic-addon1"
+                  value={this.state.inst}
+                  onChange={(e) => this.setState({inst: e.target.value })} />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Info"
+                  aria-describedby="basic-addon1"
+                  value={this.state.info}
+                  onChange={(e) => this.setState({info: e.target.value })} />
+              </div>
+            </div>
+            <div className="col-lg-1">
+              <div className="btn-group">
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  onClick={(e) => {
+                    this.props.add(e, {instrument: this.state.inst, info: this.state.info});
+                    this.setState({inst: "", info: ""});}}>
+                  <span className="glyphicon glyphicon-plus">
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )

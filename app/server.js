@@ -6,6 +6,7 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 /**
+<<<<<<< HEAD
 * Emulates how a REST call is *asynchronous* -- it calls your function back
 * some time in the future with data.
 */
@@ -37,7 +38,27 @@ export function getFeedData(user, cb) {
   emulateServerReturn(feedData, cb);
 }
 
+export function getBandFeedData(band, cb) {
+  var bandData = readDocument('bands', band);
+  var feedData = readDocument('feeds', bandData.feed);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  emulateServerReturn(feedData, cb);
+}
 
+export function addFeedItem(feedID, author, band, comment, cb) {
+  var feedData = readDocument('feeds', feedID);
+  var feedItem = {
+    "author": author,
+    "contents": comment,
+    "postDate": new Date().getTime(),
+    "band": band
+  }
+  var newFeedItem = addDocument('feedItems', feedItem);
+  feedData.contents.unshift(newFeedItem._id);
+  writeDocument('feeds', feedData);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  emulateServerReturn(feedData.contents, cb);
+}
 
 
 function getFeedItemSync(feedItemId) {
@@ -56,11 +77,8 @@ function getCalendarEventSyn(calendarEventId) {
 }
 export function getCalendarEvent(user,cb){
   var mockUser = readDocument('users',user);
-  console.log(mockUser.calendarEvent);
   var calendarEventId=mockUser.calendarEvent;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-  // console.log(calendarEventId);
-  // console.log(calendarEventItem);
   emulateServerReturn(calendarEventItem,cb);
 }
 export function addCalendarEvent(user,calendarEvent,cb){
@@ -69,7 +87,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
   var newEvent = addDocument("calendarEvent",calendarEvent);
   calendarEventId.unshift(newEvent._id);
   mockUser.calendarEvent = calendarEventId;
-  console.log(mockUser);
   writeDocument('users',mockUser);
   getCalendarEvent(user,cb);
 }
@@ -77,7 +94,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
 export function getBand(bandId, cb) {
   var band = readDocument('bands', bandId);
   band.members  = band.members.map((member) => readDocument('users', member));
-  // band.wanted = band.wanted.map((want) => readDocument('instruments', want));
   emulateServerReturn(band, cb);
 }
 
@@ -120,12 +136,14 @@ export function editBandInfo(bandId, band, cb){
   oldBand.name = band.name;
   oldBand.location = band.location;
   oldBand.info = band.info;
+  oldBand.wanted = band.wanted;
   writeDocument('bands', oldBand);
   emulateServerReturn({
     name: oldBand.name,
     location: oldBand.location,
-    info: oldBand.info, cb});
-  }
+    info: oldBand.info,
+    wanted: oldBand.wanted}, cb);
+}
 
   export function getUser(userId, cb){
     var user = readDocument('users', userId);
