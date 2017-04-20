@@ -8,14 +8,9 @@ export default class SearchResults extends React.Component {
     this.state = this.props.params
   }
 
-<<<<<<< HEAD
   componentDidMount(){
     search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, this.state.zipcode, (feedData) => {
       this.setState({data:feedData})
-=======
-  updateState(contents){
-    search(this.state.value, this.state.searchType, this.state.instrument, this.state.genre, (feedData) => {
->>>>>>> 31715c4258cd05da64b97e6a98ad1e55231f70de
     });
   }
 
