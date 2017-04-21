@@ -82,7 +82,6 @@ export function getCalendarEvent(user,cb){
   emulateServerReturn(calendarEventItem,cb);
 }
 export function addCalendarEvent(user,calendarEvent,cb){
-    console.log(calendarEvent);
   var mockUser = readDocument('users',user);
   var calendarEventId = mockUser.calendarEvent;
   var newEvent = addDocument("calendarEvent",calendarEvent);
@@ -103,7 +102,6 @@ export function getEventBanner(user,cb){
   emulateServerReturn(eventBannerItem,cb);
 }
 export function addEventBanner(user,eventBanner,cb){
-  console.log(eventBanner);
   var mockUser = readDocument('users',user);
   var eventBannerId = mockUser.eventBanner;
   var newEventBanner = addDocument("eventBanner",eventBanner);

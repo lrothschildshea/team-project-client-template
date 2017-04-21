@@ -1,6 +1,5 @@
 import React from 'react';
 import EventRegister from './EventRegister';
-import EventItems from './eventItems';
 import EventPanel from './EventPanel.js';
 import {addCalendarEvent,getCalendarEvent, getEventBanner, addEventBanner} from '../server';
 import BigCalendar from 'react-big-calendar';
@@ -31,17 +30,12 @@ export default class EventPage extends React.Component {
 
  refresh(){
   getCalendarEvent(1,(calendarEventItem)=>{
-    console.log(calendarEventItem);
      this.setState({'events':calendarEventItem});
    });
   getEventBanner(1,(eventBannerItem)=>{
-    console.log(eventBannerItem);
     this.setState({'eventBanner':eventBannerItem});
   })
-   console.log(this.state.eventBanner)
  }
-
-
 
   render() {
     var events = this.state.events;
