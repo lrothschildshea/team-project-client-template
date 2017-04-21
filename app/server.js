@@ -82,6 +82,7 @@ export function getCalendarEvent(user,cb){
   emulateServerReturn(calendarEventItem,cb);
 }
 export function addCalendarEvent(user,calendarEvent,cb){
+    console.log(calendarEvent);
   var mockUser = readDocument('users',user);
   var calendarEventId = mockUser.calendarEvent;
   var newEvent = addDocument("calendarEvent",calendarEvent);
@@ -89,6 +90,27 @@ export function addCalendarEvent(user,calendarEvent,cb){
   mockUser.calendarEvent = calendarEventId;
   writeDocument('users',mockUser);
   getCalendarEvent(user,cb);
+}
+
+function getEventBannerSyn(eventBannerId) {
+  var eventBannerItem=readDocument('eventBanner', eventBannerId);
+  return eventBannerItem;
+}
+export function getEventBanner(user,cb){
+  var mockUser = readDocument('users',user);
+  var eventBannerId=mockUser.eventBanner;
+  var eventBannerItem = eventBannerId.map(getEventBannerSyn);
+  emulateServerReturn(eventBannerItem,cb);
+}
+export function addEventBanner(user,eventBanner,cb){
+  console.log(eventBanner);
+  var mockUser = readDocument('users',user);
+  var eventBannerId = mockUser.eventBanner;
+  var newEventBanner = addDocument("eventBanner",eventBanner);
+  eventBannerId.unshift(newEventBanner._id);
+  mockUser.eventBanner = eventBannerId;
+  writeDocument('users',mockUser);
+  getEventBanner(user,cb);
 }
 
 export function getBand(bandId, cb) {

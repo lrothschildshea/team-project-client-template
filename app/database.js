@@ -16,7 +16,8 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "spongeBob@gmail.com",
       "following": [2],
-      "calendarEvent":[1,2]
+      "calendarEvent":[1,2],
+      "eventBanner":[1,2]
     },
 
     "2":{
@@ -27,7 +28,8 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "patrick@gmail.com",
       "following": [3],
-      "calendarEvent":[1,2]
+      "calendarEvent":[1,2],
+      "eventBanner":[1,2]
     },
 
     "3":{
@@ -38,7 +40,8 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "sandy@gmail.com",
       "calendarEvent":[1],
-      "following": [2]
+      "following": [2],
+      "eventBanner":[1,2]
     },
 
     "4":{
@@ -49,7 +52,8 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "krabs@gmail.com",
       "calendarEvent":[1],
-      "following": [1,3]
+      "following": [1,3],
+      "eventBanner":[1,2]
     },
 
     "5":{
@@ -60,7 +64,8 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "plankton@gmail.com",
       "calendarEvent":[1],
-      "following": [1,2]
+      "following": [1,2],
+      "eventBanner":[1,2]
     }
   },
 
@@ -302,6 +307,18 @@ var initialData = {
       "time": "7 - 9 PM",
       "location": "South College",
       "detail": "It is fun"
+    }
+  },
+  "eventBanner":{
+    "1":{
+      'title': 'Event1',
+      'start': new Date(2017, 4, 1),
+      'end': new Date(2017, 4, 2)
+    },
+    "2":{
+      'title': 'Event2',
+      'start': new Date(2017, 4, 3),
+      'end': new Date(2017, 4, 3)
     }
   }
 
