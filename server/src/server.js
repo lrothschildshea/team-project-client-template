@@ -1,171 +1,142 @@
-import {readDocument, writeDocument, addDocument, readList} from './database.js';
+//import express module
+var express = require('express');
+//import JSON body parser
+var bodyParser = require('body-parser');
+//import database functions
+var database = require('./database');
 
-function emulateServerReturn(data, cb) {
-  setTimeout(() => {
-    cb(data);
-  }, 4);
-}
+
+var readDocument = database.readDocument;
+var writeDocument = database.writeDocument;
+var addDocument = database.addDocument;
+var validate = require('express-jsonschema').validate;
+var app = express();
+app.use(bodyParser.text());
+app.use(bodyParser.json());
+//pull static contends from build
+app.use(express.static('../client/build'));
+
 /**
-<<<<<<< HEAD
-* Emulates how a REST call is *asynchronous* -- it calls your function back
-* some time in the future with data.
-*/
-export function search(searchString, bandOrPerson, instrument, genre, zipcode, cb) {
-  // Get the User object with the id "user".
-  // Get the Feed object for the user.
-  var bandData = readList('bands');
-  // Map the Feed's FeedItem references to actual FeedItem objects.
-  // Note: While map takes a callback function as an argument, it is
-  // synchronous, not asynchronous. It calls the callback immediately.
-  // Return FeedData with resolved references.
-  // emulateServerReturn will emulate an asynchronous server operation, which
-  // invokes (calls) the "cb" function some time in the future.
-  emulateServerReturn(bandData, cb);
+ * Given a feed item ID, returns a FeedItem object with references resolved.
+ * Internal to the server, since it's synchronous.
+ */
+function getFeedItemSync(feedItemId) {
+  var feedItem = readDocument('feedItems', feedItemId);
+  // Resolve 'like' counter.
+  feedItem.likeCounter =
+    feedItem.likeCounter.map((id) => readDocument('users', id));
+    // Assuming a StatusUpdate. If we had other types of
+    // FeedItems in the DB, we would
+    // need to check the type and have logic for each type.
+    feedItem.contents.author =
+      readDocument('users', feedItem.contents.author);
+    feedItem.tag = readDocument("servicetags",feedItem.tag);
+    return feedItem;
 }
 
-export function getFeedData(user, cb) {
+function getFeedData(user,type) {
+  console.log("Get called");
   // Get the User object with the id "user".
   var userData = readDocument('users', user);
   // Get the Feed object for the user.
-  var feedData = readDocument('feeds', userData.feed);
+  var feedData;
+  if(type === 1) {
+     feedData = readDocument('academicfeeds', userData.Academic_feed);
+  }else {
+     feedData = readDocument('servicefeeds', userData.Service_feed);
+  }
   // Map the Feed's FeedItem references to actual FeedItem objects.
   // Note: While map takes a callback function as an argument, it is
   // synchronous, not asynchronous. It calls the callback immediately.
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  // Return FeedData with resolved references.
-  // emulateServerReturn will emulate an asynchronous server operation, which
-  // invokes (calls) the "cb" function some time in the future.
-  emulateServerReturn(feedData, cb);
+  feedData.list_of_feeditems = feedData.list_of_feeditems.map(getFeedItemSync);
+  return feedData;
 }
 
-export function getBandFeedData(band, cb) {
-  var bandData = readDocument('bands', band);
-  var feedData = readDocument('feeds', bandData.feed);
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  emulateServerReturn(feedData, cb);
-}
-
-export function addFeedItem(feedID, author, band, comment, cb) {
-  var feedData = readDocument('feeds', feedID);
-  var feedItem = {
-    "author": author,
-    "contents": comment,
-    "postDate": new Date().getTime(),
-    "band": band
-  }
-  var newFeedItem = addDocument('feedItems', feedItem);
-  feedData.contents.unshift(newFeedItem._id);
-  writeDocument('feeds', feedData);
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  emulateServerReturn(feedData.contents, cb);
-}
-
-
-function getFeedItemSync(feedItemId) {
-  var feedItem = readDocument('feedItems', feedItemId);
-  feedItem.author = readDocument('users', feedItem.author);
-  /*  feedItem.comments.forEach((comment) => {
-  comment.author = readDocument('users', comment.author);
-});*/
-feedItem.band = readDocument('bands', feedItem.band);
-return feedItem;
-}
-
-function getCalendarEventSyn(calendarEventId) {
-  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
-  return calendarEventItem;
-}
-export function getCalendarEvent(user,cb){
-  var mockUser = readDocument('users',user);
-  var calendarEventId=mockUser.calendarEvent;
-  var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-  emulateServerReturn(calendarEventItem,cb);
-}
-export function addCalendarEvent(user,calendarEvent,cb){
-  var mockUser = readDocument('users',user);
-  var calendarEventId = mockUser.calendarEvent;
-  var newEvent = addDocument("calendarEvent",calendarEvent);
-  calendarEventId.unshift(newEvent._id);
-  mockUser.calendarEvent = calendarEventId;
-  writeDocument('users',mockUser);
-  getCalendarEvent(user,cb);
-}
-
-function getEventBannerSyn(eventBannerId) {
-  var eventBannerItem=readDocument('eventBanner', eventBannerId);
-  return eventBannerItem;
-}
-export function getEventBanner(user,cb){
-  var mockUser = readDocument('users',user);
-  var eventBannerId=mockUser.eventBanner;
-  var eventBannerItem = eventBannerId.map(getEventBannerSyn);
-  emulateServerReturn(eventBannerItem,cb);
-}
-export function addEventBanner(user,eventBanner,cb){
-  var mockUser = readDocument('users',user);
-  var eventBannerId = mockUser.eventBanner;
-  var newEventBanner = addDocument("eventBanner",eventBanner);
-  eventBannerId.unshift(newEventBanner._id);
-  mockUser.eventBanner = eventBannerId;
-  writeDocument('users',mockUser);
-  getEventBanner(user,cb);
-}
-
-export function getBand(bandId, cb) {
-  var band = readDocument('bands', bandId);
-  band.members  = band.members.map((member) => readDocument('users', member));
-  emulateServerReturn(band, cb);
-}
-
-export function removeBandMember(bandId, memberId, cb) {
-  var band = readDocument('bands', bandId);
-  var userIndex = band.members.indexOf(memberId);
-  if (userIndex !== -1) {
-    // 'splice' removes items from an array. This removes 1 element starting from userIndex.
-    band.members.splice(userIndex, 1);
-    writeDocument('bands', band);
-  }
-  emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
-}
-
-
-export function getUsersBands(userId, cb) {
-  var bands = readList('bands');
-  var userBands = [];
-  for(var i in bands){
-    if(bands[i].members.includes(userId)){
-      userBands.push(bands[i]);
+function postStatusUpdate(user, contents,imgUrl,request,type) {
+  var time = new Date().getTime();
+  var newPost = {
+    "view_count": 0,
+    "likeCounter": [],
+    // Taggs are by course_id
+    "tag": 1,
+    "list_of_comments":[],
+    "contents": {
+      "author": user,
+      "timestamp": time,
+      "request": request,
+      "contents": contents,
+      "imgUrl":imgUrl
     }
   }
-  emulateServerReturn( userBands, cb);
-}
-
-export function addBandMember(bandId, memberId, cb) {
-  var band = readDocument('bands', bandId);
-  var user = readDocument('users', Number(memberId));
-  var pos = band.members.indexOf(Number(memberId));
-  if (user && pos === -1) {
-    band.members.push(Number(memberId));
-    writeDocument('bands', band);
-    emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
+  console.log(contents);
+  console.log(newPost);
+  newPost = addDocument('feedItems',newPost);
+  var userData = readDocument('users', user);
+  var feedData;
+  if(type === 1) {
+     feedData = readDocument('academicfeeds', userData.Academic_feed);
+     feedData.list_of_feeditems.unshift(newPost._id);
+     writeDocument('academicfeeds', feedData);
+  }else {
+     feedData = readDocument('servicefeeds', userData.Service_feed);
+     feedData.list_of_feeditems.unshift(newPost._id);
+     writeDocument('servicefeeds', feedData);
   }
+  return newPost;
 }
+/**
+ * Get the feed data for a particular user.
+ 1 is academic feed
+ 2 is Service feed
+*/
+app.get('/user/:userid/feed/:feedtype', function(req, res) {
+  var userid =  parseInt(req.params.userid,10);
+  var feedType = parseInt(req.params.feedtype,10);
+  // userid is a string. We need it to be a number.
+  // Parameters are always strings.
 
-export function editBandInfo(bandId, band, cb){
-  var oldBand = readDocument('bands', bandId);
-  oldBand.name = band.name;
-  oldBand.location = band.location;
-  oldBand.info = band.info;
-  oldBand.wanted = band.wanted;
-  writeDocument('bands', oldBand);
-  emulateServerReturn({
-    name: oldBand.name,
-    location: oldBand.location,
-    info: oldBand.info,
-    wanted: oldBand.wanted}, cb);
-}
+    // Send response.
+    res.send(getFeedData(userid,feedType));
+});
 
-  export function getUser(userId, cb){
-    var user = readDocument('users', userId);
-    emulateServerReturn(user, cb);
-  }
+//Rest database.
+app.post('/restdb',function(req,res) {
+  console.log("Resetting database");
+  // This is a debug route, so don't do any Validation.
+  database.resetDatabase();
+  // res.send() sends an empty response with status code 200
+  res.send();
+});
+
+app.put('/feeditem/:feeditemid',function(req,res) {
+  var feedItemId = parseInt(req.params.feeditemid);
+  var feedItem = readDocument("feedItems",feedItemId);
+  feedItem.view_count = feedItem.view_count+1;
+  writeDocument("feedItems",feedItem);
+  res.status(201);
+  res.send(JSON.stringify(feedItem.view_count));
+});
+
+app.get('/calendarEvent/:calendarEventId',function(req,res) {
+  const calendarEventId = req.params.calendarEventId;
+  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
+  res.status(200).send(calendarEventItem);
+})
+/**
+ * Translate JSON Schema Validation failures into error 400s.
+*/
+app.use(function(err, req, res, next) {
+  if (err.name === 'JsonSchemaValidation') {
+    // Set a bad request http response status
+    res.status(400).end();
+  } else {
+    // It's some other sort of error; pass it to next error middleware handler
+    next(err); }
+});
+
+// listening on port 3000
+app.listen(3000,function() {
+  console.log('Example app listening on port 3000');
+});
+// Implement your server in this file.
+// We should be able to run your server with node src/server.js
