@@ -15,8 +15,8 @@ export default class EventRegister extends React.Component {
       },
       calendarElement:{
         title: "",
-        start: new Date('2017-4-3'),
-        end: new Date('2017-4-3')
+        start: "",
+        end: ""
       }
     }
   }
@@ -44,10 +44,9 @@ export default class EventRegister extends React.Component {
     this.setState({panelElement:temp});
 
     var time=this.state.calendarElement;
-    time.start=new Date(e.target.value);
-    temp.end=new Date(e.target.value);
+    time.start=e.target.value;
+    time.end=e.target.value;
     this.setState({calendarEvent:time});
-
   }
   handleEventTime(e){
     e.preventDefault();
@@ -73,6 +72,8 @@ export default class EventRegister extends React.Component {
     const panelElement = this.state.panelElement;
     const eventBanner = this.state.calendarEvent;
     if(panelElement.eventName!=="" && panelElement.bandName!=="" && panelElement.eventDate!=="" && panelElement.eventTime!=="" && panelElement.eventlocation!=="" && panelElement.eventDetail!==""){
+      panelElement.start = new Date(panelElement.start);
+      panelElement.end = new Date(panelElement.end);
       addCalendarEvent(1,panelElement,() => {
         addEventBanner(1,eventBanner,() =>{
           this.props.refresh();
