@@ -1,0 +1,161 @@
+body {
+  padding-top: 60px;
+  background-color: #FAFAFA;
+}
+
+.left-sidebar .glyphicon-comment {
+  font-size: 20px;
+  color: grey;
+}
+
+.glyphicon-plus-sign{
+  font-size: 20px;
+  color: grey;
+}
+
+.left-sidebar{
+  position: fixed;
+  height: 86.5%;
+  border-radius: 8px;
+}
+
+.chats-panel {
+  overflow-y: scroll;
+  height: inherit;
+  border-radius: 8px;
+  border: #ff902a solid 1px;
+  background-color: white;
+}
+
+.left-sidebar li{
+  border: 1px #ff902a solid;
+  margin-left: 7px !important;
+  margin-top: 7px !important;
+  margin-right: 7px !important;
+  border-radius: 5px;
+}
+
+.left-sidebar li a{
+  color: black;
+}
+
+.left-sidebar img{
+  height: 60px;
+  display: block;
+  margin: auto;
+}
+
+.left-sidebar .media-left{
+  width: 25%;
+}
+
+.left-sidebar .media-right{
+  vertical-align: middle;
+}
+
+.chat-feed{
+  position: fixed;
+  padding-bottom: 10px;
+  height: 85%;
+}
+
+.chat-feed input{
+  width: 90%;
+  border: #ff902a solid 1px;
+  border-radius: 0px;
+  border-bottom-left-radius: 8px;
+}
+
+.chat-feed button{
+  width: 10%;
+  background-color: #ff902a;
+  border-radius: 0px;
+  border-bottom-right-radius: 8px;
+}
+
+.message-feed{
+  overflow-y: scroll;
+  height: inherit;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: #ff902a solid 1px;
+  background-color: white;
+}
+
+.message-feed hr{
+  margin-bottom: 5px;
+  border-top-color: grey;
+}
+
+.message{
+  border-radius: 12px;
+  width: 45%;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 5px;
+}
+
+.message-user{
+  background-color: lightgrey;
+  margin-right:15px;
+}
+
+.message-friend{
+  background-color: #ff902a;
+  margin-left: 15px;
+}
+
+.message-feed > .row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.message-date{
+  text-align: center;
+  font-weight: bold;
+  color: grey;
+}
+
+.time-break{
+  margin-right: 0;
+}
+
+.right-sidebar{
+  height: 90%;
+}
+
+.right-sidebar-contents img{
+  height: 100px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.right-sidebar-contents .row{
+  padding-left: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: #ff902a solid 1px;
+  background-color: white;
+}
+
+.right-sidebar-contents hr{
+  margin-top: 0px;
+  margin-bottom: 2px;
+  border-top-color: grey;
+}
+
+.right-sidebar-contents a{
+  color: #ff902a;
+}
+
+.right-sidebar h3{
+  font-size: 24px !important;
+}
+
+.events-widget {
+  box-shadow: none;
+}

@@ -1,0 +1,87 @@
+/*Profile Page settings*/
+body{
+  padding-top: 60px;
+  background-color: #FAFAFA;
+}
+
+/*Entire profile page*/
+/*****************************************/
+
+.profile-main{
+  /*padding-top: 60px;*/
+}
+
+/*Profile header:*/
+/*************************/
+.prof-header{
+  min-height: 350px;
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/*Spacer between top of page and profile pic*/
+.prof-spacer {
+  min-height: 180px;
+}
+
+/*Profile pic*/
+.prof-id > img{
+  float:left;
+  margin-left: 20px;
+  border: solid;
+  border-width: 5px 5px;
+  border-color: orange;
+}
+
+/*Profile name*/
+.prof-id > h1{
+  margin-left: 20px;
+  margin-top: 85px;
+  float:left;
+  color: white;
+  text-shadow: 0px 0px 10px black;
+  border-bottom: solid;
+  border-bottom-width: 4px;
+  border-bottom-color: orange;
+  border-top: solid;
+  border-top-width: 3px;
+  border-top-color: orange;
+}
+/**************************/
+
+/*Panels*/
+/**************************/
+.panel,
+.panel > .nav-tabs{
+  border-color: #ffcaaa;
+}
+.panel-heading {
+  color: #ff7c00;
+  border-bottom-color: #ffcaaa;
+}
+/**************************/
+
+/*Profile sections: (WHO I AM, WHAT I DO, etc.)*/
+/*************************/
+.profile-section{
+  background-color: orange;
+  margin-top: 25px;
+}
+.prof-section-title{
+  color: white;
+  text-shadow: 0px 0px 10px black;
+}
+/*************************/
+
+/*Info sections*/
+.info-section > .panel-heading{
+  /*color: black;*/
+}
+
+
+/*******************************************/

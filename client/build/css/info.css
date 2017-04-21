@@ -1,0 +1,62 @@
+body {
+  padding-top: 80px;
+  background-color: #FAFAFA;
+}
+
+.info-upcoming{
+ padding-top: 15px;
+ padding-bottom: 5px;
+ margin-bottom: 5px;
+ margin-left: 25px;
+ font-weight: bold;
+ line-height: 24px;
+ font-size: 20px;
+}
+
+.info-event-detail{
+  overflow-y: scroll;
+  height:500px;
+}
+
+.panel-default > .panel-heading-custom {
+  background: #ff902a; color: #fff;
+  height:55px
+ }
+
+ .panel-default > .panel-body-custom {
+   background-color: #FAFAFA;
+  }
+
+::-webkit-scrollbar-track{
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar{
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: orange;
+}
+a, span.link {
+  color: #ff902a;
+}
+
+a:visited, span.visited {
+   color: #ff902a;
+}
+
+a:active, span.active {
+   color: #ff902a;
+}
+.addButton {
+    background-color: #ff902a;
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
