@@ -48,7 +48,7 @@ export default class Navbar extends React.Component {
                               <div className="col-lg-4">
                                 <p className="text-center">
                                   <Link to={profileLink}>
-                                    <img src="img/spongebob_profile.jpg" className="img-cirle img-responsive"></img>
+                                    <img src={this.props.user.profilePicture} className="img-cirle img-responsive"></img>
                                   </Link>
                                 </p>
                               </div>

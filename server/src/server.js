@@ -16,7 +16,7 @@ var app = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
-app.use(express.static('../../client/build'));
+app.use(express.static('../client/build'));
 
 /**
  * Given a feed item ID, returns a FeedItem object with references resolved.

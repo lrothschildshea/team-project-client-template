@@ -11,7 +11,8 @@ var initialData = {
       "email": "spongeBob@gmail.com",
       "following": [2],
       "calendarEvent":[1,2],
-      "eventBanner":[1,2]
+      "eventBanner":[1,2],
+      "profilePicture": "img/spongebob_profile.jpg"
     },
 
     "2":{
@@ -23,7 +24,8 @@ var initialData = {
       "email": "patrick@gmail.com",
       "following": [3],
       "calendarEvent":[1,2],
-      "eventBanner":[1,2]
+      "eventBanner":[1,2],
+      "profilePicture": "img/patrick_profile.jpg"
     },
 
     "3":{
@@ -35,7 +37,8 @@ var initialData = {
       "email": "sandy@gmail.com",
       "calendarEvent":[1],
       "following": [2],
-      "eventBanner":[1,2]
+      "eventBanner":[1,2],
+      "profilePicture": "img/sandy-profile.jpg"
     },
 
     "4":{
@@ -47,7 +50,8 @@ var initialData = {
       "email": "krabs@gmail.com",
       "calendarEvent":[1],
       "following": [1,3],
-      "eventBanner":[1,2]
+      "eventBanner":[1,2],
+      "profilePicture": "img/mr_krabs_profile.jpg"
     },
 
     "5":{
@@ -59,7 +63,8 @@ var initialData = {
       "email": "plankton@gmail.com",
       "calendarEvent":[1],
       "following": [1,2],
-      "eventBanner":[1,2]
+      "eventBanner":[1,2],
+      "profilePicture": "img/plankton_profile.jpg"
     }
   },
 
