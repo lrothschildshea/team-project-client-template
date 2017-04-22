@@ -136,7 +136,7 @@ return feedItem;
 function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('calendarEvent', calendarEventId);
   sendXHR('GET',"/calendarEvent/"+calendarEventId,undefined,(xhr)=> {
-    console.log(JSON.parse(xhr.responseText));
+    JSON.parse(xhr.responseText);
   });
   return calendarEventItem;
 }

@@ -35,7 +35,6 @@ function getFeedItemSync(feedItemId) {
 }
 
 function getFeedData(user,type) {
-  console.log("Get called");
   // Get the User object with the id "user".
   var userData = readDocument('users', user);
   // Get the Feed object for the user.
@@ -68,8 +67,6 @@ function postStatusUpdate(user, contents,imgUrl,request,type) {
       "imgUrl":imgUrl
     }
   }
-  console.log(contents);
-  console.log(newPost);
   newPost = addDocument('feedItems',newPost);
   var userData = readDocument('users', user);
   var feedData;

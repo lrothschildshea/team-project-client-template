@@ -16,9 +16,9 @@ export default class Navbar extends React.Component {
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div className="nav navbar-nav navbar-left" role="search">
-              <Link className="navbar-brand" to='/'>
+              <div className="navbar-brand" >
                 LetsJam!
-              </Link>
+              </div>
               <div className="btn-group">
                 <Link to="/" className="btn btn-default navbar-btn">
                   <span className="glyphicon glyphicon-home"></span>
