@@ -22,32 +22,14 @@ app.use(express.static('../client/build'));
  */
 function getFeedItemSync(feedItemId) {
   var feedItem = readDocument('feedItems', feedItemId);
-  // Resolve 'like' counter.
-  feedItem.likeCounter =
-    feedItem.likeCounter.map((id) => readDocument('users', id));
-    // Assuming a StatusUpdate. If we had other types of
-    // FeedItems in the DB, we would
-    // need to check the type and have logic for each type.
-    feedItem.contents.author =
-      readDocument('users', feedItem.contents.author);
-    feedItem.tag = readDocument("servicetags",feedItem.tag);
-    return feedItem;
+  feedItem.author = readDocument('users', feedItem.author);
+  return feedItem;
 }
 
-function getFeedData(user,type) {
-  // Get the User object with the id "user".
+function getFeedData(user) {
   var userData = readDocument('users', user);
-  // Get the Feed object for the user.
-  var feedData;
-  if(type === 1) {
-     feedData = readDocument('academicfeeds', userData.Academic_feed);
-  }else {
-     feedData = readDocument('servicefeeds', userData.Service_feed);
-  }
-  // Map the Feed's FeedItem references to actual FeedItem objects.
-  // Note: While map takes a callback function as an argument, it is
-  // synchronous, not asynchronous. It calls the callback immediately.
-  feedData.list_of_feeditems = feedData.list_of_feeditems.map(getFeedItemSync);
+  var feedData = readDocument('feeds', userData.feed);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
   return feedData;
 }
 
@@ -81,19 +63,16 @@ function postStatusUpdate(user, contents,imgUrl,request,type) {
   }
   return newPost;
 }
-/**
- * Get the feed data for a particular user.
- 1 is academic feed
- 2 is Service feed
-*/
-app.get('/user/:userid/feed/:feedtype', function(req, res) {
-  var userid =  parseInt(req.params.userid,10);
-  var feedType = parseInt(req.params.feedtype,10);
-  // userid is a string. We need it to be a number.
-  // Parameters are always strings.
 
-    // Send response.
-    res.send(getFeedData(userid,feedType));
+
+app.get('/user/:userid/feed/', function(req, res){
+  var userid = parseInt(req.params.userid, 10);
+  //var fromUser = getUserIdFromToken(req.get('Authorization'));
+  //if(userid === fromUser){
+    res.send(getFeedData(userid));
+  /*} else {
+    res.status(401).end();
+  }*/
 });
 
 //Rest database.

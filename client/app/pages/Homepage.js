@@ -30,7 +30,7 @@ export default class Homepage extends React.Component {
             getBand(bandId, (band) => {
                 followingBands.push(band);
                 this.setState({followBands: followingBands});
-            })
+            });
         });
       })
     }
