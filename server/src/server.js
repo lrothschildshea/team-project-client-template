@@ -90,8 +90,11 @@ app.get('/user/:userid/bands/', function(req, res){
   res.send(userBands);
 });
 
-
-
+//gets the user object
+app.get('/user/:userid/', function(req, res){
+  var userid = parseInt(req.params.userid, 10);
+  res.send(readDocument('users', userid));
+});
 
 //Rest database.
 app.post('/restdb',function(req,res) {

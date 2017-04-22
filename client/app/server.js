@@ -220,7 +220,8 @@ export function editBandInfo(bandId, band, cb){
     wanted: oldBand.wanted}, cb);
 }
 
-  export function getUser(userId, cb){
-    var user = readDocument('users', userId);
-    emulateServerReturn(user, cb);
+  export function getUser(userid, cb){
+    sendXHR('GET', '/user/' + userid, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
