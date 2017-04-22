@@ -11,7 +11,6 @@ export default class Homepage extends React.Component {
         this.state = {
             feedItems: [],
             userBands: [],
-            user: null,
             followBands: []
         };
     }
@@ -20,7 +19,7 @@ export default class Homepage extends React.Component {
       getFeedData("1", (feedData) => {
         this.setState({feedItems: feedData.contents});
       });
-      getUsersBands(1, (bands) => {
+      getUsersBands("1", (bands) => {
         this.setState({userBands: bands});
       });
       getUser("1", (userObj) => {
@@ -32,7 +31,7 @@ export default class Homepage extends React.Component {
                 this.setState({followBands: followingBands});
             });
         });
-      })
+      });
     }
 
     componentDidMount() {
@@ -46,7 +45,7 @@ export default class Homepage extends React.Component {
                     <div className="row">
                         <HomeLeftSidebar userBands={this.state.userBands} userFollowing={this.state.followBands}/>
                         <MainFeed feedItems={this.state.feedItems}/>
-                        <HomeRightSidebar/>
+                        {(typeof this.state.user !== "undefined") ? <HomeRightSidebar user={this.state.user}/> : null }
                     </div>
                 </div>
             </div>

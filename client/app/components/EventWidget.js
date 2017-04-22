@@ -2,27 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import {getCalendarEvent} from '../server.js';
 
-export const mockEventList = [
-  {
-    name: "Band 1 Event",
-    id: 1,
-    date: "Tomorrow at 7:00 PM",
-    location: "South College",
-  },
-  {
-    name: "Band 3 Event",
-    id: 3,
-    date: "Friday at 8:00 PM",
-    location: "Fine Arts Center",
-  },
-  {
-    name: "Band 5 Event",
-    id: 5,
-    date: "Saturday at 2:00 PM",
-    location: "Fine Arts Center",
-  },
-]
-
 export default class EventWidget extends React.Component {
   constructor(props){
     super(props);
@@ -32,7 +11,7 @@ export default class EventWidget extends React.Component {
   }
 
   refresh(){
-    getCalendarEvent(1, (calendarEvent) => {
+    getCalendarEvent(this.props.user._id, (calendarEvent) => {
       this.setState({events: calendarEvent});
     });
   }

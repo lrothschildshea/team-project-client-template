@@ -1,9 +1,8 @@
 import React from 'react';
 import BandEdit from './BandEdit.js';
 import EventWidget from './EventWidget.js';
-import {mockEventList} from './EventWidget.js';
 import Comments from './Comments.js';
-import {getBand, getBandFeedData} from '../server.js';
+import {getBand, getBandFeedData, getUser} from '../server.js';
 
 export default class BandPage extends React.Component {
   constructor(props) {
@@ -30,6 +29,9 @@ export default class BandPage extends React.Component {
     getBandFeedData(this.props.params.id, (feedData) => {
       this.setState({feedItems: feedData.contents});
     });
+    getUser("1", (userObj) => {
+      this.setState({user: userObj});
+    });
   }
 
   componentDidMount() {
@@ -52,7 +54,7 @@ export default class BandPage extends React.Component {
             <div className="col-md-4 bandpage-left">
               <BandInfo band={this.state.band} />
               <WantedWidget wanted={this.state.band.wanted} />
-              <EventWidget eventList={mockEventList} />
+              {(typeof this.state.user !== "undefined") ? <EventWidget user={this.state.user}/> : null }
             </div>
             <div className="col-md-8 bandpage-right">
               <Comments
