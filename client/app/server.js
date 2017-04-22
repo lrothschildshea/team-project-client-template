@@ -74,13 +74,10 @@ function sendXHR(verb, resource, body, cb) {
  * Emulates a REST call to get the feed data for a particular user.
  */
 export function getFeedData(user, cb) {
-  sendXHR('GET', '/user/1/feed', undefined, (xhr) => {
+  sendXHR('GET', '/user/' + user + '/feed', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   });
 }
-
-
-
 
 function emulateServerReturn(data, cb) {
   setTimeout(() => {
@@ -191,15 +188,11 @@ export function removeBandMember(bandId, memberId, cb) {
 }
 
 
-export function getUsersBands(userId, cb) {
-  var bands = readList('bands');
-  var userBands = [];
-  for(var i in bands){
-    if(bands[i].members.includes(userId)){
-      userBands.push(bands[i]);
-    }
-  }
-  emulateServerReturn( userBands, cb);
+export function getUsersBands(userid, cb) {
+  sendXHR('GET', '/user/' + userid + '/bands/', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+
 }
 
 export function addBandMember(bandId, memberId, cb) {

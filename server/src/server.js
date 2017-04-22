@@ -9,12 +9,14 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
+var getCollection  = database.getCollection;
+
 var validate = require('express-jsonschema').validate;
 var app = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
-app.use(express.static('../client/build'));
+app.use(express.static('../../client/build'));
 
 /**
  * Given a feed item ID, returns a FeedItem object with references resolved.
@@ -64,7 +66,7 @@ function postStatusUpdate(user, contents,imgUrl,request,type) {
   return newPost;
 }
 
-
+//gets the feed items for the homepage
 app.get('/user/:userid/feed/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
   //var fromUser = getUserIdFromToken(req.get('Authorization'));
@@ -74,6 +76,22 @@ app.get('/user/:userid/feed/', function(req, res){
     res.status(401).end();
   }*/
 });
+
+//gets the bands the user is in
+app.get('/user/:userid/bands/', function(req, res){
+  var userid = parseInt(req.params.userid, 10);
+  var bands = getCollection('bands');
+  var userBands = [];
+  for(var i in bands){
+    if(bands[i].members.includes(userid)){
+      userBands.push(bands[i]);
+    }
+  }
+  res.send(userBands);
+});
+
+
+
 
 //Rest database.
 app.post('/restdb',function(req,res) {
