@@ -25,6 +25,7 @@ app.use(express.static('../client/build'));
 function getFeedItemSync(feedItemId) {
   var feedItem = readDocument('feedItems', feedItemId);
   feedItem.author = readDocument('users', feedItem.author);
+  feedItem.band = readDocument('bands', feedItem.band);
   return feedItem;
 }
 
