@@ -171,9 +171,9 @@ export function addEventBanner(user,eventBanner,cb){
 }
 
 export function getBand(bandId, cb) {
-  var band = readDocument('bands', bandId);
-  band.members  = band.members.map((member) => readDocument('users', member));
-  emulateServerReturn(band, cb);
+  sendXHR('GET', '/band/' + bandId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function removeBandMember(bandId, memberId, cb) {

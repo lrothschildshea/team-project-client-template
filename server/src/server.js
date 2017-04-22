@@ -96,6 +96,15 @@ app.get('/user/:userid/', function(req, res){
   res.send(readDocument('users', userid));
 });
 
+//gets a specific band with the members resolved to their user objects
+app.get('/band/:bandId/', function(req, res){
+  var bandId = parseInt(req.params.bandId, 10);
+  var band = readDocument('bands', bandId);
+  band.members = band.members.map((member) => readDocument('users', member));
+  res.send(band);
+});
+
+
 //Rest database.
 app.post('/restdb',function(req,res) {
   console.log("Resetting database");
