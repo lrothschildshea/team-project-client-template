@@ -95,15 +95,7 @@ function emulateServerReturn(data, cb) {
 * some time in the future with data.
 */
 export function search(searchString, bandOrPerson, instrument, genre, zipcode, cb) {
-  // Get the User object with the id "user".
-  // Get the Feed object for the user.
   var bandData = readList('bands');
-  // Map the Feed's FeedItem references to actual FeedItem objects.
-  // Note: While map takes a callback function as an argument, it is
-  // synchronous, not asynchronous. It calls the callback immediately.
-  // Return FeedData with resolved references.
-  // emulateServerReturn will emulate an asynchronous server operation, which
-  // invokes (calls) the "cb" function some time in the future.
   emulateServerReturn(bandData, cb);
 }
 
