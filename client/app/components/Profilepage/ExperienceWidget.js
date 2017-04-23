@@ -1,6 +1,6 @@
 import React from 'react';
-import Comments from './Comments.js';
-import {mockComments} from './Comments.js';
+import Comments from '../Comments.js';
+import {mockComments} from '../Comments.js';
 
 export default class ExperienceWidget extends React.Component {
   render() {

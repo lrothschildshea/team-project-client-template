@@ -1,6 +1,6 @@
 import React from 'react';
 import MusicWidget from './MusicWidget';
-import EventWidget from './EventWidget.js';
+import EventWidget from '../EventWidget.js';
 
 export default class ProfileDescription2 extends React.Component {
   render() {
