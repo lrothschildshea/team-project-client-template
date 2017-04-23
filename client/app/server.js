@@ -10,10 +10,10 @@ function sendXHR(verb, resource, body, cb) {
   xhr.open(verb, resource);
   // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
-  // The below comment tells ESLint that FacebookError is a global.
+  // The below comment tells ESLint that console.log is a global.
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
+  /* global console.log */
 
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
@@ -28,7 +28,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      FacebookError('Could not ' + verb + " " + resource + ": Received " +
+      console.log('Could not ' + verb + " " + resource + ": Received " +
       statusCode + " " + statusText + ": " + responseText);
     }
   });
@@ -39,13 +39,13 @@ function sendXHR(verb, resource, body, cb) {
 
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    console.log('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
 
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    FacebookError('Could not ' + verb + " " + resource +
+    console.log('Could not ' + verb + " " + resource +
 		": Request timed out.");
   });
 
@@ -127,27 +127,16 @@ feedItem.band = readDocument('bands', feedItem.band);
 return feedItem;
 }
 
-function getCalendarEventSyn(calendarEventId) {
-  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
-  sendXHR('GET',"/calendarEvent/"+calendarEventId,undefined,(xhr)=> {
-    JSON.parse(xhr.responseText);
-  });
-  return calendarEventItem;
-}
 export function getCalendarEvent(user,cb){
-  var mockUser = readDocument('users',user);
-  var calendarEventId=mockUser.calendarEvent;
-  var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-  emulateServerReturn(calendarEventItem,cb);
+  sendXHR('GET','/calendarEvent/'+user,undefined,(xhr)=> {
+    // console.log(JSON.parse(xhr.responseText));
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 export function addCalendarEvent(user,calendarEvent,cb){
-  var mockUser = readDocument('users',user);
-  var calendarEventId = mockUser.calendarEvent;
-  var newEvent = addDocument("calendarEvent",calendarEvent);
-  calendarEventId.unshift(newEvent._id);
-  mockUser.calendarEvent = calendarEventId;
-  writeDocument('users',mockUser);
-  getCalendarEvent(user,cb);
+  sendXHR('POST','/addEvent/'+user,calendarEvent,(xhr)=> {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 function getEventBannerSyn(eventBannerId) {

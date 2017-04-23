@@ -299,13 +299,13 @@ var initialData = {
   "eventBanner":{
     "1":{
       'title': 'Event1',
-      'start': new Date(2017, 4, 1),
-      'end': new Date(2017, 4, 2)
+      'start': new Date('2017-4-1'),
+      'end': new Date('2017-4-2')
     },
     "2":{
       'title': 'Event2',
-      'start': new Date(2017, 4, 3),
-      'end': new Date(2017, 4, 3)
+      'start': new Date('2017-4-3'),
+      'end': new Date('2017-4-3')
     }
   }
 };
@@ -416,6 +416,7 @@ module.exports.getCollection = getCollection;
  * Reset the database.
  */
 function resetDatabase() {
+    console.log(data);
     data = JSONClone(initialData);
     updated = true;
 }

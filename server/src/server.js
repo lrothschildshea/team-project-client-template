@@ -36,6 +36,10 @@ function getFeedData(user) {
   return feedData;
 }
 
+function getCalendarEventSyn(calendarEventId) {
+  var calendarEventItem=readDocument('events', calendarEventId);
+  return calendarEventItem;
+}
 //gets the feed items for the homepage
 app.get('/user/:userid/feed/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
@@ -100,10 +104,33 @@ app.put('/feeditem/:feeditemid',function(req,res) {
   res.send(JSON.stringify(feedItem.view_count));
 });
 
-app.get('/calendarEvent/:calendarEventId',function(req,res) {
-  const calendarEventId = req.params.calendarEventId;
-  var calendarEventItem=readDocument('calendarEvent', calendarEventId);
+app.get('/calendarEvent/:userId',function(req,res) {
+  const userId = req.params.userId;
+  var mockUser = readDocument('users',userId);
+  var calendarEventId=mockUser.events;
+  var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
+  // console.log(calendarEventItem);
   res.status(200).send(calendarEventItem);
+});
+
+app.post('/addEvent/:userId',function(req,res) {
+  var userId = req.params.userId;
+  var mockUser = readDocument('users',userId);
+  var eventBody = req.body;
+  var eventIds = mockUser.events;
+  var newEvent = {
+    name:eventBody.name,
+    band:eventBody.band,
+    date:new Date(eventBody.date).valueOf(),
+    location:eventBody.location,
+    detail:eventBody.detail
+  }
+  var newEvent_id = addDocument('events',newEvent)._id;
+  eventIds.unshift(newEvent_id);
+  mockUser.events = eventIds;
+  writeDocument('users',mockUser);
+  var events = eventIds.map(getCalendarEventSyn);
+  res.status(200).send(events);
 })
 /**
  * Translate JSON Schema Validation failures into error 400s.

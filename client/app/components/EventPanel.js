@@ -61,7 +61,6 @@ class EventPanelElement extends React.Component {
           <p>Event:</p>
           <p>Band:</p>
           <p>Date:</p>
-          <p>Time:</p>
           <p>Location:</p>
           <p>Detail:</p>
         </div>
@@ -69,8 +68,7 @@ class EventPanelElement extends React.Component {
           <a href="#">
           <p>{this.props.event.name}</p>
           <p>{this.props.event.band}</p>
-          <p>{this.props.event.date}</p>
-          <p>{this.props.event.time}</p>
+          <p>{new Date(this.props.event.date).toLocaleString()}</p>
           <p>{this.props.event.location}</p>
           <p>{this.props.event.detail}</p>
           </a>
