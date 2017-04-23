@@ -1,6 +1,5 @@
 import React from 'react';
 import EventWidget from '../EventWidget.js';
-import {mockEventList} from '../EventWidget.js';
 
 export default class Chatpage extends React.Component{
   render(){
@@ -152,7 +151,7 @@ class ChatRightSidebar extends React.Component{
                   <AboutWidget member="SpongeBob" memberProfile="#" instruments="Guitar" bands="Krusty Krab Band"/>
               </div>
               <div className="row">
-                  <EventWidget eventList={mockEventList} />
+                  <EventWidget />
               </div>
           </div>
       </div>

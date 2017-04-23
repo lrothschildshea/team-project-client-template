@@ -1,7 +1,6 @@
 import React from 'react';
 import MusicWidget from './MusicWidget';
 import EventWidget from './EventWidget.js';
-import {mockEventList} from './EventWidget.js';
 
 export default class ProfileDescription2 extends React.Component {
   render() {
@@ -26,7 +25,7 @@ export default class ProfileDescription2 extends React.Component {
               <h2 className="panel-title">Events</h2>
             </div>
             <div className="panel-body">
-              <EventWidget eventList={mockEventList} />
+              <EventWidget />
             </div>
           </div>
         </div>

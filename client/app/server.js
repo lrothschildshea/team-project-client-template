@@ -225,3 +225,9 @@ export function editBandInfo(bandId, band, cb){
       cb(JSON.parse(xhr.responseText));
     });
   }
+
+  export function getEvents(userId, cb){
+    sendXHR('GET', '/user/' + userId + '/events/', undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
+  }

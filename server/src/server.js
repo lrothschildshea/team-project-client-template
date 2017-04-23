@@ -16,7 +16,7 @@ var app = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
-app.use(express.static('../client/build'));
+app.use(express.static('../../client/build'));
 
 /**
  * Given a feed item ID, returns a FeedItem object with references resolved.
@@ -34,37 +34,6 @@ function getFeedData(user) {
   var feedData = readDocument('feeds', userData.feed);
   feedData.contents = feedData.contents.map(getFeedItemSync);
   return feedData;
-}
-
-function postStatusUpdate(user, contents,imgUrl,request,type) {
-  var time = new Date().getTime();
-  var newPost = {
-    "view_count": 0,
-    "likeCounter": [],
-    // Taggs are by course_id
-    "tag": 1,
-    "list_of_comments":[],
-    "contents": {
-      "author": user,
-      "timestamp": time,
-      "request": request,
-      "contents": contents,
-      "imgUrl":imgUrl
-    }
-  }
-  newPost = addDocument('feedItems',newPost);
-  var userData = readDocument('users', user);
-  var feedData;
-  if(type === 1) {
-     feedData = readDocument('academicfeeds', userData.Academic_feed);
-     feedData.list_of_feeditems.unshift(newPost._id);
-     writeDocument('academicfeeds', feedData);
-  }else {
-     feedData = readDocument('servicefeeds', userData.Service_feed);
-     feedData.list_of_feeditems.unshift(newPost._id);
-     writeDocument('servicefeeds', feedData);
-  }
-  return newPost;
 }
 
 //gets the feed items for the homepage
@@ -106,12 +75,19 @@ app.get('/band/:bandId/', function(req, res){
 });
 
 
-//Rest database.
-app.post('/restdb',function(req,res) {
+//gets the events for bands the user is in
+app.get('/user/:userId/events/', function(req, res){
+  var userId = parseInt(req.params.userId, 10);
+  var user = readDocument('users', userId);
+  var events = user.events.map((event) => readDocument('events', event));
+  res.send(events);
+});
+
+
+//Reset database.
+app.post('/resetdb',function(req,res) {
   console.log("Resetting database");
-  // This is a debug route, so don't do any Validation.
   database.resetDatabase();
-  // res.send() sends an empty response with status code 200
   res.send();
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {ResetDatabase} from '../database.js';
+import {ResetDatabase} from './ResetDatabase.js';
 
 export default class Navbar extends React.Component {
   render() {

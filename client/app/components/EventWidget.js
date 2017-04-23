@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {getCalendarEvent} from '../server.js';
+import {getEvents} from '../server.js';
+import {unixTimeToString} from '../util.js'
 
 export default class EventWidget extends React.Component {
   constructor(props){
@@ -11,7 +12,7 @@ export default class EventWidget extends React.Component {
   }
 
   refresh(){
-    getCalendarEvent(this.props.user._id, (calendarEvent) => {
+    getEvents(this.props.user._id, (calendarEvent) => {
       this.setState({events: calendarEvent});
     });
   }
@@ -24,7 +25,9 @@ export default class EventWidget extends React.Component {
     return (
       <div className="panel events-widget">
         <div className="panel-heading">
-          <h3 className="panel-title">Upcoming Events</h3>
+          <Link to="/calendar/">
+            <h3 className="panel-title">Upcoming Events</h3>
+          </Link>
         </div>
         <div className="panel-body">
           <div className="events">
@@ -52,7 +55,7 @@ class EventWidgetElement extends React.Component {
         <div className="media-body">
           <Link to={"/calendar/"}>
               <p>{this.props.event.name}</p>
-              <p>{this.props.event.date}</p>
+              <p>{unixTimeToString(this.props.event.date)}</p>
               <p>{this.props.event.location}</p>
           </Link>
         </div>

@@ -10,7 +10,7 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "spongeBob@gmail.com",
       "following": [2],
-      "calendarEvent":[1,2],
+      "events":[1,3],
       "eventBanner":[1,2],
       "profilePicture": "img/spongebob_profile.jpg"
     },
@@ -23,7 +23,7 @@ var initialData = {
       "location": "Bikini Bottom",
       "email": "patrick@gmail.com",
       "following": [3],
-      "calendarEvent":[1,2],
+      "events":[1,2,4],
       "eventBanner":[1,2],
       "profilePicture": "img/patrick_profile.jpg"
     },
@@ -35,8 +35,8 @@ var initialData = {
       "picture": 3,
       "location": "Bikini Bottom",
       "email": "sandy@gmail.com",
-      "calendarEvent":[1],
       "following": [2],
+      "events":[1,3],
       "eventBanner":[1,2],
       "profilePicture": "img/sandy-profile.jpg"
     },
@@ -48,8 +48,8 @@ var initialData = {
       "picture": 4,
       "location": "Bikini Bottom",
       "email": "krabs@gmail.com",
-      "calendarEvent":[1],
       "following": [1,3],
+      "events":[2,4],
       "eventBanner":[1,2],
       "profilePicture": "img/mr_krabs_profile.jpg"
     },
@@ -61,8 +61,8 @@ var initialData = {
       "picture": 5,
       "location": "Bikini Bottom",
       "email": "plankton@gmail.com",
-      "calendarEvent":[1],
-      "following": [1,2],
+      "following": [1],
+      "events":[3],
       "eventBanner":[1,2],
       "profilePicture": "img/plankton_profile.jpg"
     }
@@ -262,48 +262,36 @@ var initialData = {
     }
   },
 
-  "events": {
-    "1": {
-      "Name": "Event1",
-      "_id": 1,
-      "location": "amherst",
-      "Date": 1453668480000
-    },
-    "2": {
-      "Name": "Event2",
-      "_id": 2,
-      "location": "amherst",
-      "Date": 1453668480000
-    },
-    "3": {
-      "Name": "Event3",
-      "_id": 3,
-      "location": "amherst",
-      "Date": 1453668480000
-    },
-    "4": {
-      "Name": "Event4",
-      "_id": 4,
-      "location": "amherst",
-      "Date": 1453668480000
-    }
-  },
-  "calendarEvent":{
+  "events":{
     "1":{
       "name": "Event 1",
-      "band": "Band 1",
+      "band": 1,
       "_id": 1,
-      "date": "Tomorrow at 7:00 PM",
-      "time": "7 - 9 PM",
+      "date": 1453668480000,
       "location": "South College",
       "detail": "It is fun"
     },
     "2":{
       "name": "Event 2",
-      "band": "Band 1",
+      "band": 2,
       "_id": 2,
-      "date": "Tomorrow at 7:00 PM",
-      "time": "7 - 9 PM",
+      "date": 1453668580000,
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "3":{
+      "name": "Event 3",
+      "band": 3,
+      "_id": 3,
+      "date": 1453668680000,
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "4":{
+      "name": "Event 4",
+      "band": 2,
+      "_id": 4,
+      "date": 1453669480000,
       "location": "South College",
       "detail": "It is fun"
     }

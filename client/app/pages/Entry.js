@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/Navbar.js';
-//import {mockUser} from '../components/Navbar.js';
 import {getUser} from '../server.js';
 
 export default class Entry extends React.Component {
