@@ -145,18 +145,15 @@ function getEventBannerSyn(eventBannerId) {
 }
 export function getEventBanner(user,cb){
   sendXHR('GET','/getEventBanner/'+user,undefined,(xhr)=> {
-    console.log(JSON.parse(xhr.responseText));
+    // console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }
 export function addEventBanner(user,eventBanner,cb){
-  var mockUser = readDocument('users',user);
-  var eventBannerId = mockUser.eventBanner;
-  var newEventBanner = addDocument("eventBanner",eventBanner);
-  eventBannerId.unshift(newEventBanner._id);
-  mockUser.eventBanner = eventBannerId;
-  writeDocument('users',mockUser);
-  getEventBanner(user,cb);
+  sendXHR('POST','/addEventBanner/'+user,eventBanner,(xhr)=> {
+    console.log(JSON.parse(xhr.responseText));
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getBand(bandId, cb) {

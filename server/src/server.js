@@ -144,6 +144,23 @@ app.get('/getEventBanner/:userId',function(req,res) {
   var eventBannerId=mockUser.eventBanner;
   var eventBannerItem = eventBannerId.map(getEventBannerSyn);
   res.status(200).send(eventBannerItem);
+});
+
+app.post('/addEventBanner/:userId',function(req,res) {
+  var userId = req.params.userId;
+  var mockUser = readDocument('users',userId);
+  var eventBannerId = mockUser.eventBanner;
+  var eventBanner = {
+    title:req.body.title,
+    start:req.body.start,
+    end:req.body.end
+  }
+  var newEventBanner = addDocument("eventBanner",eventBanner);
+  eventBannerId.unshift(newEventBanner._id);
+  mockUser.eventBanner = eventBannerId;
+  writeDocument('users',mockUser);
+  var modifiedBanner = eventBannerId.map(getEventBannerSyn);
+  res.status(200).send(modifiedBanner);
 })
 /**
  * Translate JSON Schema Validation failures into error 400s.
