@@ -144,10 +144,10 @@ function getEventBannerSyn(eventBannerId) {
   return eventBannerItem;
 }
 export function getEventBanner(user,cb){
-  var mockUser = readDocument('users',user);
-  var eventBannerId=mockUser.eventBanner;
-  var eventBannerItem = eventBannerId.map(getEventBannerSyn);
-  emulateServerReturn(eventBannerItem,cb);
+  sendXHR('GET','/getEventBanner/'+user,undefined,(xhr)=> {
+    console.log(JSON.parse(xhr.responseText));
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 export function addEventBanner(user,eventBanner,cb){
   var mockUser = readDocument('users',user);

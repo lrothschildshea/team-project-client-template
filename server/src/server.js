@@ -40,6 +40,11 @@ function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('events', calendarEventId);
   return calendarEventItem;
 }
+
+function getEventBannerSyn(eventBannerId) {
+  var eventBannerItem=readDocument('eventBanner', eventBannerId);
+  return eventBannerItem;
+}
 //gets the feed items for the homepage
 app.get('/user/:userid/feed/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
@@ -131,6 +136,14 @@ app.post('/addEvent/:userId',function(req,res) {
   writeDocument('users',mockUser);
   var events = eventIds.map(getCalendarEventSyn);
   res.status(200).send(events);
+});
+
+app.get('/getEventBanner/:userId',function(req,res) {
+  var userId = req.params.userId;
+  var mockUser = readDocument('users',userId);
+  var eventBannerId=mockUser.eventBanner;
+  var eventBannerItem = eventBannerId.map(getEventBannerSyn);
+  res.status(200).send(eventBannerItem);
 })
 /**
  * Translate JSON Schema Validation failures into error 400s.
