@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ProfilePage from './components/ProfilePage/ProfilePage.js';
+import ProfilePage from './components/Profilepage/ProfilePage.js';
 import EventPage from './components/EventPage.js';
 import BandPage from './components/BandPage.js';
 import Homepage from './pages/Homepage.js';
