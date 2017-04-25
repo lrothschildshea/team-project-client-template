@@ -6,7 +6,7 @@ export default class HomeRightSidebar extends React.Component {
     return(
       <div className="col-md-3 col-md-offset-9">
           <div className="right-sidebar">
-            <EventWidget user={this.props.user}/>
+            <EventWidget user={this.props.user} page="homepage"/>
           </div>
       </div>
     )

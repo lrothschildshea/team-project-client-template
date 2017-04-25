@@ -54,7 +54,7 @@ export default class BandPage extends React.Component {
             <div className="col-md-4 bandpage-left">
               <BandInfo band={this.state.band} />
               <WantedWidget wanted={this.state.band.wanted} />
-              {(typeof this.state.user !== "undefined") ? <EventWidget user={this.state.user}/> : null }
+              {(typeof this.state.user !== "undefined") ? <EventWidget user={this.state.user} page="bandpage"/> : null }
             </div>
             <div className="col-md-8 bandpage-right">
               <Comments

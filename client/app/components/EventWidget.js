@@ -23,7 +23,7 @@ export default class EventWidget extends React.Component {
 
   render() {
     return (
-      <div className="panel events-widget">
+      <div className={"panel events-widget " + this.props.page}>
         <div className="panel-heading">
           <Link to="/calendar/">
             <h3 className="panel-title">Upcoming Events</h3>
