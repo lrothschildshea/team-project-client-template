@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar.js';
 import {getUser} from '../server.js';
+import ErrorBanner from '../components/ErrorBanner.js';
 
 export default class Entry extends React.Component {
 
@@ -33,6 +34,13 @@ export default class Entry extends React.Component {
   render(){
     return (
       <div>
+        <div className="container">
+          <div className="row">
+             <div className="col-md-12">
+               <ErrorBanner />
+             </div>
+           </div>
+        </div>
         <Navbar user={this.state.user} />
         {
           this.props.children

@@ -14,7 +14,7 @@ function sendXHR(verb, resource, body, cb) {
   // The below comment tells ESLint that console.log is a global.
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global console.log */
+  /* global LetsJamError */
 
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
@@ -29,8 +29,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      console.log('Could not ' + verb + " " + resource + ": Received " +
-      statusCode + " " + statusText + ": " + responseText);
+      LetsJamError('Could not ' + verb + " " + resource + ": Received " + statusCode + " " + statusText + ": " + responseText);
     }
   });
 

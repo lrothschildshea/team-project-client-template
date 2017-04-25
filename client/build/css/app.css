@@ -2,6 +2,11 @@ body {
   padding-top: 50px;
   background-color: #FAFAFA;
 }
+
+.hidden {
+  display: 'none';
+}
+
 .band-cover {
     background-position: 0% 25%;
     background-size: cover;
