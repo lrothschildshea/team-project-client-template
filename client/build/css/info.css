@@ -1,13 +1,8 @@
 body {
-  padding-top: 80px;
   background-color: #FAFAFA;
 }
 
 .info-upcoming{
- padding-top: 15px;
- padding-bottom: 5px;
- margin-bottom: 5px;
- margin-left: 25px;
  font-weight: bold;
  line-height: 24px;
  font-size: 20px;
@@ -20,7 +15,7 @@ body {
 
 .panel-default > .panel-heading-custom {
   background: #ff902a; color: #fff;
-  height:55px
+  height:55px;
  }
 
  .panel-default > .panel-body-custom {

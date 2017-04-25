@@ -48,12 +48,6 @@ export default class EventRegister extends React.Component {
     time.end=e.target.value;
     this.setState({calendarEvent:time});
   }
-  handleEventTime(e){
-    e.preventDefault();
-    var temp = this.state.panelElement;
-    temp.time=e.target.value;
-    this.setState({panelElement:temp});
-  }
   handleEventLocation(e){
     e.preventDefault();
     var temp = this.state.panelElement;
@@ -99,19 +93,13 @@ export default class EventRegister extends React.Component {
 
               <label>
                   <span>Date :</span>
-                  <input id="eventDate" type="text" name="eventDate" placeholder="yyyy-mm-dd" value={this.state.panelElement.eventDate} onChange={(e)=>this.handleEventDate(e)} />
-              </label>
-
-              <label>
-                  <span>Time :</span>
-                  <input id="eventTime" type="text" name="eventTime" placeholder="10am-12am" value={this.state.panelElement.eventTime} onChange={(e)=>this.handleEventTime(e)} />
+                  <input id="eventDate" type="text" name="eventDate" placeholder="yyyy-mm-dd, 3:30:00 PM" value={this.state.panelElement.eventDate} onChange={(e)=>this.handleEventDate(e)} />
               </label>
 
               <label>
                   <span>Location:</span>
                   <input id="eventLocation" type="text" name="eventLocation" placeholder="e.g Umass Amherst FAC" value={this.state.panelElement.eventLocation} onChange={(e)=>this.handleEventLocation(e)} />
               </label>
-
 
                 <label>
                     <span>Detail :</span>
