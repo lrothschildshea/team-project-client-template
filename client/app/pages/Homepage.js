@@ -16,13 +16,13 @@ export default class Homepage extends React.Component {
     }
 
     refresh() {
-      getFeedData("1", (feedData) => {
+      getFeedData(this.props.userId, (feedData) => {
         this.setState({feedItems: feedData.contents});
       });
-      getUsersBands("1", (bands) => {
+      getUsersBands(this.props.userId, (bands) => {
         this.setState({userBands: bands});
       });
-      getUser("1", (userObj) => {
+      getUser(this.props.userId, (userObj) => {
         this.setState({user: userObj});
         var followingBands = [];
         this.state.user.following.map((bandId) => {
