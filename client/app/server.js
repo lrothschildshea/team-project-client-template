@@ -11,9 +11,8 @@ function sendXHR(verb, resource, body, cb) {
   xhr.open(verb, resource);
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
-  // The below comment tells ESLint that console.log is a global.
-  // Otherwise, ESLint would complain about it! (See what happens in Atom if
-  // you remove the comment...)
+  // The below comment tells ESLint that LetsJamError is a global.
+
   /* global LetsJamError */
 
   // Response received from server. It could be a failure, though!
@@ -39,13 +38,13 @@ function sendXHR(verb, resource, body, cb) {
 
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    console.log('Could not ' + verb + " " + resource +
+    LetsJamError('Could not ' + verb + " " + resource +
     ": Could not connect to the server.");
   });
 
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    console.log('Could not ' + verb + " " + resource +
+    LetsJamError('Could not ' + verb + " " + resource +
 		": Request timed out.");
   });
 
@@ -70,9 +69,7 @@ function sendXHR(verb, resource, body, cb) {
   }
 }
 
-/**
- * Emulates a REST call to get the feed data for a particular user.
- */
+//Emulates a REST call to get the feed data for a particular user.
 export function getFeedData(user, cb) {
   sendXHR('GET', '/user/' + user + '/feed', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
@@ -84,6 +81,7 @@ function emulateServerReturn(data, cb) {
     cb(data);
   }, 4);
 }
+
 /**
 * Emulates how a REST call is *asynchronous* -- it calls your function back
 * some time in the future with data.
@@ -120,19 +118,16 @@ export function addFeedItem(feedID, author, band, comment, cb) {
 function getFeedItemSync(feedItemId) {
   var feedItem = readDocument('feedItems', feedItemId);
   feedItem.author = readDocument('users', feedItem.author);
-  /*  feedItem.comments.forEach((comment) => {
-  comment.author = readDocument('users', comment.author);
-});*/
-feedItem.band = readDocument('bands', feedItem.band);
-return feedItem;
+  feedItem.band = readDocument('bands', feedItem.band);
+  return feedItem;
 }
 
 export function getCalendarEvent(user,cb){
   sendXHR('GET','/calendarEvent/'+user,undefined,(xhr)=> {
-    // console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }
+
 export function addCalendarEvent(user,calendarEvent,cb){
   sendXHR('POST','/addEvent/'+user,calendarEvent,(xhr)=> {
     cb(JSON.parse(xhr.responseText));
@@ -143,15 +138,16 @@ function getEventBannerSyn(eventBannerId) {
   var eventBannerItem=readDocument('eventBanner', eventBannerId);
   return eventBannerItem;
 }
+
 export function getEventBanner(user,cb){
   sendXHR('GET','/getEventBanner/'+user,undefined,(xhr)=> {
     // console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }
+
 export function addEventBanner(user,eventBanner,cb){
   sendXHR('POST','/addEventBanner/'+user,eventBanner,(xhr)=> {
-    console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }

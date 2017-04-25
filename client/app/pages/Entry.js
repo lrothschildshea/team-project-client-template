@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar.js';
 import {getUser} from '../server.js';
-import ErrorBanner from '../components/ErrorBanner.js';
+import ErrorBanner from '../components/ErrorBanner';
 
 export default class Entry extends React.Component {
 

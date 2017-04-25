@@ -4,7 +4,6 @@ import {ResetDatabase} from './ResetDatabase.js';
 
 export default class Navbar extends React.Component {
   render() {
-    var chatLink = "chat/"+this.props.user._id
     var profileLink = "profile/"+this.props.user._id
     return (
       <nav className="navbar navbar-fixed-top navbar-default">
