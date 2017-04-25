@@ -1,6 +1,7 @@
 import {readDocument, writeDocument, addDocument, readList} from './database.js';
 
-// var token = ''; // <-- Put your base64'd JSON token here
+var token = 'eyJpZCI6MX0=';
+
 /**
  * Properly configure+send an XMLHttpRequest with error handling,
  * authorization token, and other needed properties.
@@ -8,7 +9,7 @@ import {readDocument, writeDocument, addDocument, readList} from './database.js'
 function sendXHR(verb, resource, body, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(verb, resource);
-  // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
   // The below comment tells ESLint that console.log is a global.
   // Otherwise, ESLint would complain about it! (See what happens in Atom if

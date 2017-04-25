@@ -16,7 +16,7 @@ var app = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
-app.use(express.static('../../client/build'));
+app.use(express.static('../client/build'));
 
 /**
  * Given a feed item ID, returns a FeedItem object with references resolved.
@@ -45,34 +45,45 @@ function getEventBannerSyn(eventBannerId) {
   var eventBannerItem=readDocument('eventBanner', eventBannerId);
   return eventBannerItem;
 }
+
 //gets the feed items for the homepage
 app.get('/user/:userid/feed/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
-  //var fromUser = getUserIdFromToken(req.get('Authorization'));
-  //if(userid === fromUser){
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if(userid === fromUser){
     res.send(getFeedData(userid));
-  /*} else {
+  } else {
     res.status(401).end();
-  }*/
+  }
 });
 
 //gets the bands the user is in
 app.get('/user/:userid/bands/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
-  var bands = getCollection('bands');
-  var userBands = [];
-  for(var i in bands){
-    if(bands[i].members.includes(userid)){
-      userBands.push(bands[i]);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if(userid === fromUser){
+    var bands = getCollection('bands');
+    var userBands = [];
+    for(var i in bands){
+      if(bands[i].members.includes(userid)){
+        userBands.push(bands[i]);
+      }
     }
+    res.send(userBands);
+  } else {
+    res.status(401).end();
   }
-  res.send(userBands);
 });
 
 //gets the user object
 app.get('/user/:userid/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
-  res.send(readDocument('users', userid));
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if(userid === fromUser){
+    res.send(readDocument('users', userid));
+  } else {
+    res.status(401).end();
+  }
 });
 
 //gets a specific band with the members resolved to their user objects
@@ -87,9 +98,14 @@ app.get('/band/:bandId/', function(req, res){
 //gets the events for bands the user is in
 app.get('/user/:userId/events/', function(req, res){
   var userId = parseInt(req.params.userId, 10);
-  var user = readDocument('users', userId);
-  var events = user.events.map((event) => readDocument('events', event));
-  res.send(events);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if(userId === fromUser){
+    var user = readDocument('users', userId);
+    var events = user.events.map((event) => readDocument('events', event));
+    res.send(events);
+  } else {
+    res.status(401).end();
+  }
 });
 
 
@@ -114,7 +130,6 @@ app.get('/calendarEvent/:userId',function(req,res) {
   var mockUser = readDocument('users',userId);
   var calendarEventId=mockUser.events;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-  // console.log(calendarEventItem);
   res.status(200).send(calendarEventItem);
 });
 
@@ -162,9 +177,8 @@ app.post('/addEventBanner/:userId',function(req,res) {
   var modifiedBanner = eventBannerId.map(getEventBannerSyn);
   res.status(200).send(modifiedBanner);
 })
-/**
- * Translate JSON Schema Validation failures into error 400s.
-*/
+
+//Translate JSON Schema Validation failures into error 400s.
 app.use(function(err, req, res, next) {
   if (err.name === 'JsonSchemaValidation') {
     // Set a bad request http response status
@@ -173,6 +187,28 @@ app.use(function(err, req, res, next) {
     // It's some other sort of error; pass it to next error middleware handler
     next(err); }
 });
+
+function getUserIdFromToken(authorizationLine) {
+    try {
+      // Cut off "Bearer " from the header value.
+      var token = authorizationLine.slice(7);
+      // Convert the base64 string to a UTF-8 string.
+      var regularString = new Buffer(token, 'base64').toString('utf8');
+      // Convert the UTF-8 string into a JavaScript object.
+      var tokenObj = JSON.parse(regularString);
+      var id = tokenObj['id'];
+      // Check that id is a number.
+      if (typeof id === 'number') {
+        return id;
+      } else {
+        // Not a string. Return "", an invalid ID.
+        return "";
+      }
+    } catch (e) {
+      // Return an invalid ID.
+      return -1;
+    }
+  }
 
 // listening on port 3000
 app.listen(3000,function() {

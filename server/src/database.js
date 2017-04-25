@@ -416,7 +416,6 @@ module.exports.getCollection = getCollection;
  * Reset the database.
  */
 function resetDatabase() {
-    console.log(data);
     data = JSONClone(initialData);
     updated = true;
 }
