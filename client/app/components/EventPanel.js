@@ -1,35 +1,5 @@
 import React from 'react';
 
-export const mockEventList = [
-  {
-    name: "Event 1",
-    band: "Band 1",
-    id: 1,
-    date: "Tomorrow at 7:00 PM",
-    time: "7 - 9 PM",
-    location: "South College",
-    detail: "It is fun"
-  },
-  {
-    name: "Event 2",
-    band: "Band 1",
-    id: 2,
-    date: "Tomorrow at 7:00 PM",
-    time: "7 - 9 PM",
-    location: "South College",
-    detail: "It is fun"
-  },
-  {
-    name: "Event 2",
-    band: "Band 1",
-    id: 3,
-    date: "Tomorrow at 7:00 PM",
-    time: "7 - 9 PM",
-    location: "South College",
-    detail: "It is fun"
-  }
-]
-
 export default class EventPanel extends React.Component {
   render() {
     return (
@@ -38,14 +8,14 @@ export default class EventPanel extends React.Component {
           <h3 className="panel-title info-upcoming">Upcoming Events</h3>
         </div>
         <div className="panel-body info-event-detail panel-body-custom">
-          <div className="events">
-              <ul className="media-list">
-                  {this.props.eventList.map((event) =>
-                    {
-                        return <li className="media" key={event._id}><EventPanelElement event={event}/></li>
-                    }
-                  )}
-              </ul>
+        <div className="events">
+            <ul className="media-list">
+              {this.props.eventList.map((event) =>
+                {
+                  return <li className="media" key={event._id}><EventPanelElement event={event}/></li>
+                }
+              )}
+            </ul>
           </div>
         </div>
       </div>
