@@ -11,8 +11,11 @@ var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
 var getCollection  = database.getCollection;
 
-var validate = require('express-jsonschema').validate;
+
 var app = express();
+
+var validate = require('express-jsonschema').validate;
+var FeedItemSchema = require('./schemas/feeditem.json');
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
@@ -36,6 +39,30 @@ function getFeedData(user) {
   return feedData;
 }
 
+function postFeedItem(author, contents, band) {
+  var time = new Date().getTime();
+  var newFeedItem = {
+    "author" : author,
+    "contents" : contents,
+    "postDate" : time,
+    "band": band
+  };
+
+  newFeedItem = addDocument('feedItems', newFeedItem);
+  var bandData = readDocument('bands', band);
+  var feedData = readDocument('feeds', bandData.feed);
+  feedData.contents.unshift(newFeedItem._id);
+  writeDocument('feeds', feedData);
+  return getBandFeedData(band);
+}
+
+function getBandFeedData(band) {
+  var bandData = readDocument('bands', band);
+  var feedData = readDocument('feeds', bandData.feed);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  return feedData;
+}
+
 function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('events', calendarEventId);
   return calendarEventItem;
@@ -52,6 +79,27 @@ app.get('/user/:userid/feed/', function(req, res){
   var fromUser = getUserIdFromToken(req.get('Authorization'));
   if(userid === fromUser){
     res.send(getFeedData(userid));
+  } else {
+    res.status(401).end();
+  }
+});
+
+//gets the feed items for the homepage
+app.get('/band/:bandid/feed/', function(req, res){
+  var bandid = parseInt(req.params.bandid, 10);
+  res.send(getBandFeedData(bandid));
+});
+
+// POST comment on feed
+app.post('/band/:bandid/feed', function(req, res) {
+  // If this function runs, `req.body` passed JSON validation!
+  var bandid = parseInt(req.params.bandid, 10);
+  var body = req.body;
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if (fromUser === body.userId) {
+    var newFeed = postFeedItem(body.userId, body.contents, bandid);
+    res.status(201);
+    res.send(newFeed);
   } else {
     res.status(401).end();
   }
