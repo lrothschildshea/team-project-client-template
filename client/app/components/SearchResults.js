@@ -74,7 +74,7 @@ export default class SearchResults extends React.Component {
               <div className="col-md-9 feed col-md-offset-3">
                 <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
                 <hr></hr>
-                <ResultFeed>
+                <ResultFeed searchTerm = {searchTerm} searchType={searchType}>
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
                     'rock and roll'."></SearchResult>
                   <SearchResult name="The Who" image="img/thewho.png" genre="Rock N Roll" description="Description: The Who are an English rock band that formed in 1964. Their classNameic line-up consisted of lead singer Roger Daltrey, guitarist and singer Pete Townshend, bass guitarist John Entwistle, and drummer Keith Moon. They are
@@ -233,6 +233,38 @@ class SearchFilter extends React.Component {
     }
 
     class ResultFeed extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          loaded: false,
+          invalidSearch: false,
+          results: []
+        };
+      }
+
+      refresh() {
+        var searchTerm = this.props.searchTerm;
+        var searchType = this.props.searchType;
+        console.log(searchType)
+        if (searchTerm !== "") {
+          // Search on behalf of user 4.
+          search("1", searchTerm, (feedItems) => {
+            this.setState({
+              loaded: true,
+              results: feedItems
+            });
+          });
+        } else {
+          this.setState({
+            invalidSearch: true
+          });
+        }
+      }
+
+      componentDidMount() {
+        console.log('ran')
+        this.refresh();
+      }
 
       render() {
         return(

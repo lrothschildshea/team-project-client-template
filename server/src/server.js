@@ -178,6 +178,28 @@ app.post('/addEventBanner/:userId',function(req,res) {
   res.status(200).send(modifiedBanner);
 })
 
+
+// Search for feed item
+app.post('/search', function(req, res) {
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  console.log(req.body);
+  if (typeof(req.body) === 'string') {
+    // trim() removes whitespace before and after the query.
+    // toLowerCase() makes the query lowercase.
+    var queryText = req.body.trim().toLowerCase();
+    // Search the user's feed.
+    var bands = getCollection('bands');
+    var response = [];
+    for(var i in bands){
+      if(bands[i].name === queryText){
+        response.push(bands[i]);
+        console.log(bands[i]);
+      }
+    }
+    res.send(response);
+  }
+});
+
 //Translate JSON Schema Validation failures into error 400s.
 app.use(function(err, req, res, next) {
   if (err.name === 'JsonSchemaValidation') {

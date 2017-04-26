@@ -82,16 +82,6 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-/**
-* Emulates how a REST call is *asynchronous* -- it calls your function back
-* some time in the future with data.
-*/
-export function search(searchString, bandOrPerson, instrument, genre, zipcode, cb) {
-  var bandData = readList('bands');
-  emulateServerReturn(bandData, cb);
-}
-
-
 export function getBandFeedData(band, cb) {
   var bandData = readDocument('bands', band);
   var feedData = readDocument('feeds', bandData.feed);
@@ -217,7 +207,7 @@ export function editBandInfo(bandId, band, cb){
   /**
    * Searches for feed items with the given text.
    */
-  export function searchForFeedItems(userID, queryText, cb) {
+  export function search(userID, queryText, cb) {
     // userID is not needed; it's included in the JSON web token.
     sendXHR('POST', '/search', queryText, (xhr) => {
       cb(JSON.parse(xhr.responseText));
