@@ -98,19 +98,13 @@ export function getBandFeedData(band, cb) {
   });
 }
 
-export function addFeedItem(feedID, author, band, comment, cb) {
-  var feedData = readDocument('feeds', feedID);
-  var feedItem = {
-    "author": author,
-    "contents": comment,
-    "postDate": new Date().getTime(),
-    "band": band
-  }
-  var newFeedItem = addDocument('feedItems', feedItem);
-  feedData.contents.unshift(newFeedItem._id);
-  writeDocument('feeds', feedData);
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  emulateServerReturn(feedData.contents, cb);
+export function addFeedItem(author, band, comment, cb) {
+  sendXHR('POST', '/band/' + band + '/feed', {
+    "userId": author,
+    "contents": comment
+  }, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 

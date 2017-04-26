@@ -12,7 +12,7 @@ export default class Comments extends React.Component {
   addComment(e) {
     e.preventDefault();
     if (e.button === 0) {
-      addFeedItem(this.props.feed, 1, this.props.band, this.state.text, this.props.update);
+      addFeedItem(1, this.props.band, this.state.text, this.props.update);
       this.setState({text: ""})
     }
   }

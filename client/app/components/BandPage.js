@@ -40,7 +40,7 @@ export default class BandPage extends React.Component {
   }
 
   updateFeed(items) {
-    this.setState({"feedItems": items});
+    this.setState({"feedItems": items.contents});
   }
 
 
