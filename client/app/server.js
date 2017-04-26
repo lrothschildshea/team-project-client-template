@@ -93,10 +93,9 @@ export function search(searchString, bandOrPerson, instrument, genre, zipcode, c
 
 
 export function getBandFeedData(band, cb) {
-  var bandData = readDocument('bands', band);
-  var feedData = readDocument('feeds', bandData.feed);
-  feedData.contents = feedData.contents.map(getFeedItemSync);
-  emulateServerReturn(feedData, cb);
+  sendXHR('GET', '/band/' + band + '/feed', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function addFeedItem(feedID, author, band, comment, cb) {

@@ -36,6 +36,13 @@ function getFeedData(user) {
   return feedData;
 }
 
+function getBandFeedData(band) {
+  var bandData = readDocument('bands', band);
+  var feedData = readDocument('feeds', bandData.feed);
+  feedData.contents = feedData.contents.map(getFeedItemSync);
+  return feedData;
+}
+
 function getCalendarEventSyn(calendarEventId) {
   var calendarEventItem=readDocument('events', calendarEventId);
   return calendarEventItem;
@@ -55,6 +62,12 @@ app.get('/user/:userid/feed/', function(req, res){
   } else {
     res.status(401).end();
   }
+});
+
+//gets the feed items for the homepage
+app.get('/band/:bandid/feed/', function(req, res){
+  var bandid = parseInt(req.params.bandid, 10);
+  res.send(getBandFeedData(bandid));
 });
 
 //gets the bands the user is in
