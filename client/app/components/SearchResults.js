@@ -31,7 +31,37 @@ export default class SearchResults extends React.Component {
   //  Object.keys(this.props.data).map(key) => {
   //        <SearchResult name={this.props.data._id.fullName}></SearchResult>
   //      });
+
+  getSearchTerm() {
+    // If there's no query input to this page (e.g. /foo instead of /foo?bar=4),
+    // query may be undefined. We have to check for this, otherwise
+    // JavaScript will throw an exception and die!
+    var queryVars = this.props.location.query;
+    var searchTerm = "";
+    if (queryVars && queryVars.q) {
+      searchTerm = queryVars.q;
+      // Remove extraneous whitespace.
+      searchTerm.trim();
+    }
+    return searchTerm;
+  }
+
+  getSearchType(){
+    var queryVars = this.props.location.query;
+    var searchType = "";
+    if (queryVars && queryVars.t) {
+      searchType = queryVars.t;
+      // Remove extraneous whitespace.
+      searchType.trim();
+    }
+    return searchType;
+  }
+
+
   render() {
+    var searchTerm = this.getSearchTerm();
+    var searchType = this.getSearchType();
+
     return(
       <div>
         <div className="container-fluid searchbar-container">
@@ -40,12 +70,11 @@ export default class SearchResults extends React.Component {
               <div className="col-md-3">
                 <SearchFilter onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
+            </div>
               <div className="col-md-9 feed col-md-offset-3">
-                <SearchBar value={this.state.value} searchType={this.state.searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
+                <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
                 <hr></hr>
                 <ResultFeed>
-                
-
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
                     'rock and roll'."></SearchResult>
                   <SearchResult name="The Who" image="img/thewho.png" genre="Rock N Roll" description="Description: The Who are an English rock band that formed in 1964. Their classNameic line-up consisted of lead singer Roger Daltrey, guitarist and singer Pete Townshend, bass guitarist John Entwistle, and drummer Keith Moon. They are
@@ -59,7 +88,6 @@ export default class SearchResults extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }

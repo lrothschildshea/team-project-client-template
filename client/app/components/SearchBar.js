@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router'
+import {Link, hashHistory} from 'react-router'
 
 export default class SearchBar extends React.Component {
   constructor(props) {
@@ -12,23 +12,24 @@ export default class SearchBar extends React.Component {
     e.preventDefault();
     // Trim whitespace from beginning + end of entry.
     var searchText = this.state.value.trim();
+    var type = this.state.searchType;
     if (searchText !== "") {
       /* TODO: How do we send the post to the server + update the Feed? */
-      this.props.onPost(this.state);
-      // Reset status update.
-      //this.setState({value: ""});
+      //this.props.onPost(this.state);
+      console.log(this.context.router)
+      hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type} });
     }
   }
 
-  handlePeople(e){
+  handlePeople(){
     //e.preventDefault();
-    this.setState({searchType:"people", selected: "people"})
+    this.setState({searchType:"people"})
     this.props.onEntered({searchType:"people"})
   }
 
-  handleBands(e){
+  handleBands(){
     //e.preventDefault();
-    this.setState({searchType:"band", selected: "band"})
+    this.setState({searchType:"band"})
     this.props.onEntered({searchType:"band"})
 
   }
@@ -42,6 +43,14 @@ export default class SearchBar extends React.Component {
     this.setState({value: e.target.value});
     this.props.onEntered({value:e.target.value})
   }
+
+  handleKeyUp(e) {
+    e.preventDefault();
+    if (e.key === "Enter") {
+      this.handleSearch(e);
+    }
+  }
+
 //<button className="btn btn-info btn-lg" type="button" onClick={(e) => this.handleSearch(e)}>
   render() {
     return(
@@ -49,16 +58,16 @@ export default class SearchBar extends React.Component {
         <h2>Search</h2>
         <div id="custom-search-input">
           <div className="input-group col-md-12">
-            <input type="text" className="form-control input-lg" placeholder="Enter Keywords" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
+            <input type="text" className="form-control input-lg" placeholder="Enter Keywords" value={this.state.value} onChange={(e) => this.handleChange(e)} onKeyUp={(e) => this.handleKeyUp(e)}/>
             <span className="input-group-btn">
-              <Link className="btn btn-info btn-lg"to={this.props.link}>
+              <button className="btn btn-info btn-lg" onClick={(e) => this.handleSearch(e)}>
                 <i className="glyphicon glyphicon-search"></i>
-              </Link>
+              </button>
             </span>
           </div>
         </div>
-        <label className="radio-inline"><input type="radio" checked={this.state.selected === "people"} onClick={(e) => this.handlePeople(e)}/>People</label>
-        <label className="radio-inline"><input type="radio" checked={this.state.selected === "band"} onClick={(e) => this.handleBands(e)}/>Bands</label>
+        <label className="radio-inline"><input type="radio" checked={this.state.searchType === "people"} onClick={(e) => this.handlePeople(e)}/>People</label>
+        <label className="radio-inline"><input type="radio" checked={this.state.searchType === "band"} onClick={(e) => this.handleBands(e)}/>Bands</label>
       </div>
     )
   }
