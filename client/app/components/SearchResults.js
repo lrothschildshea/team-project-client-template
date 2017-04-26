@@ -42,14 +42,9 @@ export default class SearchResults extends React.Component {
               </div>
               <div className="col-md-9 feed col-md-offset-3">
                 <SearchBar value={this.state.value} searchType={this.state.searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
-                <hr/>
+                <hr></hr>
                 <ResultFeed>
-                  {this.state.data.map(function(groupItem, key){ return (
-                    Object.keys(groupItem).map(function(item){return (
-                      <SearchResult name={groupItem.fullName}/>
-                    );})
-                  );})}
-
+                
 
                   <SearchResult name="AC/DC" image="img/acdc.png" genre="Rock N Roll" description="Description: AC/DC are an Australian rock band, formed in 1973 by brothers Malcolm and Angus Young. A hard rock/blues rock band, they have also been considered a heavy metal band, although they have always dubbed their music simply
                     'rock and roll'."></SearchResult>

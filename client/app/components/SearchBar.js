@@ -16,19 +16,19 @@ export default class SearchBar extends React.Component {
       /* TODO: How do we send the post to the server + update the Feed? */
       this.props.onPost(this.state);
       // Reset status update.
-      this.setState({value: ""});
+      //this.setState({value: ""});
     }
   }
 
   handlePeople(e){
-    e.preventDefault();
-    this.setState({searchType:"people"})
+    //e.preventDefault();
+    this.setState({searchType:"people", selected: "people"})
     this.props.onEntered({searchType:"people"})
   }
 
   handleBands(e){
-    e.preventDefault();
-    this.setState({searchType:"band"})
+    //e.preventDefault();
+    this.setState({searchType:"band", selected: "band"})
     this.props.onEntered({searchType:"band"})
 
   }
@@ -57,8 +57,8 @@ export default class SearchBar extends React.Component {
             </span>
           </div>
         </div>
-        <label className="radio-inline"><input type="radio" name="optradio" onClick={(e) => this.handlePeople(e)}/>People</label>
-        <label className="radio-inline"><input type="radio" name="optradio" onClick={(e) => this.handleBands(e)}/>Bands</label>
+        <label className="radio-inline"><input type="radio" checked={this.state.selected === "people"} onClick={(e) => this.handlePeople(e)}/>People</label>
+        <label className="radio-inline"><input type="radio" checked={this.state.selected === "band"} onClick={(e) => this.handleBands(e)}/>Bands</label>
       </div>
     )
   }
