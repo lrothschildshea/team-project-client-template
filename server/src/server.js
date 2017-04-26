@@ -16,6 +16,7 @@ var app = express();
 
 var validate = require('express-jsonschema').validate;
 var FeedItemSchema = require('./schemas/feeditem.json');
+var BandSchema = require('./schemas/band.json');
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
@@ -56,6 +57,17 @@ function postFeedItem(author, contents, band) {
   return getBandFeedData(band);
 }
 
+function editBand(bandData, bandId) {
+  var newBand = readDocument('bands', bandId);
+  newBand.info = bandData.info;
+  newBand.location = bandData.location;
+  newBand.name = bandData.name;
+  writeDocument('bands', newBand);
+  newBand = readDocument('bands', bandId);
+  newBand.members = newBand.members.map((member) => readDocument('users', member));
+  return newBand;
+}
+
 function getBandFeedData(band) {
   var bandData = readDocument('bands', band);
   var feedData = readDocument('feeds', bandData.feed);
@@ -91,7 +103,7 @@ app.get('/band/:bandid/feed/', function(req, res){
 });
 
 // POST comment on feed
-app.post('/band/:bandid/feed', function(req, res) {
+app.post('/band/:bandid/feed', validate({ body: FeedItemSchema }), function(req, res) {
   // If this function runs, `req.body` passed JSON validation!
   var bandid = parseInt(req.params.bandid, 10);
   var body = req.body;
@@ -104,6 +116,7 @@ app.post('/band/:bandid/feed', function(req, res) {
     res.status(401).end();
   }
 });
+
 
 //gets the bands the user is in
 app.get('/user/:userid/bands/', function(req, res){
@@ -140,6 +153,20 @@ app.get('/band/:bandId/', function(req, res){
   var band = readDocument('bands', bandId);
   band.members = band.members.map((member) => readDocument('users', member));
   res.send(band);
+});
+
+// Modify a band
+app.put('/band/:bandId/', function(req, res){
+  var bandid = parseInt(req.params.bandId, 10);
+  var body = req.body;
+  // var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // if (1 === 1) {
+    var newBand = editBand(body, bandid);
+    res.status(201);
+    res.send(newBand);
+  // } else {
+    // res.status(401).end();
+  // }
 });
 
 

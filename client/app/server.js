@@ -172,17 +172,9 @@ export function addBandMember(bandId, memberId, cb) {
 }
 
 export function editBandInfo(bandId, band, cb){
-  var oldBand = readDocument('bands', bandId);
-  oldBand.name = band.name;
-  oldBand.location = band.location;
-  oldBand.info = band.info;
-  oldBand.wanted = band.wanted;
-  writeDocument('bands', oldBand);
-  emulateServerReturn({
-    name: oldBand.name,
-    location: oldBand.location,
-    info: oldBand.info,
-    wanted: oldBand.wanted}, cb);
+  sendXHR('PUT', '/band/' + bandId, band, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
   export function getUser(userid, cb){
