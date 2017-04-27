@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileDescription1 from './ProfileDescription1.js';
 import ProfileDescription2 from './ProfileDescription2.js';
 import ProfileDescription3 from './ProfileDescription3.js';
+import {getUser} from '../../server.js';
 
 const mockInstruments = [
   {
@@ -65,7 +66,7 @@ const profile = {
     backgroundImage: "url(img/genericband.jpg)"
   },
   name: "Sandra Cheeks",
-  picURL: "img/Sandy-Profile.jpg",
+  picURL: "img/Sandy-profile.jpg",
   phone:  "111-111-1111",
   email: "sandycandy123@gmail.com",
   location: {
@@ -84,11 +85,31 @@ const profile = {
 }
 
 export default class ProfilePage extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      user : {
+        _id : 0
+      }
+    }
+  }
+
+  refresh(){
+    getUser(this.props.params.id, (userObj) => {
+      this.setState({user: userObj});
+    });
+  }
+
+  componentDidMount(){
+    this.refresh();
+  }
+
   render(){
     return (
       <div>
         <div className="container">
-          <ProfileHeader coverPic={profile.coverPic} name={profile.name} pic={profile.picURL} />
+          {(typeof this.state.user !== "undefined") ? <ProfileHeader coverPic={profile.coverPic} name={this.state.user.fullName} pic={this.state.user.profilePicture} /> : null}
           <div className="row">
             <div className="col-md-4">
               <ProfileDescription1 profile={profile}/>

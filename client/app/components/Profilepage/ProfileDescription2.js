@@ -25,7 +25,7 @@ export default class ProfileDescription2 extends React.Component {
               <h2 className="panel-title">Events</h2>
             </div>
             <div className="panel-body">
-              <EventWidget />
+              
             </div>
           </div>
         </div>

@@ -139,12 +139,7 @@ app.get('/user/:userid/bands/', function(req, res){
 //gets the user object
 app.get('/user/:userid/', function(req, res){
   var userid = parseInt(req.params.userid, 10);
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
-  if(userid === fromUser){
-    res.send(readDocument('users', userid));
-  } else {
-    res.status(401).end();
-  }
+  res.send(readDocument('users', userid));
 });
 
 //gets a specific band with the members resolved to their user objects
