@@ -77,16 +77,18 @@ export default class BandEdit extends React.Component {
   removeWanted(e, id){
     e.preventDefault();
     if (e.button === 0) {
-      this.state.wanted.splice(id, 1);
-      this.setInfo(e);
+      var newWanted = this.state.wanted;
+      newWanted.splice(id, 1);
+      this.setState({"wanted": newWanted});
     }
   }
 
   addWanted(e, want) {
     e.preventDefault();
     if (e.button === 0) {
-      this.state.wanted.push(want);
-      this.setInfo(e);
+      var newWanted = this.state.wanted;
+      newWanted.push(want);
+      this.setState({"wanted": newWanted});
     }
   }
 

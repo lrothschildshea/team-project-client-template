@@ -156,14 +156,6 @@ class WantedWidget extends React.Component {
                   <br />
                   {want.info}
                 </div>
-                <div className="media-right">
-                  <div
-                    className="btn-group"
-                    role="group"
-                    aria-label="...">
-                    <button type="button" className="btn btn-default">Apply</button>
-                  </div>
-                </div>
               </li>
             )}
           </ul>

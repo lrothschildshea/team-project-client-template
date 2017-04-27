@@ -62,7 +62,8 @@ function editBand(bandData, bandId) {
   newBand.info = bandData.info;
   newBand.location = bandData.location;
   newBand.name = bandData.name;
-  newBand.members = bandData.members
+  newBand.members = bandData.members;
+  newBand.wanted = bandData.wanted;
   writeDocument('bands', newBand);
   newBand = readDocument('bands', bandId);
   newBand.members = newBand.members.map((member) => readDocument('users', member));
@@ -155,14 +156,15 @@ app.get('/band/:bandId/', function(req, res){
 app.put('/band/:bandId/', function(req, res){
   var bandid = parseInt(req.params.bandId, 10);
   var body = req.body;
-  // var fromUser = getUserIdFromToken(req.get('Authorization'));
-  // if (1 === 1) {
+  var tempband = readDocument('bands', bandid);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if (tempband.members.indexOf(fromUser) != -1) {
     var newBand = editBand(body, bandid);
     res.status(201);
     res.send(newBand);
-  // } else {
-    // res.status(401).end();
-  // }
+  } else {
+    res.status(401).end();
+  }
 });
 
 
