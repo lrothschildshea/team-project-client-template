@@ -1,5 +1,3 @@
-import {readDocument, writeDocument, addDocument, readList} from './database.js';
-
 var token = 'eyJpZCI6MX0=';
 
 /**
@@ -76,12 +74,6 @@ export function getFeedData(user, cb) {
   });
 }
 
-function emulateServerReturn(data, cb) {
-  setTimeout(() => {
-    cb(data);
-  }, 4);
-}
-
 export function getBandFeedData(band, cb) {
   sendXHR('GET', '/band/' + band + '/feed', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
@@ -128,34 +120,12 @@ export function getBand(bandId, cb) {
   });
 }
 
-export function removeBandMember(bandId, memberId, cb) {
-  var band = readDocument('bands', bandId);
-  var userIndex = band.members.indexOf(memberId);
-  if (userIndex !== -1) {
-    // 'splice' removes items from an array. This removes 1 element starting from userIndex.
-    band.members.splice(userIndex, 1);
-    writeDocument('bands', band);
-  }
-  emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
-}
-
 
 export function getUsersBands(userid, cb) {
   sendXHR('GET', '/user/' + userid + '/bands/', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   });
 
-}
-
-export function addBandMember(bandId, memberId, cb) {
-  var band = readDocument('bands', bandId);
-  var user = readDocument('users', Number(memberId));
-  var pos = band.members.indexOf(Number(memberId));
-  if (user && pos === -1) {
-    band.members.push(Number(memberId));
-    writeDocument('bands', band);
-    emulateServerReturn(band.members.map((userId) => readDocument('users', userId)), cb);
-  }
 }
 
 export function editBandInfo(bandId, band, cb){

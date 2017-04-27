@@ -1,5 +1,5 @@
 import React from 'react';
-import {removeBandMember ,addBandMember, editBandInfo} from '../server.js';
+import {editBandInfo} from '../server.js';
 
 export default class BandEdit extends React.Component {
   constructor(props) {
@@ -42,14 +42,14 @@ export default class BandEdit extends React.Component {
   removeMember(e, id){
     e.preventDefault();
     if (e.button === 0) {
-      removeBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+      // removeBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
     }
   }
 
   addMember(e, id){
     e.preventDefault();
     if (e.button === 0) {
-      addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+      // addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
     }
   }
 
@@ -122,7 +122,11 @@ export default class BandEdit extends React.Component {
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" onClick={(e) => this.setInfo(e)}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-dismiss="modal"
+                onClick={(e) => this.setInfo(e)}>
                 Save changes
               </button>
             </div>
