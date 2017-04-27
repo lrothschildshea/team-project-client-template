@@ -1,5 +1,5 @@
 import React from 'react';
-import {editBandInfo} from '../server.js';
+import {editBandInfo, getUser} from '../server.js';
 
 export default class BandEdit extends React.Component {
   constructor(props) {
@@ -42,20 +42,33 @@ export default class BandEdit extends React.Component {
   removeMember(e, id){
     e.preventDefault();
     if (e.button === 0) {
-      // removeBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+      var members = this.state.members;
+      var removeIndex = this.state.members.map((member) => member._id).indexOf(id);
+      members.splice(removeIndex, 1);
+      this.setState({"members": members})
     }
   }
 
   addMember(e, id){
     e.preventDefault();
+    var addUser = (user) => {
+      var members = this.state.members;
+      var existingIndex = this.state.members.map((member) => member._id).indexOf(user._id);
+      if (existingIndex == -1) {
+        members.push(user)
+        this.setState({"members": members})
+      }
+    };
     if (e.button === 0) {
-      // addBandMember(this.state._id, id, (memberList) => this.setState({members: memberList}));
+      getUser(id, addUser);
     }
   }
 
   setInfo(e) {
     e.preventDefault();
     if (e.button === 0) {
+      var newBand = this.state;
+      newBand.members = newBand.members.map((member) => member._id);
       editBandInfo(this.state._id, this.state, (band) => this.setState(band));
     }
     this.props.refresh();

@@ -62,6 +62,7 @@ function editBand(bandData, bandId) {
   newBand.info = bandData.info;
   newBand.location = bandData.location;
   newBand.name = bandData.name;
+  newBand.members = bandData.members
   writeDocument('bands', newBand);
   newBand = readDocument('bands', bandId);
   newBand.members = newBand.members.map((member) => readDocument('users', member));

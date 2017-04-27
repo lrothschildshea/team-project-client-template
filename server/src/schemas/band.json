@@ -14,6 +14,15 @@
     "location": {
       "id": "location",
       "type": "string"
+    },
+    "members": {
+      "id": "members",
+      "type": "array",
+      "items": {
+          "type": "integer"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   },
   "additionalProperties": false,
