@@ -13,10 +13,13 @@ export default class SearchBar extends React.Component {
     // Trim whitespace from beginning + end of entry.
     var searchText = this.state.value.trim();
     var type = this.state.searchType;
+    var genre = this.props.genre;
+    var instrument = this.props.instrument;
+    var zipcode = this.props.zipcode;
     if (searchText !== "") {
       /* TODO: How do we send the post to the server + update the Feed? */
       //this.props.onPost(this.state);
-      hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type} });
+      hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type, g:genre, i:instrument, z:zipcode} });
     }
   }
 

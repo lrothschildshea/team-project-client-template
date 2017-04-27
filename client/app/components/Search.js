@@ -30,7 +30,7 @@ export default class Search extends React.Component {
           <div className="col-md-10">
             <div className="container searchbar-container">
               <div className="search-bar">
-                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
+                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={this.state.instrument} genre={this.state.genre} zipcode={this.state.zipcode}/>
               </div>
             </div>
           </div>
@@ -96,17 +96,9 @@ class SearchParameters extends React.Component {
   }
 
   handleGenre(e) {
-    // Prevent the event from "bubbling" up the DOM tree.
     e.preventDefault();
-    // e.target is the React Virtual DOM target of the input event -- the
-    // <textarea> element. The textarea's `value` is the entire contents of
-    // what the user has typed in so far.
     if (e.button === 0) {
-      // Callback function for both the like and unlike cases.
-      // setState will overwrite the 'likeCounter' field on the current
-      // state, and will keep the other fields in-tact.
-      // This is called a shallow merge:
-      // https://facebook.github.io/react/docs/component-api.html#setstate
+
       this.setState({genre: e.target.textContent});
       this.props.onEntered({genre: e.target.textContent})
 

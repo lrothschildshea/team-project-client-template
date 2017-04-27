@@ -5,7 +5,7 @@ import {search} from '../server'
 export default class SearchResults extends React.Component {
   constructor(props) {
     super(props);
-  //  this.state = this.props.params
+    //  this.state = this.props.params
     this.state = {
       loaded: false,
       invalidSearch: false,
@@ -76,10 +76,46 @@ export default class SearchResults extends React.Component {
     return searchType;
   }
 
+  getSearchInstrument(){
+    var queryVars = this.props.location.query;
+    var searchInstrument = "";
+    if (queryVars && queryVars.i) {
+      searchInstrument = queryVars.i;
+      // Remove extraneous whitespace.
+      searchInstrument.trim();
+    }
+    return searchInstrument;
+  }
+
+  getSearchZipcode(){
+    var queryVars = this.props.location.query;
+    var searchZipcode = "";
+    if (queryVars && queryVars.z) {
+      searchZipcode = queryVars.z;
+      // Remove extraneous whitespace.
+      searchZipcode.trim();
+    }
+    return searchZipcode;
+  }
+
+  getSearchGenre(){
+    var queryVars = this.props.location.query;
+    var searchGenre = "";
+    if (queryVars && queryVars.g) {
+      searchGenre = queryVars.g;
+      // Remove extraneous whitespace.
+      searchGenre.trim();
+    }
+    return searchGenre;
+  }
+
 
   render() {
     var searchTerm = this.getSearchTerm();
     var searchType = this.getSearchType();
+    var zip = this.getSearchZipcode();
+    var inst = this.getSearchInstrument();
+    var genre = this.getSearchGenre();
 
     return(
       <div>
@@ -87,7 +123,7 @@ export default class SearchResults extends React.Component {
           <div className="search-sidebar">
             <div className="row">
               <div className="col-md-3">
-                <SearchFilter onEntered={(postContents) => this.updateState(postContents)}/>
+                <SearchFilter onEntered={(postContents) => this.updateState(postContents)} zip={zip} instrument={inst} genre={genre}/>
               </div>
             </div>
             <div className="col-md-9 feed col-md-offset-3">
@@ -104,19 +140,16 @@ export default class SearchResults extends React.Component {
 
 
 class SearchFilter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props
+  }
+
   handleInstrument(e) {
-    // Prevent the event from "bubbling" up the DOM tree.
     e.preventDefault();
-    // e.target is the React Virtual DOM target of the input event -- the
-    // <textarea> element. The textarea's `value` is the entire contents of
-    // what the user has typed in so far.
     if (e.button === 0) {
-      // Callback function for both the like and unlike cases.
-      // setState will overwrite the 'likeCounter' field on the current
-      // state, and will keep the other fields in-tact.
-      // This is called a shallow merge:
-      // https://facebook.github.io/react/docs/component-api.html#setstate
-      this.setState({instrument: e.target.textContent});
+
+      this.setState({instrument: e.target.value});
       this.props.onEntered({instrument: e.target.textContent})
     }
   }
@@ -143,7 +176,7 @@ class SearchFilter extends React.Component {
                       <li className="list-group-item">
                         <div className="checkbox">
                           <label>
-                            <input type="checkbox" value="" onClick={(e) => this.handleInstrument(e)}/>
+                            <input type="checkbox" value="Guitar" onClick={(e) => this.handleInstrument(e)} checked={this.state.instrument === "Guitar"}/>
                             Guitar
                           </label>
                         </div>
@@ -151,7 +184,7 @@ class SearchFilter extends React.Component {
                       <li className="list-group-item">
                         <div className="checkbox">
                           <label>
-                            <input type="checkbox" value=""/>
+                            <input type="checkbox" value="Drums" onClick={(e) => this.handleInstrument(e)} checked={this.state.instrument === "Drums"}/>
                             Drums
                           </label>
                         </div>
@@ -159,7 +192,7 @@ class SearchFilter extends React.Component {
                       <li className="list-group-item">
                         <div className="checkbox">
                           <label>
-                            <input type="checkbox" value=""/>
+                            <input type="checkbox" value="Bass" onClick={(e) => this.handleInstrument(e)} checked={this.state.instrument === "Bass"}/>
                             Bass
                           </label>
                         </div>
@@ -187,7 +220,7 @@ class SearchFilter extends React.Component {
                         <li className="list-group-item">
                           <div className="checkbox">
                             <label>
-                              <input type="checkbox" value=""/>
+                              <input type="checkbox" value="Rock" checked={this.props.genre === "Rock"}/>
                               Rock
                             </label>
                           </div>
@@ -195,7 +228,7 @@ class SearchFilter extends React.Component {
                         <li className="list-group-item">
                           <div className="checkbox">
                             <label>
-                              <input type="checkbox" value=""/>
+                              <input type="checkbox" value="Jazz" checked={this.props.genre === "Jazz"}/>
                               Jazz
                             </label>
                           </div>
@@ -203,7 +236,7 @@ class SearchFilter extends React.Component {
                         <li className="list-group-item">
                           <div className="checkbox">
                             <label>
-                              <input type="checkbox" value=""/>
+                              <input type="checkbox" value="Metal" checked={this.props.genre === "Metal"}/>
                               Metal
                             </label>
                           </div>
@@ -228,7 +261,7 @@ class SearchFilter extends React.Component {
                         <li className="list-group-item">
                           <div className="checkbox">
                             <label for="zip">Zipcode:</label>
-                            <input type="text" className="form-control" id="zip"/>
+                            <input type="text" className="form-control" id="zip" value={this.props.zip}/>
                           </div>
                         </li>
                       </ul>
