@@ -120,6 +120,12 @@ export function getBand(bandId, cb) {
   });
 }
 
+export function createBand(userId, cb) {
+  sendXHR('POST', '/band/', {"user": userId}, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
 
 export function getUsersBands(userid, cb) {
   sendXHR('GET', '/user/' + userid + '/bands/', undefined, (xhr) => {

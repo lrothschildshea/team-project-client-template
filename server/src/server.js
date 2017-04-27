@@ -167,6 +167,31 @@ app.put('/band/:bandId/', function(req, res){
   }
 });
 
+//create band
+app.post('/band', function(req, res){
+  var userid = parseInt(req.body.user, 10);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  if (fromUser == userid) {
+    var newFeed = {contents : []};
+    var newBand = {
+      "name": "New Band",
+      "feed": addDocument('feeds', newFeed),
+      "fans": 0,
+      "info": "Information",
+      "profile picture": 2,
+      "pagePicture": "url(img/genericband.jpg)",
+      "members": [userid],
+      "location": "none",
+      "wanted": []
+    }
+    var bandid = addDocument('bands', newBand)._id;
+    res.status(201);
+    res.send(readDocument('bands', bandid));
+  } else {
+    res.status(401).end();
+  }
+})
+
 
 //gets the events for bands the user is in
 app.get('/user/:userId/events/', function(req, res){
