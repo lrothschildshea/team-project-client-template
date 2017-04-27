@@ -97,14 +97,6 @@ export function addFeedItem(author, band, comment, cb) {
   });
 }
 
-
-function getFeedItemSync(feedItemId) {
-  var feedItem = readDocument('feedItems', feedItemId);
-  feedItem.author = readDocument('users', feedItem.author);
-  feedItem.band = readDocument('bands', feedItem.band);
-  return feedItem;
-}
-
 export function getCalendarEvent(user,cb){
   sendXHR('GET','/calendarEvent/'+user,undefined,(xhr)=> {
     cb(JSON.parse(xhr.responseText));
@@ -115,11 +107,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
   sendXHR('POST','/addEvent/'+user,calendarEvent,(xhr)=> {
     cb(JSON.parse(xhr.responseText));
   });
-}
-
-function getEventBannerSyn(eventBannerId) {
-  var eventBannerItem=readDocument('eventBanner', eventBannerId);
-  return eventBannerItem;
 }
 
 export function getEventBanner(user,cb){
@@ -189,25 +176,19 @@ export function editBandInfo(bandId, band, cb){
     });
   }
 
-  /**
-   * Searches for feed items with the given text.
-   */
   export function search(userID, queryText, cb) {
-    // userID is not needed; it's included in the JSON web token.
     sendXHR('POST', '/search', queryText, (xhr) => {
       cb(JSON.parse(xhr.responseText));
     });
   }
 
   export function getInstruments(userID, cb) {
-    // userID is not needed; it's included in the JSON web token.
     sendXHR('GET', '/instruments', undefined, (xhr) => {
       cb(JSON.parse(xhr.responseText));
     });
   }
 
   export function getGenres(userID, cb) {
-    // userID is not needed; it's included in the JSON web token.
     sendXHR('GET', '/genres', undefined, (xhr) => {
       cb(JSON.parse(xhr.responseText));
     });
