@@ -198,3 +198,17 @@ export function editBandInfo(bandId, band, cb){
       cb(JSON.parse(xhr.responseText));
     });
   }
+
+  export function getInstruments(userID, cb) {
+    // userID is not needed; it's included in the JSON web token.
+    sendXHR('GET', '/instruments', undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
+  }
+
+  export function getGenres(userID, cb) {
+    // userID is not needed; it's included in the JSON web token.
+    sendXHR('GET', '/genres', undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
+  }

@@ -23,9 +23,9 @@ app.use(bodyParser.json());
 app.use(express.static('../client/build'));
 
 /**
- * Given a feed item ID, returns a FeedItem object with references resolved.
- * Internal to the server, since it's synchronous.
- */
+* Given a feed item ID, returns a FeedItem object with references resolved.
+* Internal to the server, since it's synchronous.
+*/
 function getFeedItemSync(feedItemId) {
   var feedItem = readDocument('feedItems', feedItemId);
   feedItem.author = readDocument('users', feedItem.author);
@@ -183,6 +183,16 @@ app.get('/user/:userId/events/', function(req, res){
   }
 });
 
+app.get('/instruments', function(req, res){
+  var instruments = getCollection('instruments')
+  res.send(instruments);
+});
+
+app.get('/genres', function(req, res){
+  var genres = getCollection('genres')
+  res.send(genres);
+});
+
 
 //Reset database.
 app.post('/resetdb',function(req,res) {
@@ -256,22 +266,35 @@ app.post('/addEventBanner/:userId',function(req,res) {
 
 // Search for feed item
 app.post('/search', function(req, res) {
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
   console.log(req.body);
-  if (typeof(req.body) === 'string') {
+  console.log(typeof(req.body));
+  if (typeof(req.body) === 'object') {
     // trim() removes whitespace before and after the query.
     // toLowerCase() makes the query lowercase.
-    var queryText = req.body.trim().toLowerCase();
-    // Search the user's feed.
-    var bands = getCollection('bands');
+    var queryText = req.body.term.trim().toLowerCase();
+    var type = req.body.type.trim().toLowerCase();
     var response = [];
-    for(var i in bands){
-      if(bands[i].name === queryText){
-        response.push(bands[i]);
-        console.log(bands[i]);
+
+    if(type == 'band'){
+      // Search the user's feed.
+      var bands = getCollection('bands');
+      for(var i in bands){
+        if(bands[i].name.toLowerCase() == queryText){
+          response.push(bands[i]);
+        }
+      }
+    } else if(type == 'people'){
+      var people = getCollection('users');
+      for(var j in people){
+        if(people[j].fullName.toLowerCase() == queryText){
+          response.push(people[j]);
+        }
       }
     }
-    res.send(response);
+    res.status(200).send(response);
+  } else {
+    // 400: Bad Request.
+    res.status(400).end();
   }
 });
 
@@ -283,9 +306,9 @@ app.use(function(err, req, res, next) {
   } else {
     // It's some other sort of error; pass it to next error middleware handler
     next(err); }
-});
+  });
 
-function getUserIdFromToken(authorizationLine) {
+  function getUserIdFromToken(authorizationLine) {
     try {
       // Cut off "Bearer " from the header value.
       var token = authorizationLine.slice(7);
@@ -307,9 +330,9 @@ function getUserIdFromToken(authorizationLine) {
     }
   }
 
-// listening on port 3000
-app.listen(3000,function() {
-  console.log('Example app listening on port 3000');
-});
-// Implement your server in this file.
-// We should be able to run your server with node src/server.js
+  // listening on port 3000
+  app.listen(3000,function() {
+    console.log('Example app listening on port 3000');
+  });
+  // Implement your server in this file.
+  // We should be able to run your server with node src/server.js

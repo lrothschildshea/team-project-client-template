@@ -16,7 +16,6 @@ export default class SearchBar extends React.Component {
     if (searchText !== "") {
       /* TODO: How do we send the post to the server + update the Feed? */
       //this.props.onPost(this.state);
-      console.log(this.context.router)
       hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type} });
     }
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
+import {getInstruments, getGenres} from '../server'
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -22,7 +23,6 @@ export default class Search extends React.Component {
   }
 
   render() {
-    var link = ('/search/result/'+ this.state.zipcode +'/' + this.state.instrument +'/' + this.state.genre +'/'+ this.state.value +'/'+ this.state.searchType)
     return (
       <div>
         <div className="row">
@@ -30,7 +30,7 @@ export default class Search extends React.Component {
           <div className="col-md-10">
             <div className="container searchbar-container">
               <div className="search-bar">
-                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} link={link}/>
+                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
             </div>
           </div>
@@ -55,7 +55,9 @@ class SearchParameters extends React.Component {
     this.state = {
       zipcode: "",
       instrument:"Instrument",
-      genre:"Genre"
+      genre:"Genre",
+      instrumentList: [],
+      genresList: []
     };
   }
 
@@ -63,12 +65,20 @@ class SearchParameters extends React.Component {
     return this.state
   }
 
+  refresh() {
+    getInstruments("1", (feedItems) => {
+      this.setState({
+        instrumentList: feedItems
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.refresh();
+  }
+
   handleChange(e) {
-    // Prevent the event from "bubbling" up the DOM tree.
     e.preventDefault();
-    // e.target is the React Virtual DOM target of the input event -- the
-    // <textarea> element. The textarea's `value` is the entire contents of
-    // what the user has typed in so far.
     this.setState({zipcode: e.target.value});
     this.props.onEntered({zipcode: e.target.value})
 
@@ -76,21 +86,12 @@ class SearchParameters extends React.Component {
   }
 
   handleInstrument(e) {
-    // Prevent the event from "bubbling" up the DOM tree.
     e.preventDefault();
-    // e.target is the React Virtual DOM target of the input event -- the
-    // <textarea> element. The textarea's `value` is the entire contents of
-    // what the user has typed in so far.
     if (e.button === 0) {
-      // Callback function for both the like and unlike cases.
-        // setState will overwrite the 'likeCounter' field on the current
-        // state, and will keep the other fields in-tact.
-        // This is called a shallow merge:
-        // https://facebook.github.io/react/docs/component-api.html#setstate
-        this.setState({instrument: e.target.textContent});
-        this.props.onEntered({instrument: e.target.textContent})
+      this.setState({instrument: e.target.textContent});
+      this.props.onEntered({instrument: e.target.textContent})
 
-      }
+    }
 
   }
 
@@ -102,14 +103,14 @@ class SearchParameters extends React.Component {
     // what the user has typed in so far.
     if (e.button === 0) {
       // Callback function for both the like and unlike cases.
-        // setState will overwrite the 'likeCounter' field on the current
-        // state, and will keep the other fields in-tact.
-        // This is called a shallow merge:
-        // https://facebook.github.io/react/docs/component-api.html#setstate
-        this.setState({genre: e.target.textContent});
-        this.props.onEntered({genre: e.target.textContent})
+      // setState will overwrite the 'likeCounter' field on the current
+      // state, and will keep the other fields in-tact.
+      // This is called a shallow merge:
+      // https://facebook.github.io/react/docs/component-api.html#setstate
+      this.setState({genre: e.target.textContent});
+      this.props.onEntered({genre: e.target.textContent})
 
-      }
+    }
 
   }
 
