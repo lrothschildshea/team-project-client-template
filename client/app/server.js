@@ -30,8 +30,7 @@ function sendXHR(verb, resource, body, cb) {
     }
   });
 
-  // Time out the request if it takes longer than 10,000
-  // milliseconds (10 seconds)
+  // Time out the request if it takes longer than 10,000 milliseconds (10 seconds)
   xhr.timeout = 10000;
 
   // Network failure: Could not connect to server.
@@ -103,7 +102,6 @@ export function addCalendarEvent(user,calendarEvent,cb){
 
 export function getEventBanner(user,cb){
   sendXHR('GET','/getEventBanner/'+user,undefined,(xhr)=> {
-    // console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }
