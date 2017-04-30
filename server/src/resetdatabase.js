@@ -3,7 +3,389 @@ var ObjectID = require('mongodb').ObjectID;
 // Put your startup's name here (only letters and numbers -- no spaces, apostrophes, or special characters!)
 var databaseName = null;
 // Put the initial mock objects here.
-var initialData = null;
+var initialData = {
+
+  "users": {
+    "1":{
+      "_id": new ObjectID("000000000000000000000001"),
+      "fullName": "SpongeBob",
+      "feed" : new ObjectID("000000000000000000000001"),
+      "picture": new ObjectID("000000000000000000000001"),
+      "location": "Bikini Bottom",
+      "email": "spongeBob@gmail.com",
+      "following": [new ObjectID("000000000000000000000002")],
+      "events":[
+       new ObjectID("000000000000000000000001"),
+       new ObjectID("000000000000000000000002")
+      ],
+      "eventBanner":[
+       new ObjectID("000000000000000000000001"),
+       new ObjectID("000000000000000000000002")
+      ],
+      "profilePicture": "img/spongebob_profile.jpg"
+    },
+
+    "2":{
+      "_id": new ObjectID("000000000000000000000002"),
+      "fullName": "Patrick",
+      "feed": new ObjectID("000000000000000000000002"),
+      "picture": new ObjectID("000000000000000000000002"),
+      "location": "Bikini Bottom",
+      "email": "patrick@gmail.com",
+      "following": [new ObjectID("000000000000000000000003")],
+      "events":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000004"),
+      ],
+      "eventBanner":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
+      ],
+      "profilePicture": "img/patrick_profile.jpg"
+    },
+
+    "3":{
+      "_id": new ObjectID("000000000000000000000003"),
+      "fullName": "Sandy Cheeks",
+      "feed": new ObjectID("000000000000000000000003"),
+      "picture": new ObjectID("000000000000000000000003"),
+      "location": "Bikini Bottom",
+      "email": "sandy@gmail.com",
+      "following": [
+        new ObjectID("000000000000000000000002"),
+      ],
+      "events":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000003")
+      ],
+      "eventBanner":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
+      ],
+      "profilePicture": "img/sandy-profile.jpg"
+    },
+
+    "4":{
+      "_id": new ObjectID("000000000000000000000004"),
+      "fullName": "Mr. Krabs",
+      "feed": new ObjectID("000000000000000000000004"),
+      "picture": new ObjectID("000000000000000000000004"),
+      "location": "Bikini Bottom",
+      "email": "krabs@gmail.com",
+      "following": [
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000003")
+      ],
+      "events":[
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000004")
+      ],
+      "eventBanner":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
+      ],
+      "profilePicture": "img/mr_krabs_profile.jpg"
+    },
+
+    "5":{
+      "_id": new ObjectID("000000000000000000000005"),
+      "fullName": "Plankton",
+      "feed": new ObjectID("000000000000000000000005"),
+      "picture": new ObjectID("000000000000000000000005"),
+      "location": "Bikini Bottom",
+      "email": "plankton@gmail.com",
+      "following": [
+        new ObjectID("000000000000000000000001")
+      ],
+      "events":[
+        new ObjectID("000000000000000000000003")
+      ],
+      "eventBanner":[
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
+      ],
+      "profilePicture": "img/plankton_profile.jpg"
+    }
+  },
+
+  "bands": {
+    "1": {
+      "_id": new ObjectID("000000000000000000000001"),
+      "name": "Band1",
+      "feed": new ObjectID("000000000000000000000006"),
+      "fans": 420,
+      "info": "Music band with instruments",
+      "profile picture": new ObjectID("000000000000000000000001"),
+      "pagePicture": "url(img/genericband.jpg)",
+      "members": [
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000003")
+      ],
+      "location": "Bikini Bottom",
+      "wanted": [
+        {
+          "instrument": "Guitarist",
+          "info": "Play me something spicy"
+        },
+        {
+          "instrument": "Saxophone",
+          "info": "Minimum 70 years of experience"
+        }
+      ]
+    },
+
+    "2": {
+      "_id": new ObjectID("000000000000000000000002"),
+      "name": "Band2",
+      "feed": 7,
+      "fans": 420,
+      "info": "Music band with instruments",
+      "profile picture": new ObjectID("000000000000000000000002"),
+      "pagePicture": "url(img/genericband.jpg)",
+      "members": [
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000004")
+      ],
+      "location": "Bikini Bottom",
+      "wanted": []
+    },
+
+    "3": {
+      "_id": new ObjectID("000000000000000000000003"),
+      "name": "Band3",
+      "feed": 8,
+      "fans": 420,
+      "info": "Music band with instruments",
+      "profile picture": new ObjectID("000000000000000000000003"),
+      "pagePicture": "url(img/genericband.jpg)",
+      "members": [
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000003"),
+        new ObjectID("000000000000000000000005")
+      ],
+      "location": "Bikini Bottom",
+      "wanted": []
+    }
+  },
+
+  "feedItems": {
+    "1": {
+      "author": new ObjectID("000000000000000000000001"),
+      "contents": "Practice is canceled",
+      "postDate": 1453690800000,
+      "band" : new ObjectID("000000000000000000000001")
+    },
+    "2": {
+      "author": new ObjectID("000000000000000000000002"),
+      "contents": "more messages",
+      "postDate": 1453690800001,
+      "band" : new ObjectID("000000000000000000000001")
+    },
+    "3": {
+      "author": new ObjectID("000000000000000000000004"),
+      "contents": "more messages",
+      "postDate": 1453690800002,
+      "band" : new ObjectID("000000000000000000000002")
+    },
+    "4": {
+      "author": new ObjectID("000000000000000000000005"),
+      "contents": "more messages",
+      "postDate": 1453690800003,
+      "band" : new ObjectID("000000000000000000000002")
+    },
+    "5": {
+      "author": new ObjectID("000000000000000000000002"),
+      "contents": "more messages",
+      "postDate": 1453690800004,
+      "band" : new ObjectID("000000000000000000000003")
+    },
+    "6": {
+      "author": new ObjectID("000000000000000000000003"),
+      "contents": "more messages",
+      "postDate": 1453690800005,
+      "band" : new ObjectID("000000000000000000000002")
+    }
+  },
+
+  "feeds": {
+    "1": {
+      "_id": new ObjectID("000000000000000000000001"),
+      "contents": [
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000003")
+      ]
+    },
+    "2": {
+      "_id": new ObjectID("000000000000000000000002"),
+      "contents": [
+        new ObjectID("000000000000000000000003"),
+        new ObjectID("000000000000000000000004")
+      ]
+    },
+    "3": {
+      "_id": new ObjectID("000000000000000000000003"),
+      "contents": [
+        new ObjectID("000000000000000000000004"),
+        new ObjectID("000000000000000000000005")
+      ]
+    },
+    "4": {
+      "_id": new ObjectID("000000000000000000000004"),
+      "contents": [
+        new ObjectID("000000000000000000000005"),
+        new ObjectID("000000000000000000000006")
+      ]
+    },
+    "5": {
+      "_id": new ObjectID("000000000000000000000005"),
+      "contents": [
+        new ObjectID("000000000000000000000002"),
+        new ObjectID("000000000000000000000004")
+      ]
+    },
+    "6": {
+      "_id": new ObjectID("000000000000000000000006"),
+      "contents": [
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
+      ]
+    },
+    "7": {
+      "_id": new ObjectID("000000000000000000000007"),
+      "contents": [
+        new ObjectID("000000000000000000000003"),
+        new ObjectID("000000000000000000000004")
+      ]
+    },
+    "8": {
+      "_id": new ObjectID("000000000000000000000008"),
+      "contents": [
+        new ObjectID("000000000000000000000005"),
+        new ObjectID("000000000000000000000006")
+      ]
+    }
+  },
+
+  "instruments": {
+    "1": {
+      "_id": new ObjectID("000000000000000000000001"),
+      "instrument": "guitar"
+    },
+    "2": {
+      "_id": new ObjectID("000000000000000000000002"),
+      "instrument": "percussion"
+    },
+    "3": {
+      "_id": new ObjectID("000000000000000000000003"),
+      "instrument": "piano"
+    },
+    "4": {
+      "_id": new ObjectID("000000000000000000000004"),
+      "instrument": "bass guitar"
+    },
+    "5": {
+      "_id": new ObjectID("000000000000000000000005"),
+      "instrument": "saxaphone"
+    },
+    "6": {
+      "_id": new ObjectID("000000000000000000000006"),
+      "instrument": "trumpet"
+    },
+    "7": {
+      "_id": new ObjectID("000000000000000000000007"),
+      "instrument": "violin"
+    },
+    "8": {
+      "_id": new ObjectID("000000000000000000000008"),
+      "instrument": "flute"
+    }
+  },
+
+  "genres": {
+    "1": {
+      "_id": new ObjectID("000000000000000000000001"),
+      "instrument": "blues"
+    },
+    "2": {
+      "_id": new ObjectID("000000000000000000000002"),
+      "instrument": "rock"
+    },
+    "3": {
+      "_id": new ObjectID("000000000000000000000003"),
+      "instrument": "jazz"
+    },
+    "4": {
+      "_id": new ObjectID("000000000000000000000004"),
+      "instrument": "classical"
+    },
+    "5": {
+      "_id": new ObjectID("000000000000000000000005"),
+      "instrument": "country"
+    },
+    "6": {
+      "_id": new ObjectID("000000000000000000000006"),
+      "instrument": "metal"
+    },
+    "7": {
+      "_id": new ObjectID("000000000000000000000007"),
+      "instrument": "punk"
+    },
+    "8": {
+      "_id": new ObjectID("000000000000000000000008"),
+      "instrument": "pop"
+    }
+  },
+
+  "events":{
+    "1":{
+      "name": "Event 1",
+      "band": new ObjectID("000000000000000000000001"),
+      "_id": new ObjectID("000000000000000000000001"),
+      "date": 1453668480000,
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "2":{
+      "name": "Event 2",
+      "band": new ObjectID("000000000000000000000002"),
+      "_id": new ObjectID("000000000000000000000002"),
+      "date": 1453668580000,
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "3":{
+      "name": "Event 3",
+      "band": new ObjectID("000000000000000000000003"),
+      "_id": new ObjectID("000000000000000000000003"),
+      "date": 1453668680000,
+      "location": "South College",
+      "detail": "It is fun"
+    },
+    "4":{
+      "name": "Event 4",
+      "band": new ObjectID("000000000000000000000002"),
+      "_id": new ObjectID("000000000000000000000004"),
+      "date": 1453669480000,
+      "location": "South College",
+      "detail": "It is fun"
+    }
+  },
+  "eventBanner":{
+    "1":{
+      'title': 'Event1',
+      'start': new Date('2017-4-1'),
+      'end': new Date('2017-4-2')
+    },
+    "2":{
+      'title': 'Event2',
+      'start': new Date('2017-4-3'),
+      'end': new Date('2017-4-3')
+    }
+  }
+};
 
 //Resets a collection.
 function resetCollection(db, name, cb) {

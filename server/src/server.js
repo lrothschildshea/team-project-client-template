@@ -4,7 +4,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 //import database functions
 var database = require('./database');
-
+var mongo_express = require('mongo-express/lib/middleware');
+// Import the default Mongo Express configuration
+var mongo_express_config = require('mongo-express/config.default.js');
 
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
@@ -21,6 +23,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json());
 //pull static contends from build
 app.use(express.static('../client/build'));
+app.use('/mongo_express',mongo_express(mongo_express_config));
 
 /**
 * Given a feed item ID, returns a FeedItem object with references resolved.
