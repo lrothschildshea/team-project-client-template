@@ -234,16 +234,16 @@ app.put('/feeditem/:feeditemid',function(req,res) {
 });
 
 app.get('/calendarEvent/:userId',function(req,res) {
-  const userId = req.params.userId;
-  var mockUser = readDocument('users',userId);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  var mockUser = readDocument('users',fromUser);
   var calendarEventId=mockUser.events;
   var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
   res.status(200).send(calendarEventItem);
 });
 
 app.post('/addEvent/:userId',function(req,res) {
-  var userId = req.params.userId;
-  var mockUser = readDocument('users',userId);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  var mockUser = readDocument('users',fromUser);
   var eventBody = req.body;
   var eventIds = mockUser.events;
   var newEvent = {
@@ -262,16 +262,16 @@ app.post('/addEvent/:userId',function(req,res) {
 });
 
 app.get('/getEventBanner/:userId',function(req,res) {
-  var userId = req.params.userId;
-  var mockUser = readDocument('users',userId);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  var mockUser = readDocument('users',fromUser);
   var eventBannerId=mockUser.eventBanner;
   var eventBannerItem = eventBannerId.map(getEventBannerSyn);
   res.status(200).send(eventBannerItem);
 });
 
 app.post('/addEventBanner/:userId',function(req,res) {
-  var userId = req.params.userId;
-  var mockUser = readDocument('users',userId);
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  var mockUser = readDocument('users',fromUser);
   var eventBannerId = mockUser.eventBanner;
   var eventBanner = {
     title:req.body.title,
