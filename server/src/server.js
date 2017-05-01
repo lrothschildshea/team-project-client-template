@@ -133,9 +133,37 @@ MongoClient.connect(url, function(err, db) {
       }
   }
 
-  function getEventBanner(eventBannerId) {
-    var eventBannerItem=readDocument('eventBanner', eventBannerId);
-    return eventBannerItem;
+  function processNextEventBanner(index,eventBanner,resolvedItems,callback) {
+    console.log("eventBanner index "+index);
+      if (eventBanner.length == 0) {
+        callback(null,[]);
+      } else {
+        getEventBanner(eventBanner[index], function(err,eventBannerObject) {
+          if(err) {
+            callback(err);
+          } else {
+            resolvedItems.push(eventBannerObject);
+            if (resolvedItems.length == eventBanner.length) {
+              callback(null,resolvedItems);
+            } else {
+              processNextEventBanner(index+1,eventBanner,resolvedItems,callback);
+            }
+          }
+        });
+      }
+  }
+
+  function getEventBanner(eventBannerId, cb) {
+    db.collection("eventBanner").findOne({_id: eventBannerId},
+      function(err, eventBannerItem){
+        if(err){
+          cb(err);
+        }else{
+          cb(null,eventBannerItem);
+        }
+
+      }
+    )
   }
 
   //gets the feed items for the homepage
@@ -330,11 +358,23 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/getEventBanner/:userId',function(req,res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var mockUser = readDocument('users',fromUser);
-    var eventBannerId=mockUser.eventBanner;
-    var eventBannerItem = eventBannerId.map(getEventBanner);
-    res.status(200).send(eventBannerItem);
+
+    var userId = req.params.userId;
+    db.collection('users').findOne({_id:new ObjectID(userId)},
+        function(err,userObject) {
+          if(err) {
+            res.status(404).end();
+          } else {
+            var eventBannerId = userObject.eventBanner;
+            processNextEventBanner(0, eventBannerId, [], function(err, resolvedContent){
+              if(err){
+                res.status(404).end();
+              } else {
+                res.status(200).send(resolvedContent);
+              }
+            })
+          }
+        });
   });
 
   app.post('/addEventBanner/:userId',function(req,res) {
