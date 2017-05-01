@@ -1,16 +1,35 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
 import {search} from '../server'
+import {hashHistory} from 'react-router'
 
 export default class SearchResults extends React.Component {
   constructor(props) {
     super(props);
-    //  this.state = this.props.params
     this.state = {
-      loaded: false,
-      invalidSearch: false,
       results: []
     };
+  }
+
+  handleSearch(contents) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    //e.preventDefault();
+    // Trim whitespace from beginning + end of entry.
+    //var searchText = this.state.value.trim();
+    var searchText = contents.value;
+    var type = contents.searchType;
+    // var genre = this.state.genre;
+    // var instrument = this.state.instrument;
+    // var zipcode = this.state.zipcode;
+    var genre = "";
+    var instrument ="";
+    var zipcode="";
+    if (searchText !== "") {
+      /* TODO: How do we send the post to the server + update the Feed? */
+      //this.props.onPost(this.state);
+      hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type, g:genre, i:instrument, z:zipcode} });
+    }
+    this.refresh();
   }
 
   refresh() {
@@ -20,17 +39,12 @@ export default class SearchResults extends React.Component {
       term:searchTerm,
       type:searchType
     }
+
     if (searchTerm !== "") {
-      // Search on behalf of user 4.
       search("1", query, (feedItems) => {
         this.setState({
-          loaded: true,
           results: feedItems
         });
-      });
-    } else {
-      this.setState({
-        invalidSearch: true
       });
     }
   }
@@ -44,9 +58,6 @@ export default class SearchResults extends React.Component {
 
   }
 
-  onSearch(contents){
-    this.refresh();
-  }
   //  Object.keys(this.props.data).map(key) => {
   //        <SearchResult name={this.props.data._id.fullName}></SearchResult>
   //      });
@@ -127,7 +138,7 @@ export default class SearchResults extends React.Component {
               </div>
             </div>
             <div className="col-md-9 feed col-md-offset-3">
-              <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)}/>
+              <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.handleSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={inst} genre={genre} zipcode={zip}/>
               <hr></hr>
               <ResultFeed searchTerm = {searchTerm} searchType={searchType} results={this.state.results}></ResultFeed>
             </div>
@@ -278,6 +289,10 @@ class SearchFilter extends React.Component {
     class ResultFeed extends React.Component {
       constructor(props) {
         super(props);
+      }
+
+      componentWillReceiveProps(nextProps) {
+        this.setState(nextProps)
       }
 
       render() {
