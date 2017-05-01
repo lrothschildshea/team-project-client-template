@@ -93,9 +93,43 @@ MongoClient.connect(url, function(err, db) {
     return feedData;
   }
 
-  function getCalendarEvent(calendarEventId) {
-    var calendarEventItem=readDocument('events', calendarEventId);
-    return calendarEventItem;
+  function getCalendarEvent(calendarEventId,cb) {
+    db.collection('events').findOne({_id:calendarEventId},
+        function(err,eventItem) {
+          if(err) {
+            cb(err);
+          } else {
+            var bandId = eventItem.band;
+            db.collection("bands").findOne({_id:bandId},
+            function(err, bandItem){
+              if(err) {
+                cb(err);
+              } else {
+                eventItem.band = bandItem.name;
+                cb(err,eventItem);
+              }
+            })
+          }
+        });
+  }
+
+  function processNextEventItem(index,eventItems,resolvedItems,callback) {
+      if (eventItems.length == 0) {
+        callback(null,[]);
+      } else {
+        getCalendarEvent(eventItems[index], function(err,eventItem) {
+          if(err) {
+            callback(err);
+          } else {
+            resolvedItems.push(eventItem);
+            if (resolvedItems.length == eventItems.length) {
+              callback(null,resolvedItems);
+            } else {
+              processNextEventItem(index+1,eventItems,resolvedItems,callback);
+            }
+          }
+        });
+      }
   }
 
   function getEventBanner(eventBannerId) {
@@ -250,11 +284,28 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/calendarEvent/:userId',function(req,res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var mockUser = readDocument('users',fromUser);
-    var calendarEventId=mockUser.events;
-    var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-    res.status(200).send(calendarEventItem);
+    // var fromUser = getUserIdFromToken(req.get('Authorization'));
+    // var mockUser = readDocument('users',fromUser);
+    // var calendarEventId=mockUser.events;
+    // var calendarEventItem = calendarEventId.map(getCalendarEvent);
+    var userId = req.params.userId;
+    console.log(userId);
+    db.collection('users').findOne({_id:new ObjectID(userId)},
+        function(err,userObject) {
+          if(err) {
+            res.status(404).end();
+          } else {
+            var calendarEventId = userObject.events;
+            processNextEventItem(0,calendarEventId,[],function(err,resolvedEventItems) {
+              if(err) {
+                res.status(404).end();
+              } else {
+                console.log(resolvedEventItems);
+                res.status(201).send(resolvedEventItems);
+              }
+            });
+          }
+        });
   });
 
   app.post('/addEvent/:userId',function(req,res) {
@@ -273,7 +324,7 @@ MongoClient.connect(url, function(err, db) {
     eventIds.unshift(newEvent_id);
     mockUser.events = eventIds;
     writeDocument('users',mockUser);
-    var events = eventIds.map(getCalendarEventSyn);
+    var events = eventIds.map(getCalendarEvent);
     res.status(200).send(events);
   });
 
@@ -281,7 +332,7 @@ MongoClient.connect(url, function(err, db) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     var mockUser = readDocument('users',fromUser);
     var eventBannerId=mockUser.eventBanner;
-    var eventBannerItem = eventBannerId.map(getEventBannerSyn);
+    var eventBannerItem = eventBannerId.map(getEventBanner);
     res.status(200).send(eventBannerItem);
   });
 
@@ -298,7 +349,7 @@ MongoClient.connect(url, function(err, db) {
     eventBannerId.unshift(newEventBanner._id);
     mockUser.eventBanner = eventBannerId;
     writeDocument('users',mockUser);
-    var modifiedBanner = eventBannerId.map(getEventBannerSyn);
+    var modifiedBanner = eventBannerId.map(getEventBanner);
     res.status(200).send(modifiedBanner);
   })
 
