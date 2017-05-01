@@ -16,6 +16,7 @@ var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
 var getCollection  = database.getCollection;
+var ResetDatabase = ('./resetdatabase');
 
 
 var app = express();
@@ -38,6 +39,10 @@ MongoClient.connect(url, function(err, db) {
   app.use(express.static('../client/build'));
   app.use('/mongo_express',mongo_express(mongo_express_config));
 
+
+  function sendDatabaseError(res, err) {
+    res.status(500).send("A database error occurred: " + err);
+  }
 
   /**
   * Given a feed item ID, returns a FeedItem object with references resolved.
@@ -297,10 +302,11 @@ MongoClient.connect(url, function(err, db) {
 
 
   //Reset database.
-  app.post('/resetdb',function(req,res) {
-    console.log("Resetting database");
-    database.resetDatabase();
-    res.send();
+  app.post('/resetdb', function(req, res) {
+    console.log("Resetting database...");
+    ResetDatabase(db, function() {
+      res.send();
+    });
   });
 
   app.put('/feeditem/:feeditemid',function(req,res) {
@@ -397,8 +403,8 @@ MongoClient.connect(url, function(err, db) {
 
   // Search for feed item
   app.post('/search', function(req, res) {
-    console.log(req.body);
-    console.log(typeof(req.body));
+    // console.log(req.body);
+    // console.log(typeof(req.body));
     if (typeof(req.body) === 'object') {
       // trim() removes whitespace before and after the query.
       // toLowerCase() makes the query lowercase.
@@ -408,21 +414,41 @@ MongoClient.connect(url, function(err, db) {
 
       if(type == 'band'){
         // Search the user's feed.
-        var bands = getCollection('bands');
-        for(var i in bands){
-          if(bands[i].name.toLowerCase() == queryText){
-            response.push(bands[i]);
+
+        db.collection('bands').find({
+          $text: {
+            $search: queryText
           }
-        }
+        }).toArray(function(err, items) {
+          if(err){
+            return sendDatabaseError(res,err);
+          } else {
+            console.log(items)
+            res.status(200).send(items)
+          }
+        })
+
+        // var bands = getCollection('bands');
+        // for(var i in bands){
+        //   if(bands[i].name.toLowerCase() == queryText){
+        //     response.push(bands[i]);
+        //   }
+        // }
       } else if(type == 'people'){
-        var people = getCollection('users');
-        for(var j in people){
-          if(people[j].fullName.toLowerCase() == queryText){
-            response.push(people[j]);
+
+        db.collection('users').find({
+          $text: {
+            $search: queryText
           }
-        }
+        }).toArray(function(err, items) {
+          if(err){
+            return sendDatabaseError(res,err);
+          } else {
+            console.log(items)
+            res.status(200).send(items)
+          }
+        })
       }
-      res.status(200).send(response);
     } else {
       // 400: Bad Request.
       res.status(400).end();
