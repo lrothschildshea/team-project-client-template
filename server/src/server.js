@@ -38,6 +38,7 @@ MongoClient.connect(url, function(err, db) {
   app.use(express.static('../client/build'));
   app.use('/mongo_express',mongo_express(mongo_express_config));
 
+
   /**
   * Given a feed item ID, returns a FeedItem object with references resolved.
   * Internal to the server, since it's synchronous.
@@ -428,4 +429,3 @@ MongoClient.connect(url, function(err, db) {
     // We should be able to run your server with node src/server.js
 
 });
-// The file ends here. Nothing should be after this.

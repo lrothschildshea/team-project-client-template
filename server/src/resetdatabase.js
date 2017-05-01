@@ -1,7 +1,8 @@
 var ObjectID = require('mongodb').ObjectID;
 
 // Put your startup's name here (only letters and numbers -- no spaces, apostrophes, or special characters!)
-var databaseName = 'letsjam';
+
+var databaseName = "LetsJam";
 // Put the initial mock objects here.
 var initialData = {
 
@@ -15,12 +16,12 @@ var initialData = {
       "email": "spongeBob@gmail.com",
       "following": [new ObjectID("000000000000000000000002")],
       "events":[
-       new ObjectID("000000000000000000000001"),
-       new ObjectID("000000000000000000000002")
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
       ],
       "eventBanner":[
-       new ObjectID("000000000000000000000001"),
-       new ObjectID("000000000000000000000002")
+        new ObjectID("000000000000000000000001"),
+        new ObjectID("000000000000000000000002")
       ],
       "profilePicture": "img/spongebob_profile.jpg"
     },
@@ -112,7 +113,7 @@ var initialData = {
   "bands": {
     "1": {
       "_id": new ObjectID("000000000000000000000001"),
-      "name": "Band1",
+      "name": "Band 1",
       "feed": new ObjectID("000000000000000000000006"),
       "fans": 420,
       "info": "Music band with instruments",
@@ -138,7 +139,7 @@ var initialData = {
 
     "2": {
       "_id": new ObjectID("000000000000000000000002"),
-      "name": "Band2",
+      "name": "Band 2",
       "feed": 7,
       "fans": 420,
       "info": "Music band with instruments",
@@ -154,7 +155,7 @@ var initialData = {
 
     "3": {
       "_id": new ObjectID("000000000000000000000003"),
-      "name": "Band3",
+      "name": "Band 3",
       "feed": 8,
       "fans": 420,
       "info": "Music band with instruments",
@@ -387,6 +388,14 @@ var initialData = {
   }
 };
 
+/**
+* Adds any desired indexes to the database.
+*/
+function addIndexes(db, cb) {
+  db.collection('users').createIndex({ "fullName": "text" }, null, cb);
+  db.collection('bands').createIndex({ "name": "text" }, null, cb);
+}
+
 //Resets a collection.
 function resetCollection(db, name, cb) {
   // Drop / delete the entire object collection.
@@ -402,9 +411,9 @@ function resetCollection(db, name, cb) {
 }
 
 /**
- * Reset the MongoDB database.
- * @param db The database connection.
- */
+* Reset the MongoDB database.
+* @param db The database connection.
+*/
 function resetDatabase(db, cb) {
   // The code below is a bit complex, but it basically emulates a
   // "for" loop over asynchronous operations.
@@ -421,7 +430,7 @@ function resetDatabase(db, cb) {
       // Use myself as a callback.
       resetCollection(db, collection, processNextCollection);
     } else {
-      cb();
+      addIndexes(db, cb);
     }
   }
 

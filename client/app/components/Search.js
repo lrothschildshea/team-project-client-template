@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
 import {getInstruments, getGenres} from '../server'
+import {hashHistory} from 'react-router'
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -22,6 +23,23 @@ export default class Search extends React.Component {
     this.setState(contents)
   }
 
+  handleSearch(contents) {
+    // Prevent the event from "bubbling" up the DOM tree.
+    //e.preventDefault();
+    // Trim whitespace from beginning + end of entry.
+    //var searchText = this.state.value.trim();
+    var searchText = contents.value;
+    var type = contents.searchType;
+    var genre = this.state.genre;
+    var instrument = this.state.instrument;
+    var zipcode = this.state.zipcode;
+    if (searchText !== "") {
+      /* TODO: How do we send the post to the server + update the Feed? */
+      //this.props.onPost(this.state);
+      hashHistory.push({ pathname: "/search/result", query: {q: searchText, t:type, g:genre, i:instrument, z:zipcode} });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -30,7 +48,7 @@ export default class Search extends React.Component {
           <div className="col-md-10">
             <div className="container searchbar-container">
               <div className="search-bar">
-                <SearchBar onPost={(postContents) => this.onSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={this.state.instrument} genre={this.state.genre} zipcode={this.state.zipcode}/>
+                <SearchBar onPost={(contents) => this.handleSearch(contents)} onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
             </div>
           </div>
@@ -107,6 +125,10 @@ class SearchParameters extends React.Component {
   }
 
   render() {
+    var list = [];
+    for(var i in this.state.instrumentList){
+      list.push(this.state.instrumentList[i].instrument);
+    }
     return (
       <div className="container searchp-container">
         <div className="search-parameters">
@@ -119,6 +141,11 @@ class SearchParameters extends React.Component {
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  {
+                    list.map((item) => {
+                      <li><a href='#' onClick={(e) => this.handleInstrument(e)}>{item}</a></li>
+                    })
+                  }
                   <li>
                     <a href="#" onClick={(e) => this.handleInstrument(e)}>Guitar</a>
                   </li>
