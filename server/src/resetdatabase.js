@@ -113,7 +113,7 @@ var initialData = {
   "bands": {
     "1": {
       "_id": new ObjectID("000000000000000000000001"),
-      "name": "Band 1",
+      "name": "Band1",
       "feed": new ObjectID("000000000000000000000006"),
       "fans": 420,
       "info": "Music band with instruments",
@@ -139,7 +139,7 @@ var initialData = {
 
     "2": {
       "_id": new ObjectID("000000000000000000000002"),
-      "name": "Band 2",
+      "name": "Band2",
       "feed": 7,
       "fans": 420,
       "info": "Music band with instruments",
@@ -155,7 +155,7 @@ var initialData = {
 
     "3": {
       "_id": new ObjectID("000000000000000000000003"),
-      "name": "Band 3",
+      "name": "Band3",
       "feed": 8,
       "fans": 420,
       "info": "Music band with instruments",
