@@ -1,7 +1,7 @@
 var ObjectID = require('mongodb').ObjectID;
 
 // Put your startup's name here (only letters and numbers -- no spaces, apostrophes, or special characters!)
-var databaseName = "LetsJam";
+var databaseName = 'letsjam';
 // Put the initial mock objects here.
 var initialData = {
 
@@ -15,12 +15,12 @@ var initialData = {
       "email": "spongeBob@gmail.com",
       "following": [new ObjectID("000000000000000000000002")],
       "events":[
-        new ObjectID("000000000000000000000001"),
-        new ObjectID("000000000000000000000002")
+       new ObjectID("000000000000000000000001"),
+       new ObjectID("000000000000000000000002")
       ],
       "eventBanner":[
-        new ObjectID("000000000000000000000001"),
-        new ObjectID("000000000000000000000002")
+       new ObjectID("000000000000000000000001"),
+       new ObjectID("000000000000000000000002")
       ],
       "profilePicture": "img/spongebob_profile.jpg"
     },
@@ -112,7 +112,7 @@ var initialData = {
   "bands": {
     "1": {
       "_id": new ObjectID("000000000000000000000001"),
-      "name": "Band 1",
+      "name": "Band1",
       "feed": new ObjectID("000000000000000000000006"),
       "fans": 420,
       "info": "Music band with instruments",
@@ -138,7 +138,7 @@ var initialData = {
 
     "2": {
       "_id": new ObjectID("000000000000000000000002"),
-      "name": "Band 2",
+      "name": "Band2",
       "feed": 7,
       "fans": 420,
       "info": "Music band with instruments",
@@ -154,7 +154,7 @@ var initialData = {
 
     "3": {
       "_id": new ObjectID("000000000000000000000003"),
-      "name": "Band 3",
+      "name": "Band3",
       "feed": 8,
       "fans": 420,
       "info": "Music band with instruments",
@@ -381,25 +381,19 @@ var initialData = {
   },
   "eventBanner":{
     "1":{
+      '_id': new ObjectID("000000000000000000000001"),
       'title': 'Event1',
-      'start': new Date('2017-4-1'),
-      'end': new Date('2017-4-2')
+      'start': new Date(2017, 4, 22),
+      'end': new Date(2017, 4, 22),
     },
     "2":{
+      '_id':new ObjectID("000000000000000000000002"),
       'title': 'Event2',
-      'start': new Date('2017-4-3'),
-      'end': new Date('2017-4-3')
+      'start': new Date(2017, 4, 22),
+      'end': new Date (2017,4,22)
     }
   }
 };
-
-/**
-* Adds any desired indexes to the database.
-*/
-function addIndexes(db, cb) {
-  db.collection('users').createIndex({ "fullName": "text" }, null, cb);
-  db.collection('bands').createIndex({ "name": "text" }, null, cb);
-}
 
 //Resets a collection.
 function resetCollection(db, name, cb) {
@@ -415,10 +409,15 @@ function resetCollection(db, name, cb) {
   });
 }
 
+function addIndexes(db, cb) {
+   db.collection('users').createIndex({ "fullName": "text" }, null, cb);
+   db.collection('bands').createIndex({ "name": "text" }, null, cb);
+ }
+
 /**
-* Reset the MongoDB database.
-* @param db The database connection.
-*/
+ * Reset the MongoDB database.
+ * @param db The database connection.
+ */
 function resetDatabase(db, cb) {
   // The code below is a bit complex, but it basically emulates a
   // "for" loop over asynchronous operations.

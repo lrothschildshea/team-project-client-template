@@ -7,30 +7,43 @@ var database = require('./database');
 var mongo_express = require('mongo-express/lib/middleware');
 // Import the default Mongo Express configuration
 var mongo_express_config = require('mongo-express/config.default.js');
+var MongoDB = require('mongodb');
+var MongoClient = MongoDB.MongoClient;
+var ObjectID = MongoDB.ObjectID;
+var url = 'mongodb://localhost:27017/letsjam';
 
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
 var getCollection  = database.getCollection;
+var ResetDatabase = ('./resetdatabase');
 
 
 var app = express();
 
+
 var validate = require('express-jsonschema').validate;
 var FeedItemSchema = require('./schemas/feeditem.json');
 var BandSchema = require('./schemas/band.json');
-app.use(bodyParser.text());
-app.use(bodyParser.json());
-//pull static contends from build
-app.use(express.static('../client/build'));
-app.use('/mongo_express',mongo_express(mongo_express_config));
 
-var MongoDB = require('mongodb');
-var MongoClient = MongoDB.MongoClient;
-var ObjectID = MongoDB.ObjectID;
-var url = 'mongodb://localhost:27017/LetsJam';
 
 MongoClient.connect(url, function(err, db) {
+  // Put everything that uses `app` into this callback function.
+  // from app.use(bodyParser.text());
+  // all the way to
+  // app.listen(3000, ...
+  // Also put all of the helper functions that use mock database
+  // methods like readDocument, writeDocument, ...
+
+  app.use(bodyParser.text());
+  app.use(bodyParser.json());
+  //pull static contends from build
+  app.use(express.static('../client/build'));
+  app.use('/mongo_express',mongo_express(mongo_express_config));
+
+  function sendDatabaseError(res, err) {
+    res.status(500).send("A database error occurred: " + err);
+  }
 
   /**
   * Given a feed item ID, returns a FeedItem object with references resolved.
@@ -149,14 +162,76 @@ MongoClient.connect(url, function(err, db) {
     return feedData;
   }
 
-  function getCalendarEventSyn(calendarEventId) {
-    var calendarEventItem=readDocument('events', calendarEventId);
-    return calendarEventItem;
+  function getCalendarEvent(calendarEventId,cb) {
+    db.collection('events').findOne({_id:calendarEventId},
+        function(err,eventItem) {
+          if(err) {
+            cb(err);
+          } else {
+            var bandId = eventItem.band;
+            db.collection("bands").findOne({_id:bandId},
+            function(err, bandItem){
+              if(err) {
+                cb(err);
+              } else {
+                eventItem.band = bandItem.name;
+                cb(err,eventItem);
+              }
+            })
+          }
+        });
   }
 
-  function getEventBannerSyn(eventBannerId) {
-    var eventBannerItem=readDocument('eventBanner', eventBannerId);
-    return eventBannerItem;
+  function processNextEventItem(index,eventItems,resolvedItems,callback) {
+      if (eventItems.length == 0) {
+        callback(null,[]);
+      } else {
+        getCalendarEvent(eventItems[index], function(err,eventItem) {
+          if(err) {
+            callback(err);
+          } else {
+            resolvedItems.push(eventItem);
+            if (resolvedItems.length == eventItems.length) {
+              callback(null,resolvedItems);
+            } else {
+              processNextEventItem(index+1,eventItems,resolvedItems,callback);
+            }
+          }
+        });
+      }
+  }
+
+  function processNextEventBanner(index,eventBanner,resolvedItems,callback) {
+    console.log("eventBanner index "+index);
+      if (eventBanner.length == 0) {
+        callback(null,[]);
+      } else {
+        getEventBanner(eventBanner[index], function(err,eventBannerObject) {
+          if(err) {
+            callback(err);
+          } else {
+            resolvedItems.push(eventBannerObject);
+            if (resolvedItems.length == eventBanner.length) {
+              callback(null,resolvedItems);
+            } else {
+              processNextEventBanner(index+1,eventBanner,resolvedItems,callback);
+            }
+          }
+        });
+      }
+  }
+
+  function getEventBanner(eventBannerId, cb) {
+    db.collection("eventBanner").findOne({_id: eventBannerId},
+      function(err, eventBannerItem){
+        if(err){
+          cb(err);
+        }else{
+          cb(null,eventBannerItem);
+        }
+
+      }
+    )
   }
 
   //gets the feed items for the homepage
@@ -315,10 +390,11 @@ MongoClient.connect(url, function(err, db) {
 
 
   //Reset database.
-  app.post('/resetdb',function(req,res) {
-    console.log("Resetting database");
-    database.resetDatabase();
-    res.send();
+  app.post('/resetdb', function(req, res) {
+    console.log("Resetting database...");
+    ResetDatabase(db, function() {
+      res.send();
+    });
   });
 
   app.put('/feeditem/:feeditemid',function(req,res) {
@@ -331,11 +407,28 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/calendarEvent/:userId',function(req,res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var mockUser = readDocument('users',fromUser);
-    var calendarEventId=mockUser.events;
-    var calendarEventItem = calendarEventId.map(getCalendarEventSyn);
-    res.status(200).send(calendarEventItem);
+    // var fromUser = getUserIdFromToken(req.get('Authorization'));
+    // var mockUser = readDocument('users',fromUser);
+    // var calendarEventId=mockUser.events;
+    // var calendarEventItem = calendarEventId.map(getCalendarEvent);
+    var userId = req.params.userId;
+    console.log(userId);
+    db.collection('users').findOne({_id:new ObjectID(userId)},
+        function(err,userObject) {
+          if(err) {
+            res.status(404).end();
+          } else {
+            var calendarEventId = userObject.events;
+            processNextEventItem(0,calendarEventId,[],function(err,resolvedEventItems) {
+              if(err) {
+                res.status(404).end();
+              } else {
+                console.log(resolvedEventItems);
+                res.status(201).send(resolvedEventItems);
+              }
+            });
+          }
+        });
   });
 
   app.post('/addEvent/:userId',function(req,res) {
@@ -354,16 +447,28 @@ MongoClient.connect(url, function(err, db) {
     eventIds.unshift(newEvent_id);
     mockUser.events = eventIds;
     writeDocument('users',mockUser);
-    var events = eventIds.map(getCalendarEventSyn);
+    var events = eventIds.map(getCalendarEvent);
     res.status(200).send(events);
   });
 
   app.get('/getEventBanner/:userId',function(req,res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var mockUser = readDocument('users',fromUser);
-    var eventBannerId=mockUser.eventBanner;
-    var eventBannerItem = eventBannerId.map(getEventBannerSyn);
-    res.status(200).send(eventBannerItem);
+
+    var userId = req.params.userId;
+    db.collection('users').findOne({_id:new ObjectID(userId)},
+        function(err,userObject) {
+          if(err) {
+            res.status(404).end();
+          } else {
+            var eventBannerId = userObject.eventBanner;
+            processNextEventBanner(0, eventBannerId, [], function(err, resolvedContent){
+              if(err){
+                res.status(404).end();
+              } else {
+                res.status(200).send(resolvedContent);
+              }
+            })
+          }
+        });
   });
 
   app.post('/addEventBanner/:userId',function(req,res) {
@@ -379,15 +484,15 @@ MongoClient.connect(url, function(err, db) {
     eventBannerId.unshift(newEventBanner._id);
     mockUser.eventBanner = eventBannerId;
     writeDocument('users',mockUser);
-    var modifiedBanner = eventBannerId.map(getEventBannerSyn);
+    var modifiedBanner = eventBannerId.map(getEventBanner);
     res.status(200).send(modifiedBanner);
   })
 
 
   // Search for feed item
   app.post('/search', function(req, res) {
-    console.log(req.body);
-    console.log(typeof(req.body));
+    // console.log(req.body);
+    // console.log(typeof(req.body));
     if (typeof(req.body) === 'object') {
       // trim() removes whitespace before and after the query.
       // toLowerCase() makes the query lowercase.
@@ -397,21 +502,41 @@ MongoClient.connect(url, function(err, db) {
 
       if(type == 'band'){
         // Search the user's feed.
-        var bands = getCollection('bands');
-        for(var i in bands){
-          if(bands[i].name.toLowerCase() == queryText){
-            response.push(bands[i]);
+
+        db.collection('bands').find({
+          $text: {
+            $search: queryText
           }
-        }
+        }).toArray(function(err, items) {
+          if(err){
+            return sendDatabaseError(res,err);
+          } else {
+            console.log(items)
+            res.status(200).send(items)
+          }
+        })
+
+        // var bands = getCollection('bands');
+        // for(var i in bands){
+        //   if(bands[i].name.toLowerCase() == queryText){
+        //     response.push(bands[i]);
+        //   }
+        // }
       } else if(type == 'people'){
-        var people = getCollection('users');
-        for(var j in people){
-          if(people[j].fullName.toLowerCase() == queryText){
-            response.push(people[j]);
+
+        db.collection('users').find({
+          $text: {
+            $search: queryText
           }
-        }
+        }).toArray(function(err, items) {
+          if(err){
+            return sendDatabaseError(res,err);
+          } else {
+            console.log(items)
+            res.status(200).send(items)
+          }
+        })
       }
-      res.status(200).send(response);
     } else {
       // 400: Bad Request.
       res.status(400).end();
@@ -456,4 +581,5 @@ MongoClient.connect(url, function(err, db) {
     });
     // Implement your server in this file.
     // We should be able to run your server with node src/server.js
-  });
+
+});

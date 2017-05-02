@@ -20,19 +20,19 @@ export default class EventPage extends React.Component {
   }
 
  onPost(calendarEventItem,eventBannerItem){
-   addCalendarEvent(1,calendarEventItem,()=>{
+   addCalendarEvent("000000000000000000000001",calendarEventItem,()=>{
      this.refresh();
    });
-   addEventBanner(1,eventBannerItem,()=>{
+   addEventBanner("000000000000000000000001",eventBannerItem,()=>{
      this.refresh();
    })
  }
 
  refresh(){
-  getCalendarEvent(1,(calendarEventItem)=>{
+  getCalendarEvent("000000000000000000000001",(calendarEventItem)=>{
      this.setState({'events':calendarEventItem});
    });
-  getEventBanner(1,(eventBannerItem)=>{
+  getEventBanner("000000000000000000000001",(eventBannerItem)=>{
     this.setState({'eventBanner':eventBannerItem});
   })
  }

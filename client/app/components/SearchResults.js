@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
 import {search} from '../server'
-import {hashHistory} from 'react-router'
+import {hashHistory, Link} from 'react-router'
 
 export default class SearchResults extends React.Component {
   constructor(props) {
@@ -119,7 +119,9 @@ export default class SearchResults extends React.Component {
     }
     return searchGenre;
   }
-
+  // <div className="col-md-3">
+  //   <SearchFilter onEntered={(postContents) => this.updateState(postContents)} zip={zip} instrument={inst} genre={genre}/>
+  // </div>
 
   render() {
     var searchTerm = this.getSearchTerm();
@@ -133,14 +135,13 @@ export default class SearchResults extends React.Component {
         <div className="container-fluid searchbar-container">
           <div className="search-sidebar">
             <div className="row">
-              <div className="col-md-3">
-                <SearchFilter onEntered={(postContents) => this.updateState(postContents)} zip={zip} instrument={inst} genre={genre}/>
+
+              <div className="col-md-1 feed"></div>
+              <div className="col-md-10 col-md-offset-1 feed">
+                <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.handleSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={inst} genre={genre} zipcode={zip}/>
+                <hr></hr>
+                <ResultFeed searchTerm = {searchTerm} searchType={searchType} results={this.state.results}></ResultFeed>
               </div>
-            </div>
-            <div className="col-md-9 feed col-md-offset-3">
-              <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.handleSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={inst} genre={genre} zipcode={zip}/>
-              <hr></hr>
-              <ResultFeed searchTerm = {searchTerm} searchType={searchType} results={this.state.results}></ResultFeed>
             </div>
           </div>
         </div>
@@ -303,7 +304,7 @@ class SearchFilter extends React.Component {
                 {
                   this.props.results.map((item) => {
                     return (
-                      <BandResult name={item.name} description={item.info} key={item._id}/>
+                      <BandResult name={item.name} description={item.info} key={item._id} bandId={item._id}/>
                     )
                   })
                 }
@@ -317,7 +318,7 @@ class SearchFilter extends React.Component {
                 {
                   this.props.results.map((item) => {
                     return (
-                      <PeopleResult name={item.fullName} image={item.profilePicture} location={item.location} email={item.email} key={item._id}/>
+                      <PeopleResult name={item.fullName} image={item.profilePicture} location={item.location} email={item.email} key={item._id} profile={item._id}/>
                     )
                   })
                 }
@@ -331,11 +332,12 @@ class SearchFilter extends React.Component {
 
     class BandResult extends React.Component{
       render(){
+        var link = "/band/" + this.props.bandId
         return(
           <div>
             <img className="d-flex align-self-start mr-3 media-img" src={this.props.image} alt="Generic placeholder image"/>
             <div className="media-body">
-              <h4 className="mt-0">{this.props.name}</h4>
+              <Link to={link}><h4 className="mt-0">{this.props.name}</h4></Link>
               <div className="row">
                 <div className="col-md-2">
                   <p>Genre: {this.props.genre}</p>
@@ -353,11 +355,12 @@ class SearchFilter extends React.Component {
 
     class PeopleResult extends React.Component{
       render(){
+        var link = "/profile/" + this.props.profile
         return(
           <div>
             <img className="d-flex align-self-start mr-3 media-img" src={this.props.image} alt="Generic placeholder image"/>
             <div className="media-body">
-              <h4 className="mt-0">{this.props.name}</h4>
+              <Link to={link}><h4 className="mt-0">{this.props.name}</h4></Link>
               <div className="row">
                 <div className="col-md-12">
                   <p>{this.props.location}</p>
