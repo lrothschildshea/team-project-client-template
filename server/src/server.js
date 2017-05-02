@@ -44,30 +44,39 @@ MongoClient.connect(url, function(err, db) {
   }
 
   function getFeedItem(feedItemId, cb){
-    db.collection('feedItems').findOne({_if: feedItemId}, function(err, feedItem){
+    db.collection('feedItems').findOne({_id: feedItemId}, function(err, feedItem){
       if(err){
         return cb(err);
       } else if(feedItem === null){
         return cb(null, null);
       }
-      feedItem.author = db.collection('users').findOne({_id : feedItem.author}, function(err, author){
+      db.collection('users').findOne({_id : feedItem.author}, function(err, author){
         if(err){
           return cb(err);
         } else if(author === null){
           return cb(null, null);
         } else {
-          return cb(null, feedItem);
+          feedItem.author = author;
+          db.collection('bands').findOne({_id : feedItem.band}, function(err, band){
+            if(err){
+              return cb(err);
+            } else if(band === null){
+              return cb(null, null);
+            } else {
+              feedItem.band = band;
+              return cb(null, feedItem);
+            }
+          });
         }
       });
     });
   }
 
   function getFeedData(user, cb) {
-    db.collection('users').findOne({ _id : user}, function(err, userData){
+    db.collection('users').findOne({ _id : new ObjectID(user)}, function(err, userData){
       if (err){
         return cb(err);
       } else if(userData === null) {
-        console.log("not finding user " + user);
         return cb(null, null);
       } else {
         db.collection('feeds').findOne({ _id: userData.feed}, function(err, feedData){
@@ -85,6 +94,7 @@ MongoClient.connect(url, function(err, db) {
                 resolvedContents.push(feedItem);
                 if(resolvedContents.length === feedData.contents.length){
                   feedData.contents = resolvedContents;
+                  console.log("exiting");
                   cb(null, feedData);
                 } else {
                   processNextFeedItem(i + 1);
@@ -92,7 +102,9 @@ MongoClient.connect(url, function(err, db) {
               }
             });
           }
+
           if(feedData.contents.length === 0){
+            console.log(feedData);
             cb(null, feedData);
           } else {
             processNextFeedItem(0);
@@ -153,15 +165,14 @@ MongoClient.connect(url, function(err, db) {
   app.get('/user/:userid/feed/', function(req, res){
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    console.log(userid);
-    console.log(fromUser);
     if(userid === fromUser){
-      getFeedData(new Object(userid), function(err, feed){
+      getFeedData(userid, function(err, feed){
         if(err){
           res.status(500).send("Database error: " + err);
         } else if(feed === null){
           res.status(400).send("Could not look up feed for user " + userid);
         } else {
+          console.log(feed);
           res.send(feed);
         }
       });
