@@ -431,24 +431,52 @@ MongoClient.connect(url, function(err, db) {
         });
   });
 
-  app.post('/addEvent/:userId',function(req,res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var mockUser = readDocument('users',fromUser);
+  app.post('/addEvent/:userId', function(req,res) {
     var eventBody = req.body;
-    var eventIds = mockUser.events;
+    var userId = new ObjectID(req.params.userId);
+    console.log(userId)
     var newEvent = {
       name:eventBody.name,
-      band:eventBody.band,
+      band:new ObjectID(eventBody.band),
       date:new Date(eventBody.date).valueOf(),
       location:eventBody.location,
       detail:eventBody.detail
     }
-    var newEvent_id = addDocument('events',newEvent)._id;
-    eventIds.unshift(newEvent_id);
-    mockUser.events = eventIds;
-    writeDocument('users',mockUser);
-    var events = eventIds.map(getCalendarEvent);
-    res.status(200).send(events);
+    // console.log(newEvent);
+    db.collection("events").insertOne(newEvent, function(err,insertEvent){
+      if(err){
+        console.log("Error");
+        res.status(404).end();
+      } else {
+        db.collection('users').findOneAndUpdate(
+          {_id:userId},
+          {$addToSet:{events:insertEvent.insertedId}},
+          function(err,newUserObject) {
+            if (err) {
+              console.log("Error");
+              res.status(404).end();
+            } else {
+              db.collection('users').findOne({_id:userId},function(err,userObject) {
+                if (err) {
+                  console.log("Error");
+                  res.status(404).end();
+                } else {
+                  var events = userObject.events;
+                  console.log(events);
+                  processNextEventItem(0,events,[],function(err,resolvedContent) {
+                    if(err) {
+                      console.log("Error");
+                      res.status(404).end();
+                    } else {
+                      res.status(201).send(resolvedContent);
+                    }
+                  });
+                }
+              });
+            }
+          });
+      }
+    });
   });
 
   app.get('/getEventBanner/:userId',function(req,res) {
