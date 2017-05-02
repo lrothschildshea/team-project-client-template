@@ -403,6 +403,11 @@ function resetCollection(db, name, cb) {
   });
 }
 
+function addIndexes(db, cb) {
+   db.collection('users').createIndex({ "fullName": "text" }, null, cb);
+   db.collection('bands').createIndex({ "name": "text" }, null, cb);
+ }
+
 /**
  * Reset the MongoDB database.
  * @param db The database connection.
@@ -423,7 +428,7 @@ function resetDatabase(db, cb) {
       // Use myself as a callback.
       resetCollection(db, collection, processNextCollection);
     } else {
-      cb();
+      addIndexes(db, cb);
     }
   }
 
