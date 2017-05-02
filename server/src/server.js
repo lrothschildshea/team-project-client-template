@@ -16,7 +16,7 @@ var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
 var getCollection  = database.getCollection;
-var ResetDatabase = ('./resetdatabase');
+var ResetDatabase = require('./resetdatabase.js');
 
 
 var app = express();
