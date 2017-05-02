@@ -46,7 +46,7 @@ export default class Search extends React.Component {
         <div className="row">
           <div className="col-md-1"></div>
           <div className="col-md-10">
-            <div className="container searchbar-container">
+            <div className="container-fluid searchbar-container">
               <div className="search-bar">
                 <SearchBar onPost={(contents) => this.handleSearch(contents)} onEntered={(postContents) => this.updateState(postContents)}/>
               </div>
@@ -58,7 +58,9 @@ export default class Search extends React.Component {
         <div className="row">
           <div className="col-md-1"></div>
           <div className="col-md-10">
-            <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
+            <div className="container-fluid">
+              <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
+            </div>
           </div>
           <div className="col-md-1"></div>
         </div>

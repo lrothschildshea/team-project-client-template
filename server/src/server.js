@@ -26,6 +26,7 @@ var validate = require('express-jsonschema').validate;
 var FeedItemSchema = require('./schemas/feeditem.json');
 var BandSchema = require('./schemas/band.json');
 
+
 MongoClient.connect(url, function(err, db) {
   // Put everything that uses `app` into this callback function.
   // from app.use(bodyParser.text());
@@ -33,12 +34,12 @@ MongoClient.connect(url, function(err, db) {
   // app.listen(3000, ...
   // Also put all of the helper functions that use mock database
   // methods like readDocument, writeDocument, ...
+
   app.use(bodyParser.text());
   app.use(bodyParser.json());
   //pull static contends from build
   app.use(express.static('../client/build'));
   app.use('/mongo_express',mongo_express(mongo_express_config));
-
 
   function sendDatabaseError(res, err) {
     res.status(500).send("A database error occurred: " + err);
