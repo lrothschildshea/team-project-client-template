@@ -172,36 +172,42 @@ var initialData = {
 
   "feedItems": {
     "1": {
+      "_id" : new ObjectID("000000000000000000000001"),
       "author": new ObjectID("000000000000000000000001"),
       "contents": "Practice is canceled",
       "postDate": 1453690800000,
       "band" : new ObjectID("000000000000000000000001")
     },
     "2": {
+      "_id" : new ObjectID("000000000000000000000002"),
       "author": new ObjectID("000000000000000000000002"),
       "contents": "more messages",
       "postDate": 1453690800001,
       "band" : new ObjectID("000000000000000000000001")
     },
     "3": {
+      "_id" : new ObjectID("000000000000000000000003"),
       "author": new ObjectID("000000000000000000000004"),
       "contents": "more messages",
       "postDate": 1453690800002,
       "band" : new ObjectID("000000000000000000000002")
     },
     "4": {
+      "_id" : new ObjectID("000000000000000000000004"),
       "author": new ObjectID("000000000000000000000005"),
       "contents": "more messages",
       "postDate": 1453690800003,
       "band" : new ObjectID("000000000000000000000002")
     },
     "5": {
+      "_id" : new ObjectID("000000000000000000000005"),
       "author": new ObjectID("000000000000000000000002"),
       "contents": "more messages",
       "postDate": 1453690800004,
       "band" : new ObjectID("000000000000000000000003")
     },
     "6": {
+      "_id" : new ObjectID("000000000000000000000006"),
       "author": new ObjectID("000000000000000000000003"),
       "contents": "more messages",
       "postDate": 1453690800005,

@@ -19,18 +19,18 @@ export default class Homepage extends React.Component {
       getFeedData(this.props.userId, (feedData) => {
         this.setState({feedItems: feedData.contents});
       });
-      getUsersBands(this.props.userId, (bands) => {
+      /*getUsersBands(this.props.userId, (bands) => {
         this.setState({userBands: bands});
-      });
+      });*/
       getUser(this.props.userId, (userObj) => {
         this.setState({user: userObj});
         var followingBands = [];
-        this.state.user.following.map((bandId) => {
+        /*this.state.user.following.map((bandId) => {
             getBand(bandId, (band) => {
                 followingBands.push(band);
                 this.setState({followBands: followingBands});
             });
-        });
+        });*/
       });
     }
 
@@ -45,7 +45,7 @@ export default class Homepage extends React.Component {
                     <div className="row">
                         <HomeLeftSidebar userBands={this.state.userBands} userFollowing={this.state.followBands}/>
                         <MainFeed feedItems={this.state.feedItems}/>
-                        {(typeof this.state.user !== "undefined") ? <HomeRightSidebar user={this.state.user}/> : null }
+
                     </div>
                 </div>
             </div>

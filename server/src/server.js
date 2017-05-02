@@ -43,11 +43,63 @@ MongoClient.connect(url, function(err, db) {
     return feedItem;
   }
 
-  function getFeedData(user) {
-    var userData = readDocument('users', user);
-    var feedData = readDocument('feeds', userData.feed);
-    feedData.contents = feedData.contents.map(getFeedItemSync);
-    return feedData;
+  function getFeedItem(feedItemId, cb){
+    db.collection('feedItems').findOne({_if: feedItemId}, function(err, feedItem){
+      if(err){
+        return cb(err);
+      } else if(feedItem === null){
+        return cb(null, null);
+      }
+      feedItem.author = db.collection('users').findOne({_id : feedItem.author}, function(err, author){
+        if(err){
+          return cb(err);
+        } else if(author === null){
+          return cb(null, null);
+        } else {
+          return cb(null, feedItem);
+        }
+      });
+    });
+  }
+
+  function getFeedData(user, cb) {
+    db.collection('users').findOne({ _id : user}, function(err, userData){
+      if (err){
+        return cb(err);
+      } else if(userData === null) {
+        console.log("not finding user " + user);
+        return cb(null, null);
+      } else {
+        db.collection('feeds').findOne({ _id: userData.feed}, function(err, feedData){
+          if(err){
+            return cb(err);
+          } else if(feedData === null){
+            return cb(null, null);
+          }
+          var resolvedContents = [];
+          function processNextFeedItem(i){
+            getFeedItem(feedData.contents[i], function(err, feedItem) {
+              if (err){
+                cb(err);
+              } else {
+                resolvedContents.push(feedItem);
+                if(resolvedContents.length === feedData.contents.length){
+                  feedData.contents = resolvedContents;
+                  cb(null, feedData);
+                } else {
+                  processNextFeedItem(i + 1);
+                }
+              }
+            });
+          }
+          if(feedData.contents.length === 0){
+            cb(null, feedData);
+          } else {
+            processNextFeedItem(0);
+          }
+        });
+      }
+    });
   }
 
   function postFeedItem(author, contents, band) {
@@ -99,16 +151,25 @@ MongoClient.connect(url, function(err, db) {
 
   //gets the feed items for the homepage
   app.get('/user/:userid/feed/', function(req, res){
-    var userid = parseInt(req.params.userid, 10);
+    var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
+    console.log(userid);
+    console.log(fromUser);
     if(userid === fromUser){
-      res.send(getFeedData(userid));
+      getFeedData(new Object(userid), function(err, feed){
+        if(err){
+          res.status(500).send("Database error: " + err);
+        } else if(feed === null){
+          res.status(400).send("Could not look up feed for user " + userid);
+        } else {
+          res.send(feed);
+        }
+      });
     } else {
-      res.status(401).end();
+      res.status(403).end();
     }
   });
 
-  //gets the feed items for the homepage
   app.get('/band/:bandid/feed/', function(req, res){
     var bandid = parseInt(req.params.bandid, 10);
     res.send(getBandFeedData(bandid));
@@ -150,8 +211,16 @@ MongoClient.connect(url, function(err, db) {
 
   //gets the user object
   app.get('/user/:userid/', function(req, res){
-    var userid = parseInt(req.params.userid, 10);
-    res.send(readDocument('users', userid));
+    var userid = req.params.userid;
+    var useridObj = new ObjectID(userid);
+    db.collection('users').findOne({_id :useridObj},
+      function(err, user){
+        if(err){
+          res.status(500).send("Database error: " + err);
+        } else {
+          res.send(user);
+        }
+      });
   });
 
   //gets a specific band with the members resolved to their user objects
@@ -351,7 +420,7 @@ MongoClient.connect(url, function(err, db) {
         var tokenObj = JSON.parse(regularString);
         var id = tokenObj['id'];
         // Check that id is a number.
-        if (typeof id === 'number') {
+        if (typeof id === 'string') {
           return id;
         } else {
           // Not a string. Return "", an invalid ID.

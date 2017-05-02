@@ -16,7 +16,7 @@ class App extends React.Component {
     return (
       <Router history={hashHistory}>
         <Route path="/" component={Entry}>
-          <IndexRoute component={() => (<Homepage userId="1"/>)} />
+          <IndexRoute component={() => (<Homepage userId="000000000000000000000001"/>)} />
           <Route path="band/:id" component={BandPage} />
           <Route path="profile/:id" component={ProfilePage} />
           <Route path="search" component={Search} />
