@@ -5,6 +5,9 @@ export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props
+    this.state = {
+      searchType: "people"
+    }
   }
 
   handleSearch() {

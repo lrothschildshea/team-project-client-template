@@ -59,7 +59,7 @@ export default class Search extends React.Component {
           <div className="col-md-1"></div>
           <div className="col-md-10">
             <div className="container-fluid">
-              <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
+                <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -132,7 +132,7 @@ class SearchParameters extends React.Component {
       list.push(this.state.instrumentList[i].instrument);
     }
     return (
-      <div className="container searchp-container">
+      <div className="container-fluid searchp-container">
         <div className="search-parameters">
           <div className="row">
             <div className="col-md-2">

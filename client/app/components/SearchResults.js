@@ -132,12 +132,12 @@ export default class SearchResults extends React.Component {
 
     return(
       <div>
-        <div className="container searchbar-container">
+        <div className="container-fluid searchbar-container">
           <div className="search-sidebar">
             <div className="row">
 
-
-              <div className="col-md-12 feed">
+              <div className="col-md-1 feed"></div>
+              <div className="col-md-10 col-md-offset-1 feed">
                 <SearchBar value={searchTerm} searchType={searchType} onPost={(postContents) => this.handleSearch(postContents)} onEntered={(postContents) => this.updateState(postContents)} instrument={inst} genre={genre} zipcode={zip}/>
                 <hr></hr>
                 <ResultFeed searchTerm = {searchTerm} searchType={searchType} results={this.state.results}></ResultFeed>
@@ -317,7 +317,6 @@ class SearchFilter extends React.Component {
               <ul className="list-unstyled">
                 {
                   this.props.results.map((item) => {
-                    console.log(item)
                     return (
                       <PeopleResult name={item.fullName} image={item.profilePicture} location={item.location} email={item.email} key={item._id} profile={item._id}/>
                     )
