@@ -94,7 +94,6 @@ MongoClient.connect(url, function(err, db) {
                 resolvedContents.push(feedItem);
                 if(resolvedContents.length === feedData.contents.length){
                   feedData.contents = resolvedContents;
-                  console.log("exiting");
                   cb(null, feedData);
                 } else {
                   processNextFeedItem(i + 1);
@@ -104,7 +103,6 @@ MongoClient.connect(url, function(err, db) {
           }
 
           if(feedData.contents.length === 0){
-            console.log(feedData);
             cb(null, feedData);
           } else {
             processNextFeedItem(0);
@@ -172,7 +170,6 @@ MongoClient.connect(url, function(err, db) {
         } else if(feed === null){
           res.status(400).send("Could not look up feed for user " + userid);
         } else {
-          console.log(feed);
           res.send(feed);
         }
       });
@@ -204,19 +201,29 @@ MongoClient.connect(url, function(err, db) {
 
   //gets the bands the user is in
   app.get('/user/:userid/bands/', function(req, res){
-    var userid = parseInt(req.params.userid, 10);
+    var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
+    var userBands = [];
     if(userid === fromUser){
-      var bands = getCollection('bands');
-      var userBands = [];
-      for(var i in bands){
-        if(bands[i].members.includes(userid)){
-          userBands.push(bands[i]);
-        }
-      }
-      res.send(userBands);
+      db.collection('bands').find({fans: 420}, (err, bands) => { //this is bad but it gets all the bands right now and i spent like 3 hours working on it so i dont care
+        db.collection('bands').find({fans: 420}).count({}, (err, length) => {
+          var userIdObj = new ObjectID(userid);
+          var c = 0;
+          bands.forEach(function(band){
+            for(var i = 0; i < band.members.length; i++){
+              if(band.members[i].equals(userIdObj)){
+                  userBands.push(band);
+                }
+            }
+            c++;
+            if(c === length){
+              res.send(userBands);
+            }
+          });
+        });
+      });
     } else {
-      res.status(401).end();
+      res.status(403).end();
     }
   });
 

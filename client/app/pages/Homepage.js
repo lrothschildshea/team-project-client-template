@@ -19,9 +19,9 @@ export default class Homepage extends React.Component {
       getFeedData(this.props.userId, (feedData) => {
         this.setState({feedItems: feedData.contents});
       });
-      /*getUsersBands(this.props.userId, (bands) => {
+      getUsersBands(this.props.userId, (bands) => {
         this.setState({userBands: bands});
-      });*/
+      });
       getUser(this.props.userId, (userObj) => {
         this.setState({user: userObj});
         var followingBands = [];
