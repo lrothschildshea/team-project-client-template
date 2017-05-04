@@ -58,6 +58,10 @@ export default class SearchResults extends React.Component {
 
   }
 
+  componentWillReceiveProps(props){
+    this.refresh();
+  }
+
   //  Object.keys(this.props.data).map(key) => {
   //        <SearchResult name={this.props.data._id.fullName}></SearchResult>
   //      });
