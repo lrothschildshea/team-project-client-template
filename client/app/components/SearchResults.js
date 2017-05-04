@@ -338,6 +338,13 @@ class SearchFilter extends React.Component {
       render(){
         var link = "/band/" + this.props.bandId
 
+        // <ul>
+        //   {
+        //     this.props.wanted.map((item, i) => {
+        //       return (<li key={i}>{item.instrument}</li>)
+        //     })
+        //   }
+        // </ul>
         return(
           <div>
             <img className="d-flex align-self-start mr-3 media-img" src={this.props.image} alt="Generic placeholder image"/>
@@ -346,14 +353,8 @@ class SearchFilter extends React.Component {
               <div className="row">
                 <div className="col-md-2">
                   <p>Genre: {this.props.genre}</p>
-                  Looking for:
-                    <ul>
-                      {
-                        this.props.wanted.map((item, i) => {
-                          return (<li key={i}>{item.instrument}</li>)
-                        })
-                      }
-                    </ul>
+                  <p>Looking for:</p>
+
 
                 </div>
                 <div className="col-md-10">
