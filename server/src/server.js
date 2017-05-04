@@ -403,13 +403,25 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/instruments', function(req, res){
-    var instruments = getCollection('instruments')
-    res.send(instruments);
+    db.collection('instruments').find().toArray(function(err, items) {
+      if(err){
+        return sendDatabaseError(res,err);
+      } else {
+        console.log(items)
+        res.status(200).send(items)
+      }
+    });
   });
 
   app.get('/genres', function(req, res){
-    var genres = getCollection('genres')
-    res.send(genres);
+    db.collection('genres').find().toArray(function(err, items) {
+      if(err){
+        return sendDatabaseError(res,err);
+      } else {
+        console.log(items)
+        res.status(200).send(items)
+      }
+    });
   });
 
 

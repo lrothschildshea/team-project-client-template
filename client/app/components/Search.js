@@ -11,8 +11,29 @@ export default class Search extends React.Component {
       instrument:"",
       genre:"",
       value: "",
-      searchType: ""
+      searchType: "",
+      instrumentList: [],
+      genresList: []
+
     };
+  }
+
+  componentDidMount(){
+    this.refresh();
+  }
+
+  refresh(){
+    getInstruments("1", (feedItems) => {
+      this.setState({
+        instrumentList: feedItems
+      });
+    });
+
+    getGenres("1",(feedItems) => {
+      this.setState({
+        genresList: feedItems
+      });
+    });
   }
 
   onSearch(contents){
@@ -59,7 +80,7 @@ export default class Search extends React.Component {
           <div className="col-md-1"></div>
           <div className="col-md-10">
             <div className="container-fluid">
-                <SearchParameters onEntered={(postContents) => this.updateState(postContents)}/>
+              <SearchParameters onEntered={(postContents) => this.updateState(postContents)} instList={this.state.instrumentList} genreList={this.state.genresList}/>
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -79,22 +100,6 @@ class SearchParameters extends React.Component {
       instrumentList: [],
       genresList: []
     };
-  }
-
-  getData(){
-    return this.state
-  }
-
-  refresh() {
-    getInstruments("1", (feedItems) => {
-      this.setState({
-        instrumentList: feedItems
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.refresh();
   }
 
   handleChange(e) {
@@ -118,19 +123,20 @@ class SearchParameters extends React.Component {
   handleGenre(e) {
     e.preventDefault();
     if (e.button === 0) {
-
       this.setState({genre: e.target.textContent});
       this.props.onEntered({genre: e.target.textContent})
-
     }
+  }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps)
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   render() {
-    var list = [];
-    for(var i in this.state.instrumentList){
-      list.push(this.state.instrumentList[i].instrument);
-    }
     return (
       <div className="container-fluid searchp-container">
         <div className="search-parameters">
@@ -144,19 +150,10 @@ class SearchParameters extends React.Component {
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   {
-                    list.map((item) => {
-                      <li><a href='#' onClick={(e) => this.handleInstrument(e)}>{item}</a></li>
+                    this.props.instList.map((item) => {
+                      return (<li><a href='#' onClick={(e) => this.handleInstrument(e)} key={item._id}>{this.capitalizeFirstLetter(item.instrument)}</a></li>)
                     })
                   }
-                  <li>
-                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Guitar</a>
-                  </li>
-                  <li>
-                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Drums</a>
-                  </li>
-                  <li>
-                    <a href="#" onClick={(e) => this.handleInstrument(e)}>Bass</a>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -172,15 +169,11 @@ class SearchParameters extends React.Component {
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li>
-                    <a href="#" onClick={(e) => this.handleGenre(e)}>Rock</a>
-                  </li>
-                  <li>
-                    <a href="#" onClick={(e) => this.handleGenre(e)}>Jazz</a>
-                  </li>
-                  <li>
-                    <a href="#" onClick={(e) => this.handleGenre(e)}>Metal</a>
-                  </li>
+                  {
+                    this.props.genreList.map((item) => {
+                      return (<li><a href='#' onClick={(e) => this.handleGenre(e)} key={item._id}>{this.capitalizeFirstLetter(item.genre)}</a></li>)
+                    })
+                  }
                 </ul>
               </div>
             </div>

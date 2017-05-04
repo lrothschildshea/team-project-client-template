@@ -313,35 +313,35 @@ var initialData = {
   "genres": {
     "1": {
       "_id": new ObjectID("000000000000000000000001"),
-      "instrument": "blues"
+      "genre": "blues"
     },
     "2": {
       "_id": new ObjectID("000000000000000000000002"),
-      "instrument": "rock"
+      "genre": "rock"
     },
     "3": {
       "_id": new ObjectID("000000000000000000000003"),
-      "instrument": "jazz"
+      "genre": "jazz"
     },
     "4": {
       "_id": new ObjectID("000000000000000000000004"),
-      "instrument": "classical"
+      "genre": "classical"
     },
     "5": {
       "_id": new ObjectID("000000000000000000000005"),
-      "instrument": "country"
+      "genre": "country"
     },
     "6": {
       "_id": new ObjectID("000000000000000000000006"),
-      "instrument": "metal"
+      "genre": "metal"
     },
     "7": {
       "_id": new ObjectID("000000000000000000000007"),
-      "instrument": "punk"
+      "genre": "punk"
     },
     "8": {
       "_id": new ObjectID("000000000000000000000008"),
-      "instrument": "pop"
+      "genre": "pop"
     }
   },
 
