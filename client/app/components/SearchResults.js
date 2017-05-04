@@ -308,7 +308,7 @@ class SearchFilter extends React.Component {
                 {
                   this.props.results.map((item) => {
                     return (
-                      <BandResult name={item.name} description={item.info} key={item._id} bandId={item._id}/>
+                      <BandResult name={item.name} description={item.info} key={item._id} bandId={item._id} wanted={item.wanted}/>
                     )
                   })
                 }
@@ -337,6 +337,7 @@ class SearchFilter extends React.Component {
     class BandResult extends React.Component{
       render(){
         var link = "/band/" + this.props.bandId
+
         return(
           <div>
             <img className="d-flex align-self-start mr-3 media-img" src={this.props.image} alt="Generic placeholder image"/>
@@ -345,7 +346,15 @@ class SearchFilter extends React.Component {
               <div className="row">
                 <div className="col-md-2">
                   <p>Genre: {this.props.genre}</p>
-                  <p>Looking for: None</p>
+                  Looking for:
+                    <ul>
+                      {
+                        this.props.wanted.map((item, i) => {
+                          return (<li key={i}>{item.instrument}</li>)
+                        })
+                      }
+                    </ul>
+
                 </div>
                 <div className="col-md-10">
                   <p>{this.props.description}</p>
