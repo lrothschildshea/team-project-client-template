@@ -45,7 +45,7 @@ export default class Homepage extends React.Component {
                     <div className="row">
                         <HomeLeftSidebar userBands={this.state.userBands} userFollowing={this.state.followBands}/>
                         <MainFeed feedItems={this.state.feedItems}/>
-
+                        {(typeof this.state.user !== "undefined") ? <HomeRightSidebar user={this.state.user}/> : null }
                     </div>
                 </div>
             </div>

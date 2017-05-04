@@ -367,7 +367,7 @@ MongoClient.connect(url, function(err, db) {
 
   //gets the events for bands the user is in
   app.get('/user/:userId/events/', function(req, res){
-    var userId = parseInt(req.params.userId, 10);
+    /*var userId = parseInt(req.params.userId, 10);
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if(userId === fromUser){
       var user = readDocument('users', userId);
@@ -375,7 +375,57 @@ MongoClient.connect(url, function(err, db) {
       res.send(events);
     } else {
       res.status(401).end();
+    }*/
+    var userId = req.params.userId;
+    var userIdObj = new ObjectID(userId);
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if(userId === fromUser){
+      db.collection('users').findOne({_id : userIdObj},
+        function(err, user){
+          if(err){
+            res.status(500).send("Database error: " + err);
+          } else{
+            /*var events = user.events.map(function(event, i){
+              db.collection('events').findOne({_id : event},
+                function(err, eventObj){
+                  if(err){
+                    res.status(500).send("Database error: " + err);
+                  } else {
+                    console.log(eventObj);
+                    return eventObj;
+                  }
+                }
+              );
+            });*/
+            var events = user.events;
+            var i = 0;
+            events.forEach(function(event){
+              db.collection('events').findOne({_id : event},
+                function(err, eventObj){
+                  if(err){
+                    res.status(500).send("Database error: " + err);
+                  } else {
+                    console.log(eventObj);
+                    events[i] = eventObj;
+                    i++;
+                    if(i === events.length){
+                      console.log(events);
+                      res.send(events);
+                    }
+                  }
+                }
+              );
+            });
+
+//            console.log(events);
+  //          res.send(events);
+          }
+        }
+      );
+    } else {
+      res.status(401).end();
     }
+
   });
 
   app.get('/instruments', function(req, res){
